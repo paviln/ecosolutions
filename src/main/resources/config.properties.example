@@ -1,0 +1,6 @@
+port=1433
+databasename=sample
+username=sa
+password=123456
+
+
