@@ -13,8 +13,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("presentation/views/home/welcome.fxml"));
-        primaryStage.setTitle("Hello World");
+        Parent root = FXMLLoader.load(getClass().getResource("presentation/welcome.fxml"));
+        primaryStage.setTitle("EcoSolutionsOMS");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
         Connection connection = Database.getConnection();
