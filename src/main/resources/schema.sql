@@ -43,7 +43,7 @@ CREATE TABLE users
     email VARCHAR(50) NOT NULL,
     password VARCHAR(20) NOT NULL,
     role_id int FOREIGN KEY REFERENCES roles(id),
-    locations_id int FOREIGN KEY REFERENCES locations(id)
+    location_id int FOREIGN KEY REFERENCES locations(id)
 )
 
 CREATE TABLE customers
@@ -100,4 +100,4 @@ INSERT INTO addresses (street, number, city, zip) VALUES ('Rengøringsgade', '1'
 
 INSERT INTO locations (name, types_id, addresses_id) VALUES ('EcoSolutions', '1', '1');
 
-INSERT INTO users (name, email, password, role_id, locations_id) VALUES ('Jesper', 'owner@ecosolutions.dk', '123456', '1', '1');
+INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Jesper', 'owner@ecosolutions.dk', '123456', '1', '1');

@@ -59,6 +59,8 @@ public class UserDao implements Dao<User> {
         user.setName(rs.getString("name").trim());
         user.setEmail(rs.getString("email").trim());
         user.setPassword(rs.getString("password").trim());
+        user.setRole_id(rs.getInt("role_id"));
+        user.setLocation_id(rs.getInt("location_id"));
         return user;
     }
 
