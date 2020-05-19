@@ -29,12 +29,8 @@ public class Database {
         }
     }
 
-    public static Connection getConnection() {
-        try {
-            DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
-            return DriverManager.getConnection(url + ";databaseName=" + databasename, username, password);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error connecting to the database");
-        }
+    public static Connection getConnection() throws SQLException {
+        DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
+        return DriverManager.getConnection(url + ";databaseName=" + databasename, username, password);
     }
 }

@@ -32,8 +32,8 @@ CREATE TABLE locations
 (
     id int IDENTITY(1,1) PRIMARY KEY,
     name varchar(50) NOT NULL,
-    types_id int FOREIGN KEY REFERENCES types(id),
-    addresses_id int FOREIGN KEY REFERENCES addresses(id)
+    type_id int FOREIGN KEY REFERENCES types(id),
+    address_id int FOREIGN KEY REFERENCES addresses(id)
 )
 
 CREATE TABLE users
@@ -98,6 +98,6 @@ INSERT INTO types (name) VALUES ('Delivery Point');
 
 INSERT INTO addresses (street, number, city, zip) VALUES ('Rengøringsgade', '1', 'Sønderborg', '6400');
 
-INSERT INTO locations (name, types_id, addresses_id) VALUES ('EcoSolutions', '1', '1');
+INSERT INTO locations (name, type_id, address_id) VALUES ('EcoSolutions', '1', '1');
 
-INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Jesper', 'owner@ecosolutions.dk', '123456', '1', '1');
+INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Jesper', 'o', '123', '1', '1');

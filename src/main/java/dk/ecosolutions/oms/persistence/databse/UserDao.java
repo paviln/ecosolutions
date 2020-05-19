@@ -16,8 +16,11 @@ public class UserDao implements Dao<User> {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE user_id=" + id);
             if (rs.next()) {
-                return extractUser(rs);
+                User user = extractUser(rs);
+                connection.close();
+                return user;
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -34,6 +37,7 @@ public class UserDao implements Dao<User> {
                 User user = extractUser(rs);
                 users.add(user);
             }
+            connection.close();
             return users;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,5 +67,4 @@ public class UserDao implements Dao<User> {
         user.setLocation_id(rs.getInt("location_id"));
         return user;
     }
-
 }
