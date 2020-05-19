@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.persistence;
+package dk.ecosolutions.oms.persistence.databse;
 
 import dk.ecosolutions.oms.domain.User;
 

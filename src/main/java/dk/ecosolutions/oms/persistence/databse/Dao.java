@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.persistence;
+package dk.ecosolutions.oms.persistence.databse;
 
 import java.util.List;
 

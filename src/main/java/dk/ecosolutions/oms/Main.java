@@ -1,6 +1,6 @@
 package dk.ecosolutions.oms;
 
-import dk.ecosolutions.oms.persistence.Database;
+import dk.ecosolutions.oms.persistence.databse.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

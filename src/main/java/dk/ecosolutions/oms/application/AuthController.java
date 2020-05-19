@@ -1,7 +1,7 @@
 package dk.ecosolutions.oms.application;
 
 import dk.ecosolutions.oms.domain.User;
-import dk.ecosolutions.oms.persistence.UserDao;
+import dk.ecosolutions.oms.persistence.databse.UserDao;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
