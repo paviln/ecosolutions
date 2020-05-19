@@ -1,3 +1,4 @@
+-- Create Database Structure
 USE MASTER
 GO
 DROP DATABASE IF EXISTS OMS
@@ -9,13 +10,7 @@ use OMS;
 CREATE TABLE roles
 (
     id int IDENTITY(1,1) PRIMARY KEY,
-    name varchar(20) NOT NULL
-)
-
-CREATE TABLE zips
-(
-    code int IDENTITY(1,1) PRIMARY KEY,
-    city varchar(20) NOT NULL
+    name varchar(50) NOT NULL
 )
 
 CREATE TABLE addresses
@@ -23,7 +18,8 @@ CREATE TABLE addresses
     id int IDENTITY(1,1) PRIMARY KEY,
     street varchar(20) NOT NULL,
     number varchar(20) NOT NULL,
-    zips_id int FOREIGN KEY REFERENCES zips(code)
+    city varchar(20) NOT NULL,
+    zip varchar(4) NOT NULL,
 )
 
 CREATE TABLE types
@@ -35,8 +31,7 @@ CREATE TABLE types
 CREATE TABLE locations
 (
     id int IDENTITY(1,1) PRIMARY KEY,
-    name varchar(20) NOT NULL,
-    address varchar(255) NOT NULL,
+    name varchar(50) NOT NULL,
     types_id int FOREIGN KEY REFERENCES types(id),
     addresses_id int FOREIGN KEY REFERENCES addresses(id)
 )
@@ -44,8 +39,8 @@ CREATE TABLE locations
 CREATE TABLE users
 (
     id int IDENTITY(1,1) PRIMARY KEY,
-    name VARCHAR(20) NOT NULL,
-    email VARCHAR(20) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     password VARCHAR(20) NOT NULL,
     role_id int FOREIGN KEY REFERENCES roles(id),
     locations_id int FOREIGN KEY REFERENCES locations(id)
@@ -54,7 +49,7 @@ CREATE TABLE users
 CREATE TABLE customers
 (
     id int IDENTITY(1,1) PRIMARY KEY,
-    name VARCHAR(20) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     phone VARCHAR(20) NOT NULL
 )
 
@@ -78,7 +73,7 @@ CREATE TABLE comments
 CREATE TABLE clothes
 (
     id int IDENTITY(1,1) PRIMARY KEY,
-    name VARCHAR(20) NOT NULL
+    name VARCHAR(50) NOT NULL
 )
 
 CREATE TABLE items
@@ -92,3 +87,17 @@ CREATE TABLE orders_items
     orders_id int FOREIGN KEY REFERENCES orders(id),
     items_id int FOREIGN KEY REFERENCES items(id)
 )
+
+-- Insert information
+INSERT INTO roles (name) VALUES ('Owner');
+INSERT INTO roles (name) VALUES ('Assistant');
+INSERT INTO roles (name) VALUES ('Worker');
+
+INSERT INTO types (name) VALUES ('Cleaning Central');
+INSERT INTO types (name) VALUES ('Delivery Point');
+
+INSERT INTO addresses (street, number, city, zip) VALUES ('Rengøringsgade', '1', 'Sønderborg', '6400');
+
+INSERT INTO locations (name, types_id, addresses_id) VALUES ('EcoSolutions', '1', '1');
+
+INSERT INTO users (name, email, password, role_id, locations_id) VALUES ('Jesper', 'owner@ecosolutions.dk', '123456', '1', '1');
