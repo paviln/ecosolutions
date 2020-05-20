@@ -57,7 +57,7 @@ CREATE TABLE orders
 (
     id int IDENTITY(1,1) PRIMARY KEY,
     status int NOT NULL,
-    created_at timestamp NOT NULL,
+    created_at datetime  NOT NULL,
     users_id int FOREIGN KEY REFERENCES users(id),
     customer_id int FOREIGN KEY REFERENCES customers(id)
 )
@@ -66,7 +66,7 @@ CREATE TABLE comments
 (
     type VARCHAR(255) NOT NULL,
     value VARCHAR(255) NOT NULL,
-    created_at timestamp NOT NULL,
+    created_at datetime  NOT NULL,
     orders_id int FOREIGN KEY REFERENCES orders(id)
 )
 
@@ -100,4 +100,5 @@ INSERT INTO addresses (street, number, city, zip) VALUES ('Rengøringsgade', '1'
 
 INSERT INTO locations (name, type_id, address_id) VALUES ('EcoSolutions', '1', '1');
 
-INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Jesper', 'o', '123', '1', '1');
+INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Jesper', 'o@eco.dk', '123', '1', '1');
+INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Assis', 'a@eco.dk', '123', '2', '1');
