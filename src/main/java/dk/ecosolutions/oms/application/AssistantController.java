@@ -20,9 +20,6 @@ public class AssistantController {
     private TextField name, phone;
 
     @FXML
-    private Button saveBtn;
-
-    @FXML
     private TextField status;
 
     @FXML
@@ -48,6 +45,7 @@ public class AssistantController {
         order.setDate(new Timestamp(System.currentTimeMillis()));
         order.setUserID(Integer.parseInt(userID.getText()));
         order.setCustomerID(Integer.parseInt(customerID.getText()));
+
         CustomerService.addOrder(order);
     }
 }
