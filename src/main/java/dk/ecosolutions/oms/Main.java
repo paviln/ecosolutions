@@ -10,9 +10,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("presentation/welcome.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("presentation/views/welcome.fxml"));
         primaryStage.setTitle("EcoSolutionsOMS");
-        primaryStage.setResizable(false);
+        primaryStage.minWidthProperty().setValue(800);
+        primaryStage.minHeightProperty().setValue(500);
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
     }

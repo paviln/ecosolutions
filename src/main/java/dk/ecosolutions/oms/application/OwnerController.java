@@ -24,7 +24,6 @@ public class OwnerController {
         location.setName(name.getText());
         location.setAddress(address);
         location.setTypes_id(1);
-        location.getAddresses_id();
 
         if (validation(location)) {
             LocationService.createLocation(location);
@@ -40,19 +39,19 @@ public class OwnerController {
         String city = location.getAddress().getCity();
         String zip = location.getAddress().getZip();
 
-        if (name.isEmpty()) {
+        if (name.trim().length() == 0) {
             messages.add("The name can not be empty!");
         }
-        if (street.isEmpty()) {
+        if (street.trim().length() == 0) {
             messages.add("The address  can not be empty!");
         }
-        if (number.isEmpty()) {
+        if (number.trim().length() == 0) {
             messages.add("The number can not be empty!");
         }
-        if (city.isEmpty()) {
+        if (city.trim().length() == 0) {
             messages.add("The city can not be empty!");
         }
-        if (zip.isEmpty()) {
+        if (zip.trim().length() == 0) {
             messages.add("The zip can not be empty!");
         } else if (zip.length() < 4) {
             messages.add("The zip code must be at least 4 digits!");
