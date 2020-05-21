@@ -55,6 +55,11 @@ public class AddressDao implements Dao<Address> {
 
     }
 
+    @Override
+    public void view(Address address) {
+
+    }
+
     private Address extractAddress(ResultSet rs) throws SQLException {
         Address address = new Address();
         address.setId(rs.getInt("id"));

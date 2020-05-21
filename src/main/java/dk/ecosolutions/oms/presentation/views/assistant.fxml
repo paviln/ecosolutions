@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -13,13 +15,23 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="20.0" layoutY="45.0" text="Status" />
-                  <TextField fx:id="status" layoutX="113.0" layoutY="40.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
-                  <Label layoutX="20.0" layoutY="93.0" text="User ID" />
-                  <TextField fx:id="userID" layoutX="113.0" layoutY="88.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
-                  <Label layoutX="20.0" layoutY="144.0" text="Customer ID" />
-                  <TextField fx:id="customerID" layoutX="113.0" layoutY="139.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
-                  <Button layoutX="149.0" layoutY="219.0" mnemonicParsing="false" onAction="#orderSaveHandleButton" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Save" />
+                  <Label layoutX="20.0" layoutY="16.0" text="Status" />
+                  <TextField fx:id="status" layoutX="113.0" layoutY="11.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
+                  <Label layoutX="20.0" layoutY="53.0" text="User ID" />
+                  <TextField fx:id="userID" layoutX="113.0" layoutY="48.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
+                  <Label layoutX="20.0" layoutY="93.0" text="Customer ID" />
+                  <TextField fx:id="customerID" layoutX="113.0" layoutY="88.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
+                  <Button layoutX="113.0" layoutY="128.0" mnemonicParsing="false" onAction="#orderSaveHandleButton" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Save" />
+                  <TableView fx:id="orderTable" layoutX="3.0" layoutY="182.0" prefHeight="161.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="col_id" prefWidth="98.0" text="ID" />
+                      <TableColumn fx:id="col_status" prefWidth="82.0" text="Status" />
+                        <TableColumn fx:id="col_dateTime" prefWidth="193.0" text="Date and Time" />
+                        <TableColumn fx:id="col_userID" prefWidth="102.0" text="UserID" />
+                        <TableColumn fx:id="col_customerID" prefWidth="122.0" text="CustomerID" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="174.0" layoutY="128.0" mnemonicParsing="false" onAction="#viewOrderHandler" text="View Order" />
                </children></AnchorPane>
             </content>
         </Tab>

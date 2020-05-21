@@ -41,4 +41,9 @@ public class LocationDao implements Dao<Location> {
     public void delete(Location location) {
 
     }
+
+    @Override
+    public void view(Location location) {
+
+    }
 }

@@ -11,5 +11,6 @@ public class CustomerService {
     public static  void addOrder(Order order) {
         OrderDoa orderDoa = new OrderDoa();
         orderDoa.save(order);
+        orderDoa.view(order);
     }
 }

@@ -11,12 +11,14 @@ public class Order {
     public Order() {
     }
 
-    public Order(String status, Timestamp date, int userID, int customerID) {
+    public Order(int id,String status, Timestamp date, int userID, int customerID) {
+        this.id = id;
         this.status = status;
         this.date = date;
         this.userID = userID;
         this.customerID = customerID;
     }
+
 
     public int getId() {
         return id;
