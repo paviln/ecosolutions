@@ -42,6 +42,31 @@
     -fx-focus-color: red;
 }
 
+.alert {
+
+    -fx-min-height: 60;
+
+}
+
+.alert .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-min-height: 40;
+    -fx-background-color: red;
+    -fx-background-radius: 5;
+}
+
+.alert .button {
+    -fx-font-weight: bold;
+    -fx-max-height: 20;
+    -fx-background-color: transparent;
+}
+
+.alert .button:hover {
+    -fx-text-fill: gray;
+}
+
 .AsstButtonField:hover{
     -fx-cursor: hand;
     -fx-background-color: rgba(106, 227, 132, 0.17);

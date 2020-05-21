@@ -2,9 +2,9 @@ package dk.ecosolutions.oms.application;
 
 import dk.ecosolutions.oms.domain.Address;
 import dk.ecosolutions.oms.domain.Location;
-import dk.ecosolutions.oms.domain.LocationService;
+import dk.ecosolutions.oms.service.LocationService;
+import dk.ecosolutions.oms.service.helpers.AlertHelper;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
@@ -13,6 +13,9 @@ public class OwnerController {
     @FXML
     TextField name, street, number, city, zip;
 
+    /**
+     * Handle user button click save.
+     */
     @FXML
     public void saveDeliveryPoint() {
         Address address = new Address();
@@ -27,9 +30,21 @@ public class OwnerController {
 
         if (validation(location)) {
             LocationService.createLocation(location);
+            name.clear();
+            street.clear();
+            number.clear();
+            city.clear();
+            zip.clear();
+            AlertHelper.showInformationAlert("Delivery Point Created!");
         }
     }
 
+    /**
+     * Check that the user input is valid location information.
+     *
+     * @param location to be validated.
+     * @return true if valid, false if not.
+     */
     private boolean validation(Location location) {
         ArrayList<String> messages = new ArrayList<String>();
 
@@ -51,27 +66,13 @@ public class OwnerController {
         if (city.trim().length() == 0) {
             messages.add("The city can not be empty!");
         }
-        if (zip.trim().length() == 0) {
-            messages.add("The zip can not be empty!");
-        } else if (zip.length() < 4) {
-            messages.add("The zip code must be at least 4 digits!");
+        if (zip.trim().length() != 4) {
+            messages.add("The zip code must be at 4 digits!");
         }
         if (messages.size() > 0) {
-            showErrorAlert(messages);
+            AlertHelper.showErrorAlert(messages);
             return false;
         }
         return true;
-    }
-
-    private void showErrorAlert(ArrayList<String> messages) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Invalid information");
-        alert.setHeaderText(null);
-        StringBuilder alertMessage = new StringBuilder();
-        for (String message : messages) {
-            alertMessage.append("\n").append(message);
-        }
-        alert.setContentText(alertMessage.toString());
-        alert.showAndWait();
     }
 }

@@ -1,5 +1,7 @@
-package dk.ecosolutions.oms.domain;
+package dk.ecosolutions.oms.service;
 
+import dk.ecosolutions.oms.domain.Address;
+import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.persistence.databse.AddressDao;
 import dk.ecosolutions.oms.persistence.databse.LocationDao;
 

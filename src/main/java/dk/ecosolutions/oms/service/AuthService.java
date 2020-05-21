@@ -1,5 +1,6 @@
-package dk.ecosolutions.oms.domain;
+package dk.ecosolutions.oms.service;
 
+import dk.ecosolutions.oms.domain.User;
 import dk.ecosolutions.oms.persistence.databse.UserDao;
 
 import java.util.List;
