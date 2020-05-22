@@ -38,9 +38,4 @@ public class CustomerDao implements Dao<Customer> {
     public void delete(Customer customer) {
 
     }
-
-    @Override
-    public void view(Customer customer) {
-
-    }
 }

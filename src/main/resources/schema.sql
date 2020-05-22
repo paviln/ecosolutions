@@ -58,7 +58,7 @@ CREATE TABLE orders
     id int IDENTITY(1,1) PRIMARY KEY,
     status int NOT NULL,
     created_at datetime  NOT NULL,
-    users_id int FOREIGN KEY REFERENCES users(id),
+    user_id int FOREIGN KEY REFERENCES users(id),
     customer_id int FOREIGN KEY REFERENCES customers(id)
 )
 

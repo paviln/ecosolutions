@@ -57,11 +57,6 @@ public class UserDao implements Dao<User> {
 
     }
 
-    @Override
-    public void view(User user) {
-
-    }
-
     private User extractUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getInt("id"));

@@ -3,20 +3,20 @@ import java.sql.Timestamp;
 
 public class Order {
     private int id;
-    private String status;
-    private Timestamp date;
-    private int userID;
-    private int customerID;
+    private int status;
+    private Timestamp created_at;
+    private int user_id;
+    private int customer_id;
 
     public Order() {
     }
 
-    public Order(int id,String status, Timestamp date, int userID, int customerID) {
+    public Order(int id, int status, Timestamp created_at, int user_id, int customer_id) {
         this.id = id;
         this.status = status;
-        this.date = date;
-        this.userID = userID;
-        this.customerID = customerID;
+        this.created_at = created_at;
+        this.user_id = user_id;
+        this.customer_id = customer_id;
     }
 
 
@@ -28,36 +28,36 @@ public class Order {
         this.id = id;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public Timestamp getDate() {
-        return date;
+    public Timestamp getCreated_at() {
+        return created_at;
     }
 
-    public void setDate(Timestamp date) {
-        this.date = date;
+    public void setCreated_at(Timestamp date) {
+        this.created_at = date;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public int getCustomerID() {
-        return customerID;
+    public int getCustomer_id() {
+        return customer_id;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
     }
 }
 
