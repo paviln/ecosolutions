@@ -1,15 +1,17 @@
 package dk.ecosolutions.oms.application.controllers;
 
 import dk.ecosolutions.oms.domain.Customer;
-import dk.ecosolutions.oms.domain.CustomerService;
 import dk.ecosolutions.oms.domain.Order;
+import dk.ecosolutions.oms.service.CustomerService;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javax.swing.*;
-import java.sql.*;
+import java.sql.Timestamp;
 
 public class AssistantController {
     @FXML
@@ -60,7 +62,7 @@ public class AssistantController {
         JOptionPane.showMessageDialog(null, "Saved Successfully");
     }
 
-    public void viewOrderHandler()  {
+    public void viewOrderHandler() {
         col_id.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
         col_status.setCellValueFactory(new PropertyValueFactory<Order, Integer>("status"));
         col_dateTime.setCellValueFactory(new PropertyValueFactory<Order, Timestamp>("created_at"));
