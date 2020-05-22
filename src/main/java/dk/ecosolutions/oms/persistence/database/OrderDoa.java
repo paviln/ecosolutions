@@ -32,7 +32,7 @@ public class OrderDoa implements Dao<Order> {
     public void save(Order order) {
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (status,created_at, users_id, customer_id)  VALUES (?,?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (status,created_at, user_id, customer_id)  VALUES (?,?,?,?)");
             ps.setInt(1, order.getStatus());
             ps.setTimestamp(2,order.getCreated_at());
             ps.setInt(3, order.getUser_id());

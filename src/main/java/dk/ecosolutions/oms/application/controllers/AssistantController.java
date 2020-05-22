@@ -43,25 +43,30 @@ public class AssistantController {
 
     public void saveHandleButton() {
         Customer customer = new Customer();
+        if (name.getText().isEmpty() || phone.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "One of the field is empty");
+        } else {
+            customer.setName(name.getText());
+            customer.setPhone(phone.getText());
 
-        customer.setName(name.getText());
-        customer.setPhone(phone.getText());
-
-        CustomerService.addCustomer(customer);
+            CustomerService.addCustomer(customer);
+            JOptionPane.showMessageDialog(null, "Saved Successfully");
+        }
     }
-
     public void orderSaveHandleButton() {
         Order order = new Order();
+        if (status.getText().isEmpty() || userID.getText().isEmpty() || customerID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "One of the field is empty");
+        } else {
+            order.setStatus(Integer.parseInt(status.getText()));
+            order.setCreated_at(new Timestamp(System.currentTimeMillis()));
+            order.setUser_id(Integer.parseInt(userID.getText()));
+            order.setCustomer_id(Integer.parseInt(customerID.getText()));
 
-        order.setStatus(Integer.parseInt(status.getText()));
-        order.setCreated_at(new Timestamp(System.currentTimeMillis()));
-        order.setUser_id(Integer.parseInt(userID.getText()));
-        order.setCustomer_id(Integer.parseInt(customerID.getText()));
-
-        CustomerService.addOrder(order);
-        JOptionPane.showMessageDialog(null, "Saved Successfully");
+            CustomerService.addOrder(order);
+            JOptionPane.showMessageDialog(null, "Saved Successfully");
+        }
     }
-
     public void viewOrderHandler() {
         col_id.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
         col_status.setCellValueFactory(new PropertyValueFactory<Order, Integer>("status"));
