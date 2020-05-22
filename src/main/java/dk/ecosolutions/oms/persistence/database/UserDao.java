@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.persistence.databse;
+package dk.ecosolutions.oms.persistence.database;
 
 import dk.ecosolutions.oms.domain.User;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao implements Dao<User> {
-    public Object get(int id) {
+    public User get(int id) {
         try {
             Connection connection = Database.getConnection();
             Statement stmt = connection.createStatement();

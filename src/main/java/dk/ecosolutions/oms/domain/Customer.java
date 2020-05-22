@@ -1,13 +1,12 @@
 package dk.ecosolutions.oms.domain;
 
-import dk.ecosolutions.oms.persistence.databse.CustomerDao;
-
 public class Customer {
     private int id;
     private String name;
     private String phone;
 
-    public Customer(){}
+    public Customer() {
+    }
 
     public Customer(String name, String phone) {
         this.name = name;

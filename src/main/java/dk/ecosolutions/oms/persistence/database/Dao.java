@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.persistence.databse;
+package dk.ecosolutions.oms.persistence.database;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * @version 1.0
  */
 public interface Dao<T> {
-    Object get(int id) throws SQLException;
+    T get(int id) throws SQLException;
 
     List<T> all();
 

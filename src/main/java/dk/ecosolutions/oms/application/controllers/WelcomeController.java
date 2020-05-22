@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.application;
+package dk.ecosolutions.oms.application.controllers;
 
 import dk.ecosolutions.oms.domain.User;
 import dk.ecosolutions.oms.service.AuthService;
@@ -59,7 +59,7 @@ public class WelcomeController {
             if (user != null) {
                 switch (user.getRole_id()) {
                     case 1:
-                        changeView("presentation/views/owner.fxml");
+                        changeView("presentation/views/owner/dashboard.fxml");
                         break;
                     case 2:
                         changeView("presentation/views/assistant.fxml");

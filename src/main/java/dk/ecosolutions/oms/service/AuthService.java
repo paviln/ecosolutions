@@ -1,7 +1,7 @@
 package dk.ecosolutions.oms.service;
 
 import dk.ecosolutions.oms.domain.User;
-import dk.ecosolutions.oms.persistence.databse.UserDao;
+import dk.ecosolutions.oms.persistence.database.UserDao;
 
 import java.util.List;
 

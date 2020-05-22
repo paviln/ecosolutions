@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.persistence.databse;
+package dk.ecosolutions.oms.persistence.database;
 
 import dk.ecosolutions.oms.domain.Customer;
 
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CustomerDao implements Dao<Customer> {
-    public Object get(int id) throws SQLException {
+    public Customer get(int id) throws SQLException {
 
         return null;
     }
@@ -20,12 +20,12 @@ public class CustomerDao implements Dao<Customer> {
     public void save(Customer customer) {
 
         try {
-        Connection connection = Database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("INSERT INTO customers (name, phone) VALUES (?, ?) ");
-        ps.setString(1, customer.getName());
-        ps.setString(2,customer.getPhone());
-        ps.execute();
-        connection.close();
+            Connection connection = Database.getConnection();
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO customers (name, phone) VALUES (?, ?) ");
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getPhone());
+            ps.execute();
+            connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -1,7 +1,9 @@
-package dk.ecosolutions.oms.domain;
+package dk.ecosolutions.oms.service;
 
-import dk.ecosolutions.oms.persistence.databse.CustomerDao;
-import dk.ecosolutions.oms.persistence.databse.OrderDoa;
+import dk.ecosolutions.oms.domain.Customer;
+import dk.ecosolutions.oms.domain.Order;
+import dk.ecosolutions.oms.persistence.database.CustomerDao;
+import dk.ecosolutions.oms.persistence.database.OrderDoa;
 
 import java.util.List;
 
@@ -10,7 +12,8 @@ public class CustomerService {
         CustomerDao customerDao = new CustomerDao();
         customerDao.save(customer);
     }
-    public static  void addOrder(Order order) {
+
+    public static void addOrder(Order order) {
         OrderDoa orderDoa = new OrderDoa();
         orderDoa.save(order);
     }

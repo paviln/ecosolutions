@@ -5,17 +5,15 @@ public class Location {
     private String name;
     private Address address;
     private int types_id;
-    private int addresses_id;
 
     public Location() {
     }
 
-    public Location(int id, String name, Address address, int types_id, int addresses_id) {
+    public Location(int id, String name, Address address, int types_id) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.types_id = types_id;
-        this.addresses_id = addresses_id;
     }
 
     public boolean validation() {
@@ -56,13 +54,5 @@ public class Location {
 
     public void setTypes_id(int types_id) {
         this.types_id = types_id;
-    }
-
-    public int getAddresses_id() {
-        return addresses_id;
-    }
-
-    public void setAddresses_id(int addresses_id) {
-        this.addresses_id = addresses_id;
     }
 }

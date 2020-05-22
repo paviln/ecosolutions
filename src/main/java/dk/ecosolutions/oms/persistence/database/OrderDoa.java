@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.persistence.databse;
+package dk.ecosolutions.oms.persistence.database;
 
 import dk.ecosolutions.oms.domain.Order;
 
@@ -6,8 +6,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDoa implements Dao<Order>{
-    public Object get(int id) throws SQLException {
+public class OrderDoa implements Dao<Order> {
+    public Order get(int id) throws SQLException {
         return null;
     }
 
@@ -39,7 +39,7 @@ public class OrderDoa implements Dao<Order>{
             ps.setInt(4, order.getCustomer_id());
             ps.execute();
             connection.close();
-        }catch (SQLException throwables){
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }

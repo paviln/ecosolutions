@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.application;
+package dk.ecosolutions.oms.application.controllers;
 
 import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.domain.CustomerService;

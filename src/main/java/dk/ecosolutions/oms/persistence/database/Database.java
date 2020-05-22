@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.persistence.databse;
+package dk.ecosolutions.oms.persistence.database;
 
 import java.io.IOException;
 import java.io.InputStream;

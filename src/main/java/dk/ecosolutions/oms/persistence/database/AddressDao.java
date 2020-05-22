@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.persistence.databse;
+package dk.ecosolutions.oms.persistence.database;
 
 import dk.ecosolutions.oms.domain.Address;
 
@@ -8,7 +8,20 @@ import java.util.List;
 
 public class AddressDao implements Dao<Address> {
     @Override
-    public Object get(int id) {
+    public Address get(int id) {
+        try {
+            Connection connection = Database.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM addresses WHERE id=" + id);
+            if (rs.next()) {
+                Address address = extractAddress(rs);
+                connection.close();
+                return address;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

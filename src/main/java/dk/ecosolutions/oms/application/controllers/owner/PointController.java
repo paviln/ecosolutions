@@ -1,17 +1,49 @@
-package dk.ecosolutions.oms.application;
+package dk.ecosolutions.oms.application.controllers.owner;
 
 import dk.ecosolutions.oms.domain.Address;
 import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.service.LocationService;
 import dk.ecosolutions.oms.service.helpers.AlertHelper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 
-public class OwnerController {
+public class PointController {
     @FXML
-    TextField name, street, number, city, zip;
+    private TableView<Location> deliveryPoints;
+    @FXML
+    private TableColumn<Location, String> nameColumn;
+    @FXML
+    private TableColumn<Address, String> streetColumn;
+    @FXML
+    private TableColumn<Address, String> numberColumn;
+    @FXML
+    private TableColumn<Address, String> cityColumn;
+    @FXML
+    private TableColumn<Address, String> zipColumn;
+    @FXML
+    private AnchorPane pointIndex, pointCreate;
+    @FXML
+    private TextField name, street, number, city, zip;
+
+    @FXML
+    public void initialize() {
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Location, String>("name"));
+        streetColumn.setCellValueFactory(new PropertyValueFactory<Address, String>("address"));
+        numberColumn.setCellValueFactory(new PropertyValueFactory<Address, String>(""));
+        cityColumn.setCellValueFactory(new PropertyValueFactory<Address, String>("city"));
+        zipColumn.setCellValueFactory(new PropertyValueFactory<Address, String>("zip"));
+        //actionsColumn.setCellValueFactory(new PropertyValueFactory<>("actions"));
+
+        deliveryPoints.getItems().setAll(LocationService.allDeliveryPoints());
+    }
 
     /**
      * Handle user button click save.
@@ -74,5 +106,21 @@ public class OwnerController {
             return false;
         }
         return true;
+    }
+
+    @FXML
+    public void changePointDisplay(ActionEvent event) {
+        Button btn = (Button) event.getSource();
+        pointIndex.setVisible(false);
+        pointCreate.setVisible(false);
+
+        switch (btn.getId()) {
+            case "index":
+                pointIndex.setVisible(true);
+                break;
+            case "create":
+                pointCreate.setVisible(true);
+                break;
+        }
     }
 }
