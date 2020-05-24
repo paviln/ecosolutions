@@ -48,8 +48,16 @@ public class OrderDoa implements Dao<Order> {
 
     }
 
-    public void delete(Order order) {
+    public void delete(Order order) throws SQLException {
+        Connection connection = Database.getConnection();
+        order.setStatus(order.getStatus());
+        order.setUser_id(order.getUser_id());
+        order.setCustomer_id(order.getCustomer_id());
 
+        PreparedStatement ps = connection.prepareStatement("DELETE FROM orders WHERE status = ?");
+        ps.setInt(1, order.getStatus());
+        ps.execute();
+        connection.close();
     }
     private Order extractLocation(ResultSet rs) throws SQLException {
         Order order = new Order();

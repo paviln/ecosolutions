@@ -4,6 +4,7 @@ import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.service.CustomerService;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -11,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class AssistantController {
@@ -75,4 +78,23 @@ public class AssistantController {
         col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
         orderTable.getItems().addAll(CustomerService.allOrder());
     }
+
+    public void deleteOrderHandler() throws SQLException {
+        Order order1 = orderTable.getSelectionModel().getSelectedItem();
+        status.setText(String.valueOf(order1.getStatus()));
+        userID.setText(String.valueOf(order1.getId()));
+        customerID.setText(String.valueOf(order1.getCustomer_id()));
+
+        JOptionPane frame = new JOptionPane();
+        if (JOptionPane.showConfirmDialog(frame, "Confirm if You want to delete", "print System",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Deleted successfully");
+
+        CustomerService.deleteOrder(order1);
+
+
+
+        }
+    }
+
 }
