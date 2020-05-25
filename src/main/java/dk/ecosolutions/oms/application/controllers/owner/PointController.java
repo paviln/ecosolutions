@@ -4,6 +4,7 @@ import dk.ecosolutions.oms.domain.Address;
 import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.service.LocationService;
 import dk.ecosolutions.oms.service.helpers.AlertHelper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 import java.util.ArrayList;
 
@@ -29,7 +31,9 @@ public class PointController {
     @FXML
     private TableColumn<Address, String> zipColumn;
     @FXML
-    private AnchorPane pointIndex, pointCreate;
+    private BorderPane pointIndex;
+    @FXML
+    private AnchorPane pointCreate;
     @FXML
     private TextField name, street, number, city, zip;
 
@@ -37,7 +41,7 @@ public class PointController {
     public void initialize() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<Location, String>("name"));
         streetColumn.setCellValueFactory(new PropertyValueFactory<Address, String>("address"));
-        numberColumn.setCellValueFactory(new PropertyValueFactory<Address, String>(""));
+        numberColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getStreet()));
         cityColumn.setCellValueFactory(new PropertyValueFactory<Address, String>("city"));
         zipColumn.setCellValueFactory(new PropertyValueFactory<Address, String>("zip"));
         //actionsColumn.setCellValueFactory(new PropertyValueFactory<>("actions"));

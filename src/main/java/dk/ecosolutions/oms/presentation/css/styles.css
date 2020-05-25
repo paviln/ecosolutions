@@ -44,9 +44,7 @@
 }
 
 .alert {
-
     -fx-min-height: 60;
-
 }
 
 .alert .label {
