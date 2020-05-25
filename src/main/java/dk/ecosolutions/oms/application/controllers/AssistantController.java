@@ -80,21 +80,23 @@ public class AssistantController {
     }
 
     public void deleteOrderHandler() throws SQLException {
-        Order order1 = orderTable.getSelectionModel().getSelectedItem();
-        status.setText(String.valueOf(order1.getStatus()));
-        userID.setText(String.valueOf(order1.getId()));
-        customerID.setText(String.valueOf(order1.getCustomer_id()));
+        Order order = orderTable.getSelectionModel().getSelectedItem();
 
         JOptionPane frame = new JOptionPane();
         if (JOptionPane.showConfirmDialog(frame, "Confirm if You want to delete", "print System",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Deleted successfully");
 
-        CustomerService.deleteOrder(order1);
-
-
-
+        CustomerService.deleteOrder(order);
+        Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
+        orderTable.getItems().remove(selectedOrder);
         }
     }
-
+    @FXML
+    public void showOrder() {
+        Order order = orderTable.getSelectionModel().getSelectedItem();
+        status.setText(String.valueOf(order.getStatus()));
+        userID.setText(String.valueOf(order.getUser_id()));
+        customerID.setText(String.valueOf(order.getCustomer_id()));
+    }
 }

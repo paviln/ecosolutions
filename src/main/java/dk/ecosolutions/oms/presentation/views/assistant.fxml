@@ -35,7 +35,7 @@
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Button>
-                  <TableView fx:id="orderTable" layoutX="3.0" layoutY="182.0" prefHeight="167.0" prefWidth="594.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0">
+                  <TableView fx:id="orderTable" layoutX="3.0" layoutY="182.0" onMousePressed="#showOrder" prefHeight="167.0" prefWidth="594.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0">
                     <columns>
                       <TableColumn fx:id="col_id" prefWidth="98.0" text="ID" />
                       <TableColumn fx:id="col_status" prefWidth="82.0" text="Status" />
