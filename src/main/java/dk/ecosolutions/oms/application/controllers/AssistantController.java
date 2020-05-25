@@ -3,6 +3,7 @@ package dk.ecosolutions.oms.application.controllers;
 import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.service.CustomerService;
+import dk.ecosolutions.oms.service.helpers.OrderService;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,9 +42,6 @@ public class AssistantController {
     @FXML
     private TableColumn<Order, Timestamp> col_dateTime;
 
-    private ObservableList<Order> data;
-
-
     public void saveHandleButton() {
         Customer customer = new Customer();
         if (name.getText().isEmpty() || phone.getText().isEmpty()) {
@@ -66,7 +64,7 @@ public class AssistantController {
             order.setUser_id(Integer.parseInt(userID.getText()));
             order.setCustomer_id(Integer.parseInt(customerID.getText()));
 
-            CustomerService.addOrder(order);
+            OrderService.addOrder(order);
             JOptionPane.showMessageDialog(null, "Saved Successfully");
         }
     }
@@ -76,27 +74,38 @@ public class AssistantController {
         col_dateTime.setCellValueFactory(new PropertyValueFactory<Order, Timestamp>("created_at"));
         col_userID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("user_id"));
         col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
-        orderTable.getItems().addAll(CustomerService.allOrder());
+        orderTable.getItems().addAll(OrderService.allOrder());
     }
 
     public void deleteOrderHandler() throws SQLException {
         Order order = orderTable.getSelectionModel().getSelectedItem();
+        if (order != null) {
+            JOptionPane frame = new JOptionPane();
+            if (JOptionPane.showConfirmDialog(frame, "Confirm if You want to delete", "print System",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Deleted successfully");
 
-        JOptionPane frame = new JOptionPane();
-        if (JOptionPane.showConfirmDialog(frame, "Confirm if You want to delete", "print System",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
-            JOptionPane.showMessageDialog(null, "Deleted successfully");
-
-        CustomerService.deleteOrder(order);
-        Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
-        orderTable.getItems().remove(selectedOrder);
+                OrderService.deleteOrder(order);
+                Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
+                orderTable.getItems().remove(selectedOrder);
+            }
         }
     }
+
     @FXML
     public void showOrder() {
         Order order = orderTable.getSelectionModel().getSelectedItem();
         status.setText(String.valueOf(order.getStatus()));
         userID.setText(String.valueOf(order.getUser_id()));
         customerID.setText(String.valueOf(order.getCustomer_id()));
+    }
+
+    public void updateOrderHandler() throws SQLException {
+        Order order = orderTable.getSelectionModel().getSelectedItem();
+        if (order != null) {
+            order.setStatus(Integer.parseInt(status.getText()));
+            JOptionPane.showMessageDialog(null,"updated");
+            OrderService.updateOrder(order);
+        }
     }
 }

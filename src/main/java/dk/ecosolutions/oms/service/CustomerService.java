@@ -14,16 +14,4 @@ public class CustomerService {
         customerDao.save(customer);
     }
 
-    public static void addOrder(Order order) {
-        OrderDoa orderDoa = new OrderDoa();
-        orderDoa.save(order);
-    }
-    public static List<Order> allOrder() {
-        OrderDoa orderDoa = new OrderDoa();
-        return orderDoa.all();
-    }
-    public static void deleteOrder(Order order) throws SQLException {
-        OrderDoa orderDoa = new OrderDoa();
-        orderDoa.delete(order);
-    }
 }

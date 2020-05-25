@@ -44,13 +44,21 @@ public class OrderDoa implements Dao<Order> {
         }
     }
 
-    public void update(Order order) {
+    public void update(Order order) throws SQLException {
+        try {
+            Connection connection = Database.getConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE orders set status = ? where id = ?");
+            ps.setInt(1, order.getStatus());
+            ps.setInt(2, order.getId());
+            ps.execute();
+            connection.close();
+        }catch (Exception e){
 
+        }
     }
 
     public void delete(Order order) throws SQLException {
         Connection connection = Database.getConnection();
-
         PreparedStatement ps = connection.prepareStatement("DELETE FROM orders WHERE status = ?");
         ps.setInt(1, order.getStatus());
         ps.execute();
