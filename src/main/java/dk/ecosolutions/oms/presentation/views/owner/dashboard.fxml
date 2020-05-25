@@ -2,13 +2,12 @@
 
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-         prefWidth="600.0" stylesheets="@../../css/styles.css" tabClosingPolicy="UNAVAILABLE"
-         xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/styles.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
     <tabs>
-        <Tab text="Delivery Point">
+        <Tab text="Locations">
             <content>
-                <fx:include fx:id="point" source="point.fxml"/>
+                <fx:include fx:id="point" source="point.fxml" />
             </content>
         </Tab>
         <Tab text="Untitled Tab 2">

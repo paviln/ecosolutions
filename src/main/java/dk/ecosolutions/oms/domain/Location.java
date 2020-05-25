@@ -1,19 +1,21 @@
 package dk.ecosolutions.oms.domain;
 
+import dk.ecosolutions.oms.application.enums.Type;
+
 public class Location {
     private int id;
     private String name;
     private Address address;
-    private int types_id;
+    private Type type;
 
     public Location() {
     }
 
-    public Location(int id, String name, Address address, int types_id) {
+    public Location(int id, String name, Address address, Type type) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.types_id = types_id;
+        this.type = type;
     }
 
     public boolean validation() {
@@ -48,11 +50,11 @@ public class Location {
         this.address = address;
     }
 
-    public int getTypes_id() {
-        return types_id;
+    public Type getType() {
+        return type;
     }
 
-    public void setTypes_id(int types_id) {
-        this.types_id = types_id;
+    public void setType(Type types_id) {
+        this.type = types_id;
     }
 }

@@ -1,11 +1,9 @@
 package dk.ecosolutions.oms.persistence.database;
 
+import dk.ecosolutions.oms.application.enums.Role;
 import dk.ecosolutions.oms.domain.User;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +52,15 @@ public class UserDao implements Dao<User> {
     }
 
     public void delete(User user) {
-
+        try {
+            Connection connection = Database.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM users WHERE id=?");
+            preparedStatement.setInt(1, user.getId());
+            preparedStatement.execute();
+            connection.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     private User extractUser(ResultSet rs) throws SQLException {
@@ -63,7 +69,14 @@ public class UserDao implements Dao<User> {
         user.setName(rs.getString("name").trim());
         user.setEmail(rs.getString("email").trim());
         user.setPassword(rs.getString("password").trim());
-        user.setRole_id(rs.getInt("role_id"));
+        switch (rs.getInt("role_id")) {
+            case 1:
+                user.setRole(Role.owner);
+                break;
+            case 2:
+                user.setRole(Role.assistent);
+                break;
+        }
         user.setLocation_id(rs.getInt("location_id"));
         return user;
     }

@@ -1,5 +1,7 @@
 package dk.ecosolutions.oms.domain;
 
+import dk.ecosolutions.oms.application.enums.Role;
+
 /**
  * User Model.
  *
@@ -12,7 +14,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private int role_id;
+    private Role role;
     private int location_id;
 
     public User() {
@@ -57,12 +59,12 @@ public class User {
         this.password = password;
     }
 
-    public int getRole_id() {
-        return role_id;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public int getLocation_id() {

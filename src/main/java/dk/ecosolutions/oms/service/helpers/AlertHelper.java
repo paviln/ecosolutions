@@ -1,8 +1,10 @@
 package dk.ecosolutions.oms.service.helpers;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class AlertHelper {
     /**
@@ -22,6 +24,27 @@ public class AlertHelper {
         alert.showAndWait();
     }
 
+    public static void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public static boolean confirmAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(message);
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK)
+            return true;
+
+        return false;
+    }
+
     /**
      * Display information alert box.
      *
@@ -34,4 +57,5 @@ public class AlertHelper {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

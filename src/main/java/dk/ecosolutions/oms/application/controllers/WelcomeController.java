@@ -57,11 +57,11 @@ public class WelcomeController {
             User user = AuthService.userLogin(email.getText().trim(), password.getText().trim());
 
             if (user != null) {
-                switch (user.getRole_id()) {
-                    case 1:
+                switch (user.getRole()) {
+                    case owner:
                         changeView("presentation/views/owner/dashboard.fxml");
                         break;
-                    case 2:
+                    case assistent:
                         changeView("presentation/views/assistant.fxml");
                         break;
                     default:
