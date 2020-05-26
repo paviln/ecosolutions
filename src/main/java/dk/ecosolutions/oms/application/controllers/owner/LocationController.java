@@ -45,6 +45,8 @@ public class LocationController {
         numberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getNumber()));
         cityColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getCity()));
         zipColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getZip()));
+
+        // Add choice box options
         type.getItems().add(Type.CleaningCentral);
         type.getItems().add(Type.DeliveryPoint);
 

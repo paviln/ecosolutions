@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.util.Collections;
 
 public class WelcomeController {
+    private static User authenticatedUser;
     @FXML
     BorderPane welcome;
 
@@ -54,10 +55,10 @@ public class WelcomeController {
     public void login() {
 
         if (inputValidation(email, password)) {
-            User user = AuthService.userLogin(email.getText().trim(), password.getText().trim());
+            authenticatedUser = AuthService.userLogin(email.getText().trim(), password.getText().trim());
 
-            if (user != null) {
-                switch (user.getRole()) {
+            if (authenticatedUser != null) {
+                switch (authenticatedUser.getRole()) {
                     case owner:
                         changeView("presentation/views/owner/dashboard.fxml");
                         break;
@@ -128,5 +129,9 @@ public class WelcomeController {
         close.setOnMouseClicked(event -> {
             welcome.setTop(null);
         });
+    }
+
+    public static User getAuthenticatedUser() {
+        return authenticatedUser;
     }
 }

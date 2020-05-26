@@ -1,13 +1,10 @@
 package dk.ecosolutions.oms.service;
 
-import dk.ecosolutions.oms.application.enums.Role;
-import dk.ecosolutions.oms.application.enums.Type;
+import dk.ecosolutions.oms.application.controllers.WelcomeController;
 import dk.ecosolutions.oms.domain.Address;
 import dk.ecosolutions.oms.domain.Location;
-import dk.ecosolutions.oms.domain.User;
 import dk.ecosolutions.oms.persistence.database.AddressDao;
 import dk.ecosolutions.oms.persistence.database.LocationDao;
-import dk.ecosolutions.oms.persistence.database.UserDao;
 
 import java.util.List;
 
@@ -31,18 +28,11 @@ public class LocationService {
     }
 
     public static Boolean removeLocation(Location location) {
-        UserDao userDao = new UserDao();
-        for (User user : userDao.all()) {
-            if (user.getLocation_id() == location.getId()) {
-                if (user.getRole() == Role.owner && location.getType() == Type.CleaningCentral) {
-                    return false;
-                } else {
-                    userDao.delete(user);
-                }
-            }
+        if (location != null && WelcomeController.getAuthenticatedUser().getLocation_id() != location.getId()) {
+            LocationDao locationDao = new LocationDao();
+            locationDao.delete(location);
+            return true;
         }
-        LocationDao locationDao = new LocationDao();
-        locationDao.delete(location);
-        return true;
+        return false;
     }
 }
