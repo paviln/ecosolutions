@@ -59,10 +59,10 @@ public class WelcomeController {
 
             if (authenticatedUser != null) {
                 switch (authenticatedUser.getRole()) {
-                    case owner:
-                        changeView("presentation/views/owner/dashboard.fxml");
+                    case OWNER:
+                        changeView("presentation/views/owner/base.fxml");
                         break;
-                    case assistent:
+                    case ASSISTENT:
                         changeView("presentation/views/assistant.fxml");
                         break;
                     default:

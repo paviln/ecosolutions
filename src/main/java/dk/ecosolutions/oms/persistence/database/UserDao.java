@@ -44,7 +44,26 @@ public class UserDao implements Dao<User> {
     }
 
     public void save(User user) {
-
+        try {
+            Connection connection = Database.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (name, email, password, role_id, location_id) VALUES (?, ?, ?, ?, ?)");
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            switch (user.getRole()) {
+                case OWNER:
+                    preparedStatement.setInt(4, 1);
+                    break;
+                case ASSISTENT:
+                    preparedStatement.setInt(4, 2);
+                    break;
+            }
+            preparedStatement.setInt(5, user.getLocation_id());
+            preparedStatement.execute();
+            connection.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void update(User user) {
@@ -71,10 +90,10 @@ public class UserDao implements Dao<User> {
         user.setPassword(rs.getString("password").trim());
         switch (rs.getInt("role_id")) {
             case 1:
-                user.setRole(Role.owner);
+                user.setRole(Role.OWNER);
                 break;
             case 2:
-                user.setRole(Role.assistent);
+                user.setRole(Role.ASSISTENT);
                 break;
         }
         user.setLocation_id(rs.getInt("location_id"));

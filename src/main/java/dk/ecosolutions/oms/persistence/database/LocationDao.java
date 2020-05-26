@@ -39,10 +39,10 @@ public class LocationDao implements Dao<Location> {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO locations (name, type_id, address_id) VALUES (?, ?, ?)");
             preparedStatement.setString(1, location.getName());
             switch (location.getType()) {
-                case CleaningCentral:
+                case CLEANING_CENTRAL:
                     preparedStatement.setInt(2, 1);
                     break;
-                case DeliveryPoint:
+                case DELIVERY_POINT:
                     preparedStatement.setInt(2, 2);
                     break;
             }
@@ -79,10 +79,10 @@ public class LocationDao implements Dao<Location> {
 
         switch (rs.getInt("type_id")) {
             case 1:
-                location.setType(Type.CleaningCentral);
+                location.setType(Type.CLEANING_CENTRAL);
                 break;
             case 2:
-                location.setType(Type.DeliveryPoint);
+                location.setType(Type.DELIVERY_POINT);
                 break;
         }
         AddressDao addressDao = new AddressDao();

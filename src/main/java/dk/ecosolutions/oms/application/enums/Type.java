@@ -1,5 +1,5 @@
 package dk.ecosolutions.oms.application.enums;
 
 public enum Type {
-    CleaningCentral, DeliveryPoint
+    CLEANING_CENTRAL, DELIVERY_POINT
 }

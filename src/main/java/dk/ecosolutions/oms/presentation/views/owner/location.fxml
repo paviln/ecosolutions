@@ -23,7 +23,7 @@
             <center>
                 <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TableView fx:id="deliveryPoints" prefHeight="400.0" prefWidth="580.0">
+                        <TableView fx:id="locations" prefHeight="400.0" prefWidth="580.0">
                             <columns>
                                 <TableColumn fx:id="nameColumn" prefWidth="124.0" text="Name" />
                                 <TableColumn fx:id="streetColumn" prefWidth="103.0" text="Street" />

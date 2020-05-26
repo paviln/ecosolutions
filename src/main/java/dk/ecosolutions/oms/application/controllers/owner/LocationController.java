@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class LocationController {
     @FXML
-    private TableView<Location> deliveryPoints;
+    private TableView<Location> locations;
     @FXML
     private TableColumn<Location, String> nameColumn;
     @FXML
@@ -47,10 +47,10 @@ public class LocationController {
         zipColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getZip()));
 
         // Add choice box options
-        type.getItems().add(Type.CleaningCentral);
-        type.getItems().add(Type.DeliveryPoint);
+        type.getItems().add(Type.CLEANING_CENTRAL);
+        type.getItems().add(Type.DELIVERY_POINT);
 
-        deliveryPoints.getItems().setAll(LocationService.allLocations());
+        locations.getItems().setAll(LocationService.allLocations());
     }
 
     /**
@@ -70,7 +70,7 @@ public class LocationController {
 
         if (validation(location)) {
             LocationService.createLocation(location);
-            deliveryPoints.getItems().add(location);
+            locations.getItems().add(location);
             name.clear();
             type.getSelectionModel().clearSelection();
             street.clear();
@@ -85,9 +85,9 @@ public class LocationController {
     @FXML
     public void removeLocation() {
         if (AlertHelper.confirmAlert("This will remove all users belonging to this location!")) {
-            Location selectedDeliveryPoint = deliveryPoints.getSelectionModel().getSelectedItem();
+            Location selectedDeliveryPoint = locations.getSelectionModel().getSelectedItem();
             if (LocationService.removeLocation(selectedDeliveryPoint)) {
-                deliveryPoints.getItems().remove(selectedDeliveryPoint);
+                locations.getItems().remove(selectedDeliveryPoint);
             } else {
                 AlertHelper.showErrorAlert("Could not be removed!");
             }
