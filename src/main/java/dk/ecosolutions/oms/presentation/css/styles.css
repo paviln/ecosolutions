@@ -17,25 +17,79 @@
 
 .tab {
     -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
 }
 
 .container {
-    -fx-background-color: white;
+    -fx-background-color: #fff;
     -fx-max-width: 1000;
     -fx-padding: 0 10;
 }
 
+/* Buttons */
+.btn {
+    -fx-padding: 5 10;
+    -fx-min-width: 75;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+}
+
+.btn-primary {
+    -fx-text-fill: #fff;
+    -fx-background-color: #007bff;
+    -fx-border-color: #007bff;
+}
+
+.btn-primary:hover {
+    -fx-text-fill: #fff;
+    -fx-background-color: #0069d9;
+    -fx-border-color: #0062cc;
+}
+
+.btn-danger {
+    -fx-text-fill: #fff;;
+    -fx-background-color: #dc3545;
+    -fx-border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    -fx-text-fill: #fff;
+    -fx-background-color: #c82333;
+    -fx-border-color: #bd2130;
+}
+
+/* Navigation */
+.tab-pane {
+    -fx-tab-min-height: 3em;
+    -fx-tab-min-width: 5em;
+}
+
+.tab .tabOrder-label {
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-text-fill: #f8f9fa;
+}
+
+.tab {
+    -fx-background-color: white;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 0.0;
+    -fx-padding: 0 5 0 5;
+}
+
+.tab:selected {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: 5 0 0 0;
+    -fx-border-color: rgba(0, 136, 255, 0.7);
+}
+
+
 .title {
     -fx-font-size: 18;
-    -fx-padding: 0 0 10 0;
 }
 
-.btn {
-    -fx-min-width: 75;
-}
-
-/* Forms */
+/* Form */
 .form {
     -fx-max-width: 250;
     -fx-max-height: 0;
@@ -75,6 +129,7 @@
     -fx-font-size: 36;
 }
 
+/* Alert */
 .text-field.error {
     -fx-text-box-border: red;
     -fx-focus-color: red;
@@ -107,32 +162,5 @@
     -fx-cursor: hand;
     -fx-background-color: rgba(106, 227, 132, 0.17);
     -fx-border-color: blueviolet;
-
 }
 
-/* Navigation */
-.tab-pane {
-    -fx-tab-min-height: 3em;
-    -fx-tab-min-width: 5em;
-}
-
-.tab .tabOrder-label {
-    -fx-background-color: transparent;
-    -fx-alignment: center;
-    -fx-text-fill: #f8f9fa;
-}
-
-.tab {
-    -fx-background-color: white;
-    -fx-background-insets: 0.0;
-    -fx-background-radius: 0.0;
-    -fx-padding: 0 5 0 5;
-}
-
-.tab:selected {
-    -fx-background-color: #f8f9fa;
-    -fx-background-radius: 0;
-    -fx-background-insets: 0;
-    -fx-border-width: 5 0 0 0;
-    -fx-border-color: rgba(0, 136, 255, 0.7);
-}

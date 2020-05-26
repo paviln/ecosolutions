@@ -38,7 +38,6 @@ public class LocationDao implements Dao<Location> {
             Connection connection = Database.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO locations (name, type_id, address_id) VALUES (?, ?, ?)");
             preparedStatement.setString(1, location.getName());
-            System.out.println(location.getType().toString());
             switch (location.getType()) {
                 case CleaningCentral:
                     preparedStatement.setInt(2, 1);
