@@ -16,26 +16,26 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css">
                <children>
-                  <Label layoutX="20.0" layoutY="16.0" text="Status">
+                  <Label layoutX="20.0" layoutY="44.0" text="Status">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Label>
-                  <TextField fx:id="status" layoutX="113.0" layoutY="11.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
-                  <Label layoutX="20.0" layoutY="53.0" text="User ID">
+                  <TextField fx:id="status" layoutX="113.0" layoutY="39.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
+                  <Label layoutX="20.0" layoutY="81.0" text="User ID">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Label>
-                  <TextField fx:id="userID" layoutX="113.0" layoutY="48.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
-                  <Label layoutX="20.0" layoutY="93.0" text="Customer ID">
+                  <TextField fx:id="userID" layoutX="113.0" layoutY="76.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
+                  <Label layoutX="20.0" layoutY="121.0" text="Customer ID">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Label>
-                  <TextField fx:id="customerID" layoutX="113.0" layoutY="88.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
-                  <Button layoutX="113.0" layoutY="128.0" mnemonicParsing="false" onAction="#orderSaveHandleButton" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Save Order">
+                  <TextField fx:id="customerID" layoutX="113.0" layoutY="116.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
+                  <Button layoutX="113.0" layoutY="153.0" mnemonicParsing="false" onAction="#orderSaveHandleButton" style="-fx-background-color: #87ceeb;" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Save ">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Button>
-                  <TableView fx:id="orderTable" layoutX="3.0" layoutY="182.0" onMousePressed="#showOrder" prefHeight="167.0" prefWidth="594.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0">
+                  <TableView fx:id="orderTable" layoutY="192.0" onMousePressed="#showOrder" prefHeight="152.0" prefWidth="600.0" style="-fx-border-color: #00bfff;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="192.0">
                     <columns>
                       <TableColumn fx:id="col_id" prefWidth="98.0" text="ID" />
                       <TableColumn fx:id="col_status" prefWidth="82.0" text="Status" />
@@ -44,16 +44,21 @@
                         <TableColumn fx:id="col_customerID" prefWidth="122.0" text="CustomerID" />
                     </columns>
                   </TableView>
-                  <Button layoutX="217.0" layoutY="128.0" mnemonicParsing="false" onAction="#viewOrderHandler" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="View Order">
+                  <Button layoutX="183.0" layoutY="153.0" mnemonicParsing="false" onAction="#viewOrderHandler" style="-fx-background-color: #008000;" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="View ">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Button>
-                  <Button layoutX="323.0" layoutY="128.0" mnemonicParsing="false" onAction="#updateOrderHandler" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Update Order">
+                  <Button layoutX="253.0" layoutY="153.0" mnemonicParsing="false" onAction="#updateOrderHandler" prefHeight="31.0" prefWidth="78.0" style="-fx-background-color: #008b8b;" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Update ">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button layoutX="441.0" layoutY="128.0" mnemonicParsing="false" onAction="#deleteOrderHandler" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Delete Order">
+                  <Button layoutX="342.0" layoutY="153.0" mnemonicParsing="false" onAction="#deleteOrderHandler" style="-fx-background-color: #b22222;" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Delete ">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="421.0" layoutY="154.0" mnemonicParsing="false" onAction="#clearOrderButton" style="-fx-background-color: #b22222;" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Clear">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -65,42 +70,47 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css">
                     <children>
-                        <Label layoutX="38.0" layoutY="76.0" text="Name">
+                        <Label layoutX="38.0" layoutY="73.0" text="Name">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Label>
-                        <Label layoutX="38.0" layoutY="117.0" text="Phone">
+                        <Label layoutX="38.0" layoutY="114.0" text="Phone">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Label>
-                        <TextField fx:id="name" layoutX="107.0" layoutY="71.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
-                        <TextField fx:id="phone" layoutX="107.0" layoutY="112.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
-                        <Button layoutX="107.0" layoutY="156.0" mnemonicParsing="false" onAction="#saveHandleButton" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Save">
+                        <TextField fx:id="name" layoutX="107.0" layoutY="68.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
+                        <TextField fx:id="phone" layoutX="107.0" layoutY="109.0" styleClass="AsstButtonField" stylesheets="@../css/styles.css" />
+                        <Button layoutX="107.0" layoutY="153.0" mnemonicParsing="false" onAction="#saveHandleButton" style="-fx-background-color: #87ceeb;" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Save">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Button>
-                  <Button layoutX="174.0" layoutY="156.0" mnemonicParsing="false" onAction="#saveHandleButton" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="View">
+                  <Button layoutX="174.0" layoutY="153.0" mnemonicParsing="false" onAction="#customerViewButton" style="-fx-background-color: #008000;" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="View">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button layoutX="241.0" layoutY="156.0" mnemonicParsing="false" onAction="#saveHandleButton" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Update">
+                  <Button layoutX="241.0" layoutY="153.0" mnemonicParsing="false" onAction="#customerUpdateButton" style="-fx-background-color: #008b8b;" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Update">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button layoutX="321.0" layoutY="156.0" mnemonicParsing="false" onAction="#saveHandleButton" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Delete">
+                  <Button layoutX="321.0" layoutY="153.0" mnemonicParsing="false" onAction="#customerDeleteFunction" style="-fx-background-color: #b22222;" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Delete">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <TableView layoutY="192.0" prefHeight="151.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="192.0">
+                  <TableView fx:id="customerTable" layoutY="192.0" onMouseClicked="#showCustomer" prefHeight="151.0" prefWidth="600.0" style="-fx-border-color: #00bfff;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="192.0">
                     <columns>
-                      <TableColumn prefWidth="84.0" text="ID" />
-                      <TableColumn prefWidth="327.0" text="Name" />
-                        <TableColumn prefWidth="188.0" text="Phone" />
+                      <TableColumn fx:id="col_cusID" prefWidth="84.0" text="ID" />
+                      <TableColumn fx:id="col_customerName" prefWidth="327.0" text="Name" />
+                        <TableColumn fx:id="col_customerPhone" prefWidth="188.0" text="Phone" />
                     </columns>
                   </TableView>
+                  <Button layoutX="400.0" layoutY="153.0" mnemonicParsing="false" onAction="#customerClearButton" style="-fx-background-color: #b22222;" styleClass="AsstButtonField" stylesheets="@../css/styles.css" text="Clear">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
                     </children>
                 </AnchorPane>
             </content>

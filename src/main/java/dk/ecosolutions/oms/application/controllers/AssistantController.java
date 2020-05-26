@@ -42,6 +42,15 @@ public class AssistantController {
     @FXML
     private TableColumn<Order, Timestamp> col_dateTime;
 
+    @FXML
+    private TableView<Customer> customerTable;
+
+    @FXML
+    private TableColumn<Customer, Integer> col_cusID;
+
+    @FXML
+    private TableColumn<Customer, String> col_customerName, col_customerPhone;
+
     public void saveHandleButton() {
         Customer customer = new Customer();
         if (name.getText().isEmpty() || phone.getText().isEmpty()) {
@@ -69,13 +78,13 @@ public class AssistantController {
         }
     }
     public void viewOrderHandler() {
-        col_id.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
-        col_status.setCellValueFactory(new PropertyValueFactory<Order, Integer>("status"));
-        col_dateTime.setCellValueFactory(new PropertyValueFactory<Order, Timestamp>("created_at"));
-        col_userID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("user_id"));
-        col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
-        orderTable.getItems().addAll(OrderService.allOrder());
-    }
+            col_id.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
+            col_status.setCellValueFactory(new PropertyValueFactory<Order, Integer>("status"));
+            col_dateTime.setCellValueFactory(new PropertyValueFactory<Order, Timestamp>("created_at"));
+            col_userID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("user_id"));
+            col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
+            orderTable.getItems().addAll(OrderService.allOrder());
+        }
 
     public void deleteOrderHandler() throws SQLException {
         Order order = orderTable.getSelectionModel().getSelectedItem();
@@ -92,6 +101,9 @@ public class AssistantController {
         }
     }
 
+    /**
+     * This function shows order details in the respect field when a particular field is clicked
+     */
     @FXML
     public void showOrder() {
         Order order = orderTable.getSelectionModel().getSelectedItem();
@@ -107,5 +119,71 @@ public class AssistantController {
             JOptionPane.showMessageDialog(null,"updated");
             OrderService.updateOrder(order);
         }
+    }
+
+    public void customerViewButton() {
+        col_cusID.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("id"));
+        col_customerName.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
+        col_customerPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("phone"));
+        customerTable.getItems().addAll(CustomerService.allCustomer());
+    }
+
+    public void customerUpdateButton() throws SQLException {
+        Customer customer = customerTable.getSelectionModel().getSelectedItem();
+        if (customer != null){
+            customer.setName(name.getText());
+            customer.setPhone(phone.getText());
+            JOptionPane.showMessageDialog(null,"updated");
+            CustomerService.updateCustomer(customer);
+
+        }
+    }
+
+    /**
+     * This function shows details of the customer is shown in the
+     * respective field when a particular row is clicked
+     */
+    @FXML
+    public void showCustomer() {
+            Customer customer = customerTable.getSelectionModel().getSelectedItem();
+            name.setText(customer.getName());
+            phone.setText(customer.getPhone());
+        }
+
+    /**
+     * This function clear the fields
+     * to make a new customer entry
+     *in customer tab
+     */
+    public void customerClearButton() {
+        name.clear();
+        phone.clear();
+    }
+
+    /**
+     * This function clear the fields to make a
+     *  new order entry in order tab
+     *
+     */
+    public void clearOrderButton() {
+        status.clear();
+        userID.clear();
+        customerID.clear();
+    }
+
+    public void customerDeleteFunction() throws SQLException {
+        Customer customer = customerTable.getSelectionModel().getSelectedItem();
+        if (customer != null){
+            JOptionPane frame = new JOptionPane();
+            if (JOptionPane.showConfirmDialog(frame, "Confirm if You want to delete", "print System",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Deleted successfully");
+
+                CustomerService.deleteCustomer(customer);
+                Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+                customerTable.getItems().remove(selectedCustomer);
+            }
+
+            }
     }
 }

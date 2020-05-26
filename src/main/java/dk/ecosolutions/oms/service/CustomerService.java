@@ -13,5 +13,16 @@ public class CustomerService {
         CustomerDao customerDao = new CustomerDao();
         customerDao.save(customer);
     }
-
+    public static List<Customer> allCustomer(){
+        CustomerDao customerDao = new CustomerDao();
+        return customerDao.all();
+    }
+    public static void updateCustomer(Customer customer) throws SQLException {
+     CustomerDao customerDao = new CustomerDao();
+     customerDao.update(customer);
+    }
+    public static void deleteCustomer(Customer customer) throws SQLException{
+        CustomerDao customerDao = new CustomerDao();
+        customerDao.delete(customer);
+    }
 }

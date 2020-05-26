@@ -2,9 +2,9 @@ package dk.ecosolutions.oms.persistence.database;
 
 import dk.ecosolutions.oms.domain.Customer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import javax.xml.transform.Result;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDao implements Dao<Customer> {
@@ -14,6 +14,21 @@ public class CustomerDao implements Dao<Customer> {
     }
 
     public List<Customer> all() {
+        try{
+            Connection connection = Database.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM customers");
+            List<Customer> customers = new ArrayList<Customer>();
+            while (rs.next()){
+                Customer customer = extractLocation(rs);
+                customers.add(customer);
+            }
+            connection.close();
+            return customers;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -32,10 +47,35 @@ public class CustomerDao implements Dao<Customer> {
     }
 
     public void update(Customer customer) {
+        try{
+            Connection connection = Database.getConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE customers set name = ?, phone = ? where id = ?");
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getPhone());
+            ps.setInt(3, customer.getId());
+            ps.execute();
+            connection.close();
+
+        }catch (Exception e){
+
+        }
 
     }
 
-    public void delete(Customer customer) {
+    public void delete(Customer customer) throws SQLException {
+        Connection connection = Database.getConnection();
+        PreparedStatement ps = connection.prepareStatement("DELETE FROM customers WHERE name =?");
+        ps.setString(1, customer.getName());
+        ps.execute();
+        connection.close();
 
     }
+    private Customer extractLocation(ResultSet rs) throws SQLException {
+        Customer customer = new Customer();
+        customer.setId(rs.getInt("id"));
+        customer.setName(rs.getString("name"));
+        customer.setPhone(rs.getString("phone"));
+        return customer;
+    }
+
 }
