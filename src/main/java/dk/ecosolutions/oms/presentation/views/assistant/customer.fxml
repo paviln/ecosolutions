@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="AsstButtonField"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="dk.ecosolutions.oms.application.controllers.AssistantController">
+    <children>
+        <Label layoutX="38.0" layoutY="73.0" text="Name">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+        </Label>
+        <Label layoutX="38.0" layoutY="114.0" text="Phone">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="name" layoutX="107.0" layoutY="68.0" styleClass="AsstButtonField"/>
+        <TextField fx:id="phone" layoutX="107.0" layoutY="109.0" styleClass="AsstButtonField"/>
+        <Button layoutX="107.0" layoutY="153.0" mnemonicParsing="false" onAction="#saveHandleButton"
+                style="-fx-background-color: #87ceeb;" styleClass="AsstButtonField" text="Save">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+        </Button>
+        <Button layoutX="174.0" layoutY="153.0" mnemonicParsing="false" onAction="#customerViewButton"
+                style="-fx-background-color: #008000;" styleClass="AsstButtonField" text="View">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+        </Button>
+        <Button layoutX="241.0" layoutY="153.0" mnemonicParsing="false" onAction="#customerUpdateButton"
+                style="-fx-background-color: #008b8b;" styleClass="AsstButtonField" text="Update">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+        </Button>
+        <Button layoutX="321.0" layoutY="153.0" mnemonicParsing="false" onAction="#customerDeleteFunction"
+                style="-fx-background-color: #b22222;" styleClass="AsstButtonField" text="Delete">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+        </Button>
+        <TableView fx:id="customerTable" layoutY="192.0" onMouseClicked="#showCustomer" prefHeight="151.0"
+                   prefWidth="600.0" style="-fx-border-color: #00bfff;" AnchorPane.bottomAnchor="2.0"
+                   AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="192.0">
+            <columns>
+                <TableColumn fx:id="col_cusID" prefWidth="84.0" text="ID"/>
+                <TableColumn fx:id="col_customerName" prefWidth="327.0" text="Name"/>
+                <TableColumn fx:id="col_customerPhone" prefWidth="188.0" text="Phone"/>
+            </columns>
+        </TableView>
+        <Button layoutX="400.0" layoutY="153.0" mnemonicParsing="false" onAction="#customerClearButton"
+                style="-fx-background-color: #b22222;" styleClass="AsstButtonField" text="Clear">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

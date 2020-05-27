@@ -4,20 +4,21 @@ import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.service.CustomerService;
 import dk.ecosolutions.oms.service.helpers.OrderService;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import dk.ecosolutions.oms.service.helpers.ViewHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 
 import javax.swing.*;
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class AssistantController {
+    @FXML
+    private BorderPane base;
     @FXML
     private TextField name, phone;
 
@@ -63,6 +64,7 @@ public class AssistantController {
             JOptionPane.showMessageDialog(null, "Saved Successfully");
         }
     }
+
     public void orderSaveHandleButton() {
         Order order = new Order();
         if (status.getText().isEmpty() || userID.getText().isEmpty() || customerID.getText().isEmpty()) {
@@ -77,14 +79,15 @@ public class AssistantController {
             JOptionPane.showMessageDialog(null, "Saved Successfully");
         }
     }
+
     public void viewOrderHandler() {
-            col_id.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
-            col_status.setCellValueFactory(new PropertyValueFactory<Order, Integer>("status"));
-            col_dateTime.setCellValueFactory(new PropertyValueFactory<Order, Timestamp>("created_at"));
-            col_userID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("user_id"));
-            col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
-            orderTable.getItems().addAll(OrderService.allOrder());
-        }
+        col_id.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
+        col_status.setCellValueFactory(new PropertyValueFactory<Order, Integer>("status"));
+        col_dateTime.setCellValueFactory(new PropertyValueFactory<Order, Timestamp>("created_at"));
+        col_userID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("user_id"));
+        col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
+        orderTable.getItems().addAll(OrderService.allOrder());
+    }
 
     public void deleteOrderHandler() throws SQLException {
         Order order = orderTable.getSelectionModel().getSelectedItem();
@@ -116,7 +119,7 @@ public class AssistantController {
         Order order = orderTable.getSelectionModel().getSelectedItem();
         if (order != null) {
             order.setStatus(Integer.parseInt(status.getText()));
-            JOptionPane.showMessageDialog(null,"updated");
+            JOptionPane.showMessageDialog(null, "updated");
             OrderService.updateOrder(order);
         }
     }
@@ -130,10 +133,10 @@ public class AssistantController {
 
     public void customerUpdateButton() throws SQLException {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
-        if (customer != null){
+        if (customer != null) {
             customer.setName(name.getText());
             customer.setPhone(phone.getText());
-            JOptionPane.showMessageDialog(null,"updated");
+            JOptionPane.showMessageDialog(null, "updated");
             CustomerService.updateCustomer(customer);
 
         }
@@ -145,15 +148,15 @@ public class AssistantController {
      */
     @FXML
     public void showCustomer() {
-            Customer customer = customerTable.getSelectionModel().getSelectedItem();
-            name.setText(customer.getName());
-            phone.setText(customer.getPhone());
-        }
+        Customer customer = customerTable.getSelectionModel().getSelectedItem();
+        name.setText(customer.getName());
+        phone.setText(customer.getPhone());
+    }
 
     /**
      * This function clear the fields
      * to make a new customer entry
-     *in customer tab
+     * in customer tab
      */
     public void customerClearButton() {
         name.clear();
@@ -162,8 +165,7 @@ public class AssistantController {
 
     /**
      * This function clear the fields to make a
-     *  new order entry in order tab
-     *
+     * new order entry in order tab
      */
     public void clearOrderButton() {
         status.clear();
@@ -173,7 +175,7 @@ public class AssistantController {
 
     public void customerDeleteFunction() throws SQLException {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
-        if (customer != null){
+        if (customer != null) {
             JOptionPane frame = new JOptionPane();
             if (JOptionPane.showConfirmDialog(frame, "Confirm if You want to delete", "print System",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
@@ -184,6 +186,11 @@ public class AssistantController {
                 customerTable.getItems().remove(selectedCustomer);
             }
 
-            }
+        }
+    }
+
+    @FXML
+    public void logout() {
+        ViewHelper.changeView("welcome.fxml", base);
     }
 }
