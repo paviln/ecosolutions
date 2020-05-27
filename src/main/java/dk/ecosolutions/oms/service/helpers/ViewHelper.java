@@ -11,7 +11,7 @@ public class ViewHelper {
         try {
             Parent root = FXMLLoader.load(ViewHelper.class.getClassLoader().getResource("dk/ecosolutions/oms/presentation/views/" + name));
             Stage stage = (Stage) context.getScene().getWindow();
-            stage.setScene(new Scene(root, 1000, 600));
+            stage.setScene(new Scene(root, context.getScene().getWidth(), context.getScene().getHeight()));
         } catch (Exception e) {
             e.printStackTrace();
         }
