@@ -3,19 +3,16 @@ package dk.ecosolutions.oms.application.controllers;
 import dk.ecosolutions.oms.domain.User;
 import dk.ecosolutions.oms.service.AuthService;
 import dk.ecosolutions.oms.service.helpers.ValidationHelper;
+import dk.ecosolutions.oms.service.helpers.ViewHelper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 import java.util.Collections;
 
@@ -60,10 +57,10 @@ public class WelcomeController {
             if (authenticatedUser != null) {
                 switch (authenticatedUser.getRole()) {
                     case OWNER:
-                        changeView("presentation/views/owner/base.fxml");
+                        ViewHelper.changeView("owner/base.fxml", welcome);
                         break;
                     case ASSISTENT:
-                        changeView("presentation/views/assistant.fxml");
+                        ViewHelper.changeView("assistant.fxml", welcome);
                         break;
                     default:
                         break;
@@ -99,16 +96,6 @@ public class WelcomeController {
         }
 
         return isValid;
-    }
-
-    private void changeView(String name) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("dk/ecosolutions/oms/" + name));
-            Stage stage = (Stage) welcome.getScene().getWindow();
-            stage.setScene(new Scene(root, 800, 500));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void errorMessage() {
