@@ -1,14 +1,18 @@
 package dk.ecosolutions.oms.application.controllers.owner;
 
 import dk.ecosolutions.oms.application.enums.Role;
+import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.domain.User;
+import dk.ecosolutions.oms.service.LocationService;
 import dk.ecosolutions.oms.service.UserService;
 import dk.ecosolutions.oms.service.helpers.AlertHelper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.util.StringConverter;
 
 import java.util.ArrayList;
 
@@ -28,9 +32,11 @@ public class UserController {
     @FXML
     private TableColumn<User, String> locationColumn;
     @FXML
-    private TextField name, email, password, location_id;
+    private TextField name, email, password;
     @FXML
     private ChoiceBox<Role> role;
+    @FXML
+    private ChoiceBox<Location> locations;
 
     @FXML
     public void initialize() {
@@ -39,11 +45,27 @@ public class UserController {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
-        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location_id"));
-
+        locationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLocation().getName()));
         // Add choice box options
         role.getItems().add(Role.OWNER);
         role.getItems().add(Role.ASSISTENT);
+
+        locations.setConverter(new StringConverter<Location>() {
+            @Override
+            public String toString(Location object) {
+                return object.getName();
+            }
+
+            @Override
+            public Location fromString(String string) {
+                return locations.getItems().stream().filter(ap ->
+                        ap.getName().equals(string)).findFirst().orElse(null);
+            }
+        });
+
+        for (Location loc : LocationService.allLocations()) {
+            locations.getItems().add(loc);
+        }
 
         users.getItems().setAll(UserService.allUsers());
     }
@@ -59,21 +81,22 @@ public class UserController {
             user.setEmail(email.getText().trim());
             user.setPassword(password.getText().trim());
             user.setRole(role.getSelectionModel().getSelectedItem());
-            user.setLocation_id(Integer.parseInt(location_id.getText().trim()));
+            user.setLocation(locations.getSelectionModel().getSelectedItem());
             UserService.createUser(user);
             users.getItems().add(user);
             name.clear();
             email.clear();
+            password.clear();
             role.getSelectionModel().clearSelection();
-            location_id.clear();
+            locations.getSelectionModel().clearSelection();
             viewToDisplay("index");
             AlertHelper.showInformationAlert("Delivery Point Created!");
         }
     }
 
     @FXML
-    public void removeUser() {
-        if (AlertHelper.confirmAlert("LUL")) {
+    public void delete() {
+        if (AlertHelper.confirmAlert("Are you sure you want to delete the user?")) {
             User selectedUser = users.getSelectionModel().getSelectedItem();
             if (UserService.deleteUser(selectedUser)) {
                 users.getItems().remove(selectedUser);
@@ -100,7 +123,7 @@ public class UserController {
         if (role.getSelectionModel().getSelectedItem() == null) {
             messages.add("Role must be selected!");
         }
-        if (location_id.getText().trim().length() == 0) {
+        if (locations.getSelectionModel().getSelectedItem() == null) {
             messages.add("Location must be selected!");
         }
         if (messages.size() > 0) {
@@ -129,5 +152,4 @@ public class UserController {
                 break;
         }
     }
-
 }

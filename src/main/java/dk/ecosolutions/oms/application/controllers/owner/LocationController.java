@@ -57,7 +57,7 @@ public class LocationController {
      * Handle user button click save.
      */
     @FXML
-    public void saveDeliveryPoint() {
+    public void save() {
         Address address = new Address();
         address.setStreet(street.getText());
         address.setNumber(number.getText());
@@ -83,7 +83,7 @@ public class LocationController {
     }
 
     @FXML
-    public void removeLocation() {
+    public void delete() {
         if (AlertHelper.confirmAlert("This will remove all users belonging to this location!")) {
             Location selectedDeliveryPoint = locations.getSelectionModel().getSelectedItem();
             if (LocationService.removeLocation(selectedDeliveryPoint)) {
@@ -132,7 +132,7 @@ public class LocationController {
     }
 
     @FXML
-    public void changePointDisplay(ActionEvent event) {
+    public void changeDisplay(ActionEvent event) {
         Button btn = (Button) event.getSource();
         viewToDisplay(btn.getId());
     }

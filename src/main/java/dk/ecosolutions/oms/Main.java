@@ -12,9 +12,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("presentation/views/welcome.fxml"));
         primaryStage.setTitle("EcoSolutionsOMS");
-        primaryStage.minWidthProperty().setValue(800);
-        primaryStage.minHeightProperty().setValue(500);
-        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.minWidthProperty().setValue(1012);
+        primaryStage.minHeightProperty().setValue(600);
+        primaryStage.setScene(new Scene(root, 1012, 600));
         primaryStage.show();
     }
 

@@ -12,7 +12,7 @@ public class UserDao implements Dao<User> {
         try {
             Connection connection = Database.getConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE user_id=" + id);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE id=" + id);
             if (rs.next()) {
                 User user = extractUser(rs);
                 connection.close();
@@ -58,7 +58,7 @@ public class UserDao implements Dao<User> {
                     preparedStatement.setInt(4, 2);
                     break;
             }
-            preparedStatement.setInt(5, user.getLocation_id());
+            preparedStatement.setInt(5, user.getLocation().getId());
             preparedStatement.execute();
             connection.close();
         } catch (SQLException exception) {
@@ -96,7 +96,8 @@ public class UserDao implements Dao<User> {
                 user.setRole(Role.ASSISTENT);
                 break;
         }
-        user.setLocation_id(rs.getInt("location_id"));
+        LocationDao locationDao = new LocationDao();
+        user.setLocation(locationDao.get(rs.getInt("location_id")));
         return user;
     }
 }

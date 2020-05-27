@@ -28,7 +28,7 @@ public class LocationService {
     }
 
     public static Boolean removeLocation(Location location) {
-        if (location != null && WelcomeController.getAuthenticatedUser().getLocation_id() != location.getId()) {
+        if (location != null && WelcomeController.getAuthenticatedUser().getLocation().getId() != location.getId()) {
             LocationDao locationDao = new LocationDao();
             locationDao.delete(location);
             return true;

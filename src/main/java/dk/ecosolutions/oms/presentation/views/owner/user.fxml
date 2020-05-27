@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.owner.UserController">
+<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.owner.UserController">
     <children>
         <BorderPane fx:id="userIndex" prefHeight="400.0" prefWidth="600.0" styleClass="container">
             <center>
@@ -26,11 +26,11 @@
                     <children>
                         <TableView fx:id="users" prefHeight="400.0" prefWidth="580.0">
                             <columns>
-                                <TableColumn fx:id="nameColumn" prefWidth="124.0" text="Name" />
-                                <TableColumn fx:id="emailColumn" prefWidth="103.0" text="Email" />
-                        <TableColumn fx:id="passwordColumn" prefWidth="103.0" text="Password" />
-                                <TableColumn fx:id="roleColumn" prefWidth="81.0" text="Role" />
-                                <TableColumn fx:id="locationColumn" prefWidth="89.0" text="Location" />
+                                <TableColumn fx:id="nameColumn" prefWidth="178.0" text="Name" />
+                                <TableColumn fx:id="emailColumn" prefWidth="191.0" text="Email" />
+                                <TableColumn fx:id="passwordColumn" prefWidth="187.0" text="Password" />
+                                <TableColumn fx:id="roleColumn" prefWidth="205.0" text="Role" />
+                                <TableColumn fx:id="locationColumn" prefWidth="217.0" text="Location" />
                             </columns>
                         </TableView>
                     </children>
@@ -51,7 +51,7 @@
                                         <String fx:value="btn-primary" />
                                     </styleClass>
                                 </Button>
-                                <Button mnemonicParsing="false" onAction="#removeUser" text="Delete">
+                                <Button mnemonicParsing="false" onAction="#delete" text="Delete">
                                     <HBox.margin>
                                         <Insets left="10.0" />
                                     </HBox.margin>
@@ -81,7 +81,7 @@
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
@@ -89,13 +89,13 @@
                                 <Label text="Name" />
                                 <TextField fx:id="name" GridPane.columnIndex="1" />
                                 <Label text="Email" GridPane.rowIndex="1" />
-                        <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Password" GridPane.rowIndex="2" />
-                        <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Password" GridPane.rowIndex="2" />
+                                <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                 <Label text="Role" GridPane.rowIndex="3" />
-                        <ChoiceBox fx:id="role" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <ChoiceBox fx:id="role" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <Label text="Location" GridPane.rowIndex="4" />
-                                <TextField fx:id="location_id" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <ChoiceBox fx:id="locations" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                             </children>
                         </GridPane>
                     </children>

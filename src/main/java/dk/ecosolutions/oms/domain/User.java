@@ -15,7 +15,7 @@ public class User {
     private String email;
     private String password;
     private Role role;
-    private int location_id;
+    private Location location;
 
     public User() {
     }
@@ -67,11 +67,11 @@ public class User {
         this.role = role;
     }
 
-    public int getLocation_id() {
-        return location_id;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocation_id(int location_id) {
-        this.location_id = location_id;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

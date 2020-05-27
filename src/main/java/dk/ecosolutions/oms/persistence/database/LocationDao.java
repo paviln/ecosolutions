@@ -10,6 +10,19 @@ import java.util.List;
 public class LocationDao implements Dao<Location> {
     @Override
     public Location get(int id) {
+        try {
+            Connection connection = Database.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM locations WHERE id=" + id);
+            if (rs.next()) {
+                Location location = extractLocation(rs);
+                connection.close();
+                return location;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
