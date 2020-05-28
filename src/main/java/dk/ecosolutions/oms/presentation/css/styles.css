@@ -58,39 +58,82 @@
 }
 
 /* Navigation */
-.tab-pane {
-    -fx-tab-min-height: 3em;
-    -fx-tab-min-width: 5em;
 
-}
 
-.tab .tabOrder-label {
-    -fx-background-color: transparent;
-    -fx-alignment: center;
-    -fx-text-fill: #3488dd;
+/*.tab-pane {*/
+/*    -fx-tab-min-height: 3em;*/
+/*    -fx-tab-min-width: 5em;*/
 
-}
+/*}*/
 
-.tab {
-    -fx-background-color: white;
-    -fx-background-insets: 0.0;
-    -fx-background-radius: 0.0;
-    -fx-padding: 0 5 0 5;
+/*.tab .tabOrder-label {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-alignment: center;*/
+/*    -fx-text-fill: #3488dd;*/
 
-}
-.tab:selected {
-    -fx-background-color: #f8f9fa;
-    -fx-background-radius: 0;
-    -fx-background-insets: 0;
-    -fx-border-width: 3 0 0 0;
-    -fx-border-color: rgba(0, 136, 255, 0.7);
+/*}*/
 
-}
+/*.tab {*/
+/*    -fx-background-color: white;*/
+/*    -fx-background-insets: 0.0;*/
+/*    -fx-background-radius: 0.0;*/
+/*    -fx-padding: 0 5 0 5;*/
+
+/*}*/
+/*.tab:selected {*/
+/*    -fx-background-color: #f8f9fa;*/
+/*    -fx-background-radius: 0;*/
+/*    -fx-background-insets: 0;*/
+/*    -fx-border-width: 3 0 0 0;*/
+/*    -fx-border-color: rgba(0, 136, 255, 0.7);*/
+
+/*}*/
+/*.tab-pane .tab-header-background{*/
+/*    -fx-background-color: rgb(226, 213, 204);*/
+
+/*}*/
+
 .tab-pane .tab-header-background{
-    -fx-background-color: rgb(226, 213, 204);
+    -fx-background-color: rgba(180, 207, 234, 0.8);
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 2;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: rgba(248, 248, 204, 0.94);
 
 }
 
+.tab-pane .tab:selected
+{
+    -fx-background-color: #72de84;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #1e1414;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #f4f5ff;
+}
+.tab-pane:top *.tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.416667em 0.166667em 0.1em 0.1em;
+}
 
 
 

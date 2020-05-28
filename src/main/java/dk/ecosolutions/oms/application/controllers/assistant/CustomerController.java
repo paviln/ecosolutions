@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -39,6 +40,7 @@ public class CustomerController {
             customer.setPhone(phone.getText());
 
             CustomerService.addCustomer(customer);
+            customerTable.getItems().add(customer);
             JOptionPane.showMessageDialog(null, "Saved Successfully");
         }
     }
@@ -80,5 +82,29 @@ public class CustomerController {
                 customerTable.getItems().remove(selectedCustomer);
             }
         }
+    }
+
+    /**
+     * This function allows only number input in the phone field
+     * @param keyEvent
+     */
+    public void numberValidation(KeyEvent keyEvent) {
+        phone.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                phone.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+    }
+
+    /**
+     * This function allows only letters in the name field
+     * @param keyEvent
+     */
+    public void letterValidation(KeyEvent keyEvent) {
+        name.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z*")) {
+                name.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            }
+        });
     }
 }
