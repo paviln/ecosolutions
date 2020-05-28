@@ -16,9 +16,6 @@ public class OrderController {
     private TextField status;
 
     @FXML
-    private TextField userID;
-
-    @FXML
     private TextField customerID;
 
     @FXML
@@ -46,19 +43,18 @@ public class OrderController {
     @FXML
     public void save() {
         Order order = new Order();
-        if (status.getText().isEmpty() || userID.getText().isEmpty() || customerID.getText().isEmpty()) {
+        if (status.getText().isEmpty() || customerID.getText().isEmpty()) {
             AlertHelper.showInformationAlert("One of the field is empty");
         } else {
             order.setStatus(Integer.parseInt(status.getText()));
             order.setCreated_at(new Timestamp(System.currentTimeMillis()));
-            order.setUser_id(Integer.parseInt(userID.getText()));
+            /* NEW */order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
             order.setCustomer_id(Integer.parseInt(customerID.getText()));
             OrderService.addOrder(order);
             orderTable.getItems().add(order);
             AlertHelper.showInformationAlert("Saved Successfully");
         }
         status.clear();
-        userID.clear();
         customerID.clear();
     }
 
@@ -82,7 +78,6 @@ public class OrderController {
     public void show() {
         Order order = orderTable.getSelectionModel().getSelectedItem();
         status.setText(String.valueOf(order.getStatus()));
-        userID.setText(String.valueOf(order.getUser_id()));
         customerID.setText(String.valueOf(order.getCustomer_id()));
     }
 

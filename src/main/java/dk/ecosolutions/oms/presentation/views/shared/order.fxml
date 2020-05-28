@@ -8,20 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" styleClass="AsstButtonField" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="dk.ecosolutions.oms.application.controllers.OrderController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" styleClass="AsstButtonField" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.OrderController">
     <children>
-        <Label layoutX="20.0" layoutY="44.0" text="Status">
+        <Label layoutX="20.0" layoutY="76.0" text="Status">
             <font>
                 <Font name="System Bold" size="15.0" />
             </font>
         </Label>
-        <TextField fx:id="status" layoutX="113.0" layoutY="39.0" styleClass="AsstButtonField" />
-        <Label layoutX="20.0" layoutY="81.0" text="User ID">
-            <font>
-                <Font name="System Bold" size="15.0" />
-            </font>
-        </Label>
-        <TextField fx:id="userID" layoutX="113.0" layoutY="76.0" styleClass="AsstButtonField" />
+        <TextField fx:id="status" layoutX="113.0" layoutY="71.0" styleClass="AsstButtonField" />
         <Label layoutX="20.0" layoutY="121.0" text="Customer ID">
             <font>
                 <Font name="System Bold" size="15.0" />

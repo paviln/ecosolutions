@@ -10,15 +10,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
-import java.sql.SQLException;
 
 public class CustomerController {
     @FXML
     private TextField name, phone;
+
     @FXML
     private TableView<Customer> customerTable;
+
     @FXML
     private TableColumn<Customer, String> col_customerName;
+
     @FXML
     private TableColumn<Customer, String> col_customerPhone;
 
@@ -59,16 +61,21 @@ public class CustomerController {
     }
 
     /**
-     * This function shows details of the customer is shown in the
+     * This function shows details of the customer in the
      * respective field when a particular row is clicked
      */
     @FXML
     public void show() {
-        Customer customer = customerTable.getSelectionModel().getSelectedItem();
-        name.setText(customer.getName());
-        phone.setText(customer.getPhone());
-    }
+        try {
+            Customer customer = customerTable.getSelectionModel().getSelectedItem();
+            name.setText(customer.getName());
+            phone.setText(customer.getPhone());
+        }catch (NullPointerException e){
 
+        }
+
+    }
+    @FXML
     public void delete() {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
         if (customer != null) {

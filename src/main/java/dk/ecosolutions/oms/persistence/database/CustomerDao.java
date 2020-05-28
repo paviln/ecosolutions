@@ -9,23 +9,22 @@ import java.util.List;
 
 public class CustomerDao implements Dao<Customer> {
     public Customer get(int id) throws SQLException {
-
         return null;
     }
 
     public List<Customer> all() {
-        try{
+        try {
             Connection connection = Database.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM customers");
             List<Customer> customers = new ArrayList<Customer>();
-            while (rs.next()){
+            while (rs.next()) {
                 Customer customer = extractLocation(rs);
                 customers.add(customer);
             }
             connection.close();
             return customers;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -47,7 +46,7 @@ public class CustomerDao implements Dao<Customer> {
     }
 
     public void update(Customer customer) {
-        try{
+        try {
             Connection connection = Database.getConnection();
             PreparedStatement ps = connection.prepareStatement("UPDATE customers set name = ?, phone = ? where id = ?");
             ps.setString(1, customer.getName());
@@ -56,7 +55,7 @@ public class CustomerDao implements Dao<Customer> {
             ps.execute();
             connection.close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -68,15 +67,21 @@ public class CustomerDao implements Dao<Customer> {
             ps.setString(1, customer.getName());
             ps.execute();
             connection.close();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
-    private Customer extractLocation(ResultSet rs) throws SQLException {
-        Customer customer = new Customer();
-        customer.setId(rs.getInt("id"));
-        customer.setName(rs.getString("name"));
-        customer.setPhone(rs.getString("phone"));
-        return customer;
+
+    private Customer extractLocation(ResultSet rs)  {
+        try {
+            Customer customer = new Customer();
+            customer.setId(rs.getInt("id"));
+            customer.setName(rs.getString("name"));
+            customer.setPhone(rs.getString("phone"));
+            return customer;
+        }catch (Exception e){
+
+        }
+        return null;
     }
 }
