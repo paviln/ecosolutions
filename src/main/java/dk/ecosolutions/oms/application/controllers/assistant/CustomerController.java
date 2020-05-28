@@ -2,6 +2,7 @@ package dk.ecosolutions.oms.application.controllers.assistant;
 
 import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.service.CustomerService;
+import dk.ecosolutions.oms.service.helpers.AlertHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -9,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
-import javax.swing.*;
 import java.sql.SQLException;
 
 public class CustomerController {
@@ -34,24 +34,24 @@ public class CustomerController {
     public void save() {
         Customer customer = new Customer();
         if (name.getText().isEmpty() || phone.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "One of the field is empty");
+            AlertHelper.showErrorAlert("One of the field is empty");
         } else {
             customer.setName(name.getText());
             customer.setPhone(phone.getText());
 
             CustomerService.addCustomer(customer);
             customerTable.getItems().add(customer);
-            JOptionPane.showMessageDialog(null, "Saved Successfully");
+            AlertHelper.showInformationAlert("Saved Successfully");
         }
     }
 
     @FXML
-    public void update() throws SQLException {
+    public void update() {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
         if (customer != null) {
             customer.setName(name.getText());
             customer.setPhone(phone.getText());
-            JOptionPane.showMessageDialog(null, "updated");
+            AlertHelper.showInformationAlert("updated");
             CustomerService.updateCustomer(customer);
         }
         name.clear();
@@ -69,14 +69,10 @@ public class CustomerController {
         phone.setText(customer.getPhone());
     }
 
-    public void delete() throws SQLException {
+    public void delete() {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
         if (customer != null) {
-            JOptionPane frame = new JOptionPane();
-            if (JOptionPane.showConfirmDialog(frame, "Confirm if You want to delete", "print System",
-                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Deleted successfully");
-
+            if (AlertHelper.confirmAlert("Sure you want to delete the customer?")) {
                 CustomerService.deleteCustomer(customer);
                 Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
                 customerTable.getItems().remove(selectedCustomer);

@@ -59,16 +59,18 @@ public class CustomerDao implements Dao<Customer> {
         }catch (Exception e){
 
         }
-
     }
 
-    public void delete(Customer customer) throws SQLException {
-        Connection connection = Database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("DELETE FROM customers WHERE name =?");
-        ps.setString(1, customer.getName());
-        ps.execute();
-        connection.close();
+    public void delete(Customer customer) {
+        try {
+            Connection connection = Database.getConnection();
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM customers WHERE name =?");
+            ps.setString(1, customer.getName());
+            ps.execute();
+            connection.close();
+        }catch (Exception e){
 
+        }
     }
     private Customer extractLocation(ResultSet rs) throws SQLException {
         Customer customer = new Customer();
@@ -77,5 +79,4 @@ public class CustomerDao implements Dao<Customer> {
         customer.setPhone(rs.getString("phone"));
         return customer;
     }
-
 }

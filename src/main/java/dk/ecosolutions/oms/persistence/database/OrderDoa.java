@@ -44,7 +44,7 @@ public class OrderDoa implements Dao<Order> {
         }
     }
 
-    public void update(Order order) throws SQLException {
+    public void update(Order order) {
         try {
             Connection connection = Database.getConnection();
             PreparedStatement ps = connection.prepareStatement("UPDATE orders set status = ? where id = ?");
@@ -57,20 +57,30 @@ public class OrderDoa implements Dao<Order> {
         }
     }
 
-    public void delete(Order order) throws SQLException {
-        Connection connection = Database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("DELETE FROM orders WHERE status = ?");
-        ps.setInt(1, order.getStatus());
-        ps.execute();
-        connection.close();
+    public void delete(Order order) {
+        try {
+            Connection connection = Database.getConnection();
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM orders WHERE status = ?");
+            ps.setInt(1, order.getStatus());
+            ps.execute();
+            connection.close();
+        } catch (Exception e) {
+
+        }
+
     }
-    private Order extractLocation(ResultSet rs) throws SQLException {
-        Order order = new Order();
-        order.setId(rs.getInt("id"));
-        order.setStatus(rs.getInt("status"));
-        order.setCreated_at(rs.getTimestamp("created_at"));
-        order.setUser_id(rs.getInt("user_id"));
-        order.setCustomer_id(rs.getInt("customer_id"));
-        return order;
+    private Order extractLocation(ResultSet rs)  {
+        try {
+            Order order = new Order();
+            order.setId(rs.getInt("id"));
+            order.setStatus(rs.getInt("status"));
+            order.setCreated_at(rs.getTimestamp("created_at"));
+            order.setUser_id(rs.getInt("user_id"));
+            order.setCustomer_id(rs.getInt("customer_id"));
+            return order;
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 }

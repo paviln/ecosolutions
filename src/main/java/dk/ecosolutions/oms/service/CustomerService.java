@@ -17,11 +17,11 @@ public class CustomerService {
         CustomerDao customerDao = new CustomerDao();
         return customerDao.all();
     }
-    public static void updateCustomer(Customer customer) throws SQLException {
+    public static void updateCustomer(Customer customer){
      CustomerDao customerDao = new CustomerDao();
      customerDao.update(customer);
     }
-    public static void deleteCustomer(Customer customer) throws SQLException{
+    public static void deleteCustomer(Customer customer) {
         CustomerDao customerDao = new CustomerDao();
         customerDao.delete(customer);
     }
