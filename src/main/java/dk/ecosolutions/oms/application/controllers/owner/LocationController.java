@@ -45,6 +45,7 @@ public class LocationController {
         numberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getNumber()));
         cityColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getCity()));
         zipColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getZip()));
+        locations.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         // Add choice box options
         type.getItems().add(Type.CLEANING_CENTRAL);
@@ -65,6 +66,8 @@ public class LocationController {
         address.setZip(zip.getText());
         Location location = new Location();
         location.setName(name.getText());
+        location.setPriority(locations.getItems().size() + 1);
+        System.out.println(locations.getItems().size());
         location.setType(type.getSelectionModel().getSelectedItem());
         location.setAddress(address);
 
@@ -91,6 +94,36 @@ public class LocationController {
             } else {
                 AlertHelper.showErrorAlert("Could not be removed!");
             }
+        }
+    }
+
+    @FXML
+    public void up() {
+        Location selectedDeliveryPoint = locations.getSelectionModel().getSelectedItem();
+        int index = locations.getItems().indexOf(selectedDeliveryPoint) - 1;
+        if (index >= 0) {
+            locations.getItems().remove(selectedDeliveryPoint);
+            locations.getItems().add(index, selectedDeliveryPoint);
+            selectedDeliveryPoint.setPriority(selectedDeliveryPoint.getPriority() - 1);
+            LocationService.updateLocation(selectedDeliveryPoint);
+            locations.getItems().get(index + 1).setPriority(locations.getItems().get(index + 1).getPriority() + 1);
+            LocationService.updateLocation(locations.getItems().get(index + 1));
+            locations.getSelectionModel().select(selectedDeliveryPoint);
+        }
+    }
+
+    @FXML
+    public void down() {
+        Location selectedDeliveryPoint = locations.getSelectionModel().getSelectedItem();
+        int index = locations.getItems().indexOf(selectedDeliveryPoint) + 1;
+        if (index < locations.getItems().size()) {
+            locations.getItems().remove(selectedDeliveryPoint);
+            locations.getItems().add(index, selectedDeliveryPoint);
+            selectedDeliveryPoint.setPriority(selectedDeliveryPoint.getPriority() + 1);
+            LocationService.updateLocation(selectedDeliveryPoint);
+            locations.getItems().get(index - 1).setPriority(locations.getItems().get(index - 1).getPriority() - 1);
+            LocationService.updateLocation(locations.getItems().get(index - 1));
+            locations.getSelectionModel().select(selectedDeliveryPoint);
         }
     }
 

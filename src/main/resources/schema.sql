@@ -32,6 +32,7 @@ CREATE TABLE locations
 (
     id int IDENTITY(1,1) PRIMARY KEY,
     name varchar(50) NOT NULL,
+    priority int NOT NULL,
     type_id int FOREIGN KEY REFERENCES types(id),
     address_id int FOREIGN KEY REFERENCES addresses(id)
 )
@@ -99,7 +100,7 @@ INSERT INTO types (name) VALUES ('Delivery Point');
 
 INSERT INTO addresses (street, number, city, zip) VALUES ('Rengøringsgade', '1', 'Sønderborg', '6400');
 
-INSERT INTO locations (name, type_id, address_id) VALUES ('EcoSolutions', '1', '1');
+INSERT INTO locations (name, priority, type_id, address_id) VALUES ('EcoSolutions', '1', '1', '1');
 
 INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Jesper', 'o@eco.dk', '123', '1', '1');
 INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Assis', 'a@eco.dk', '123', '2', '1');

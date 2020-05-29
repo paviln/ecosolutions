@@ -5,6 +5,7 @@ import dk.ecosolutions.oms.domain.Location;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LocationDao implements Dao<Location> {
@@ -32,12 +33,15 @@ public class LocationDao implements Dao<Location> {
             Connection connection = Database.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM locations");
-            List<Location> locations = new ArrayList<Location>();
+            List<Location> locations = new ArrayList<>();
             while (rs.next()) {
                 Location location = extractLocation(rs);
                 locations.add(location);
             }
             connection.close();
+
+            Collections.sort(locations);
+
             return locations;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,17 +53,18 @@ public class LocationDao implements Dao<Location> {
     public void save(Location location) {
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO locations (name, type_id, address_id) VALUES (?, ?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO locations (name, priority, type_id, address_id) VALUES (?, ?, ?, ?)");
             preparedStatement.setString(1, location.getName());
+            preparedStatement.setInt(2, location.getPriority());
             switch (location.getType()) {
                 case CLEANING_CENTRAL:
-                    preparedStatement.setInt(2, 1);
+                    preparedStatement.setInt(3, 1);
                     break;
                 case DELIVERY_POINT:
-                    preparedStatement.setInt(2, 2);
+                    preparedStatement.setInt(3, 2);
                     break;
             }
-            preparedStatement.setInt(3, location.getAddress().getId());
+            preparedStatement.setInt(4, location.getAddress().getId());
             preparedStatement.execute();
             connection.close();
         } catch (SQLException exception) {
@@ -69,7 +74,27 @@ public class LocationDao implements Dao<Location> {
 
     @Override
     public void update(Location location) {
+        try {
+            Connection connection = Database.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE locations set name = ?, priority = ?, type_id = ?, address_id = ? where id = ?");
+            preparedStatement.setString(1, location.getName());
+            preparedStatement.setInt(2, location.getPriority());
+            switch (location.getType()) {
+                case CLEANING_CENTRAL:
+                    preparedStatement.setInt(3, 1);
+                    break;
+                case DELIVERY_POINT:
+                    preparedStatement.setInt(3, 2);
+                    break;
+            }
+            preparedStatement.setInt(4, location.getAddress().getId());
+            preparedStatement.setInt(5, location.getId());
+            preparedStatement.execute();
+            connection.close();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -89,6 +114,7 @@ public class LocationDao implements Dao<Location> {
         Location location = new Location();
         location.setId(rs.getInt("id"));
         location.setName(rs.getString("name").trim());
+        location.setPriority(rs.getInt("priority"));
 
         switch (rs.getInt("type_id")) {
             case 1:

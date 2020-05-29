@@ -27,6 +27,11 @@ public class LocationService {
         return locationDao.all();
     }
 
+    public static void updateLocation(Location location) {
+        LocationDao locationDao = new LocationDao();
+        locationDao.update(location);
+    }
+
     public static Boolean removeLocation(Location location) {
         if (location != null && WelcomeController.getAuthenticatedUser().getLocation().getId() != location.getId()) {
             LocationDao locationDao = new LocationDao();
