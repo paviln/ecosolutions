@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 public class Order {
     private int id;
     private int status;
+    private Location location;
     private Timestamp created_at;
     private int user_id;
     private int customer_id;
@@ -11,14 +12,14 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, int status, Timestamp created_at, int user_id, int customer_id) {
+    public Order(int id, int status, Location location, Timestamp created_at, int user_id, int customer_id) {
         this.id = id;
         this.status = status;
+        this.location = location;
         this.created_at = created_at;
         this.user_id = user_id;
         this.customer_id = customer_id;
     }
-
 
     public int getId() {
         return id;
@@ -34,6 +35,14 @@ public class Order {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public Timestamp getCreated_at() {

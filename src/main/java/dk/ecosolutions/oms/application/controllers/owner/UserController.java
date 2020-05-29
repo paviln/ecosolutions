@@ -49,6 +49,7 @@ public class UserController {
         // Add choice box options
         role.getItems().add(Role.OWNER);
         role.getItems().add(Role.ASSISTENT);
+        role.getItems().add(Role.DRIVER);
 
         locations.setConverter(new StringConverter<Location>() {
             @Override

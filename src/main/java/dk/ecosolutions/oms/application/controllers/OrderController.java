@@ -1,8 +1,8 @@
 package dk.ecosolutions.oms.application.controllers;
 
 import dk.ecosolutions.oms.domain.Order;
-import dk.ecosolutions.oms.service.helpers.AlertHelper;
 import dk.ecosolutions.oms.service.OrderService;
+import dk.ecosolutions.oms.service.helpers.AlertHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,6 +47,7 @@ public class OrderController {
             AlertHelper.showInformationAlert("One of the field is empty");
         } else {
             order.setStatus(Integer.parseInt(status.getText()));
+            order.setLocation(WelcomeController.getAuthenticatedUser().getLocation());
             order.setCreated_at(new Timestamp(System.currentTimeMillis()));
             /* NEW */order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
             order.setCustomer_id(Integer.parseInt(customerID.getText()));

@@ -62,6 +62,8 @@ public class WelcomeController {
                     case ASSISTENT:
                         ViewHelper.changeView("assistant/base.fxml", welcome);
                         break;
+                    case DRIVER:
+                        ViewHelper.changeView("driver/base.fxml", welcome);
                     default:
                         break;
                 }

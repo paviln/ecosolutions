@@ -57,6 +57,8 @@ public class UserDao implements Dao<User> {
                 case ASSISTENT:
                     preparedStatement.setInt(4, 2);
                     break;
+                case DRIVER:
+                    preparedStatement.setInt(4, 3);
             }
             preparedStatement.setInt(5, user.getLocation().getId());
             preparedStatement.execute();
@@ -94,6 +96,9 @@ public class UserDao implements Dao<User> {
                 break;
             case 2:
                 user.setRole(Role.ASSISTENT);
+                break;
+            case 3:
+                user.setRole(Role.DRIVER);
                 break;
         }
         LocationDao locationDao = new LocationDao();

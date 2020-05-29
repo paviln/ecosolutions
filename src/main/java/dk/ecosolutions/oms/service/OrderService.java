@@ -1,8 +1,10 @@
 package dk.ecosolutions.oms.service;
 
+import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.persistence.database.OrderDoa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService {
@@ -13,6 +15,31 @@ public class OrderService {
     public static List<Order> allOrder() {
         OrderDoa orderDoa = new OrderDoa();
         return orderDoa.all();
+    }
+    public static List<Order> allOrder(int status) {
+        List<Order> orders = new ArrayList<>();
+        OrderDoa orderDoa = new OrderDoa();
+        for (Order order : orderDoa.all()) {
+            if (order.getStatus() == status) {
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+    public static List<Order> allOrder(int status , Location location) {
+        OrderDoa orderDoa = new OrderDoa();
+        List<Order> ordersDao = orderDoa.all();
+        if (ordersDao != null) {
+            List<Order> orders = new ArrayList<>();
+
+            for (Order order : ordersDao) {
+                if (order.getStatus() == status && order.getLocation().getId() == location.getId()) {
+                    orders.add(order);
+                }
+            }
+            return orders;
+        }
+        return null;
     }
     public static void deleteOrder(Order order) {
         OrderDoa orderDoa = new OrderDoa();

@@ -45,6 +45,19 @@
     -fx-border-color: #0062cc;
 }
 
+
+.btn-success {
+    -fx-text-fill: #fff;
+    -fx-background-color: #28a745;
+    -fx-border-color: #28a745 ;
+}
+
+.btn-danger:hover {
+    -fx-text-fill: #fff;
+    -fx-background-color: #218838;;
+    -fx-border-color: #1e7e34;
+}
+
 .btn-danger {
     -fx-text-fill: #fff;;
     -fx-background-color: #dc3545;
@@ -134,8 +147,6 @@
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.416667em 0.166667em 0.1em 0.1em;
 }
-
-
 
 .title {
     -fx-font-size: 18;

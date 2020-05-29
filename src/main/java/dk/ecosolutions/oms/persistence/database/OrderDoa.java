@@ -32,11 +32,12 @@ public class OrderDoa implements Dao<Order> {
     public void save(Order order) {
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (status,created_at, user_id, customer_id)  VALUES (?,?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (status, location_id, created_at, user_id, customer_id)  VALUES (?,?,?,?,?)");
             ps.setInt(1, order.getStatus());
-            ps.setTimestamp(2,order.getCreated_at());
-            ps.setInt(3, order.getUser_id());
-            ps.setInt(4, order.getCustomer_id());
+            ps.setInt(2, order.getLocation().getId());
+            ps.setTimestamp(3,order.getCreated_at());
+            ps.setInt(4, order.getUser_id());
+            ps.setInt(5, order.getCustomer_id());
             ps.execute();
             connection.close();
         } catch (SQLException throwables) {
@@ -74,6 +75,8 @@ public class OrderDoa implements Dao<Order> {
             Order order = new Order();
             order.setId(rs.getInt("id"));
             order.setStatus(rs.getInt("status"));
+            LocationDao locationDao = new LocationDao();
+            order.setLocation(locationDao.get(rs.getInt("location_id")));
             order.setCreated_at(rs.getTimestamp("created_at"));
             order.setUser_id(rs.getInt("user_id"));
             order.setCustomer_id(rs.getInt("customer_id"));
