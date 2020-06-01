@@ -1,14 +1,13 @@
 package dk.ecosolutions.oms.application.controllers;
 
+import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.service.OrderService;
 import dk.ecosolutions.oms.service.helpers.DialogHelper;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -17,24 +16,20 @@ import java.sql.Timestamp;
 public class OrderController {
     @FXML
     private AnchorPane orderIndex, orderCreate;
-
     @FXML
     private TextField status;
-
     @FXML
     private TextField customerID;
-
     @FXML
     private TableView<Order> orderTable;
-
     @FXML
     private TableColumn<Order, Integer> col_id, col_userID, col_customerID;
-
     @FXML
     private TableColumn<Order, Integer> col_status;
-
     @FXML
     private TableColumn<Order, Timestamp> col_dateTime;
+    @FXML
+    private ChoiceBox<Item> clothes;
 
     @FXML
     public void initialize() {
@@ -44,6 +39,7 @@ public class OrderController {
         col_userID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("user_id"));
         col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
         orderTable.getItems().addAll(OrderService.allOrder());
+        clothes.getItems().addAll();
     }
 
     @FXML
