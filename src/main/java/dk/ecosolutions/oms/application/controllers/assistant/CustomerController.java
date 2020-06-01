@@ -2,7 +2,7 @@ package dk.ecosolutions.oms.application.controllers.assistant;
 
 import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.service.CustomerService;
-import dk.ecosolutions.oms.service.helpers.AlertHelper;
+import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,14 +36,14 @@ public class CustomerController {
     public void save() {
         Customer customer = new Customer();
         if (name.getText().isEmpty() || phone.getText().isEmpty()) {
-            AlertHelper.showErrorAlert("One of the field is empty");
+            DialogHelper.showErrorAlert("One of the field is empty");
         } else {
             customer.setName(name.getText());
             customer.setPhone(phone.getText());
 
             CustomerService.addCustomer(customer);
             customerTable.getItems().add(customer);
-            AlertHelper.showInformationAlert("Saved Successfully");
+            DialogHelper.showInformationAlert("Saved Successfully");
         }
     }
 
@@ -53,7 +53,7 @@ public class CustomerController {
         if (customer != null) {
             customer.setName(name.getText());
             customer.setPhone(phone.getText());
-            AlertHelper.showInformationAlert("updated");
+            DialogHelper.showInformationAlert("updated");
             CustomerService.updateCustomer(customer);
         }
         name.clear();
@@ -70,16 +70,17 @@ public class CustomerController {
             Customer customer = customerTable.getSelectionModel().getSelectedItem();
             name.setText(customer.getName());
             phone.setText(customer.getPhone());
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
 
         }
 
     }
+
     @FXML
     public void delete() {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
         if (customer != null) {
-            if (AlertHelper.confirmAlert("Sure you want to delete the customer?")) {
+            if (DialogHelper.confirmAlert("Sure you want to delete the customer?")) {
                 CustomerService.deleteCustomer(customer);
                 Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
                 customerTable.getItems().remove(selectedCustomer);
@@ -89,6 +90,7 @@ public class CustomerController {
 
     /**
      * This function allows only number input in the phone field
+     *
      * @param keyEvent
      */
     public void numberValidation(KeyEvent keyEvent) {
@@ -101,6 +103,7 @@ public class CustomerController {
 
     /**
      * This function allows only letters in the name field
+     *
      * @param keyEvent
      */
     public void letterValidation(KeyEvent keyEvent) {

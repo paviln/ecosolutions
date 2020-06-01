@@ -1,24 +1,18 @@
 package dk.ecosolutions.oms.domain;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Order {
     private int id;
     private int status;
+    private List<Item> items;
     private Location location;
     private Timestamp created_at;
     private int user_id;
     private int customer_id;
 
     public Order() {
-    }
-
-    public Order(int id, int status, Location location, Timestamp created_at, int user_id, int customer_id) {
-        this.id = id;
-        this.status = status;
-        this.location = location;
-        this.created_at = created_at;
-        this.user_id = user_id;
-        this.customer_id = customer_id;
     }
 
     public int getId() {
@@ -35,6 +29,14 @@ public class Order {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public Location getLocation() {
@@ -69,5 +71,3 @@ public class Order {
         this.customer_id = customer_id;
     }
 }
-
-

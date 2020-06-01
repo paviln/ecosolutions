@@ -2,11 +2,12 @@ package dk.ecosolutions.oms.service.helpers;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class AlertHelper {
+public class DialogHelper {
     /**
      * Display error alert box.
      *
@@ -58,4 +59,19 @@ public class AlertHelper {
         alert.showAndWait();
     }
 
+    /**
+     * @return
+     */
+    public static String inputDialog(String title, String header, String content) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle(title);
+        dialog.setHeaderText(header);
+        dialog.setContentText(content);
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            return result.toString();
+        }
+        return null;
+    }
 }

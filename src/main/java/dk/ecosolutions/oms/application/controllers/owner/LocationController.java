@@ -4,7 +4,7 @@ import dk.ecosolutions.oms.application.enums.Type;
 import dk.ecosolutions.oms.domain.Address;
 import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.service.LocationService;
-import dk.ecosolutions.oms.service.helpers.AlertHelper;
+import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -81,18 +81,18 @@ public class LocationController {
             city.clear();
             zip.clear();
             viewToDisplay("index");
-            AlertHelper.showInformationAlert("Delivery Point Created!");
+            DialogHelper.showInformationAlert("Delivery Point Created!");
         }
     }
 
     @FXML
     public void delete() {
-        if (AlertHelper.confirmAlert("This will remove all users belonging to this location!")) {
+        if (DialogHelper.confirmAlert("This will remove all users belonging to this location!")) {
             Location selectedDeliveryPoint = locations.getSelectionModel().getSelectedItem();
             if (LocationService.removeLocation(selectedDeliveryPoint)) {
                 locations.getItems().remove(selectedDeliveryPoint);
             } else {
-                AlertHelper.showErrorAlert("Could not be removed!");
+                DialogHelper.showErrorAlert("Could not be removed!");
             }
         }
     }
@@ -158,7 +158,7 @@ public class LocationController {
             messages.add("The zip code must be at 4 digits!");
         }
         if (messages.size() > 0) {
-            AlertHelper.showErrorAlert(messages);
+            DialogHelper.showErrorAlert(messages);
             return false;
         }
         return true;

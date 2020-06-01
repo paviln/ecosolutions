@@ -5,7 +5,7 @@ import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.domain.User;
 import dk.ecosolutions.oms.service.LocationService;
 import dk.ecosolutions.oms.service.UserService;
-import dk.ecosolutions.oms.service.helpers.AlertHelper;
+import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -91,18 +91,18 @@ public class UserController {
             role.getSelectionModel().clearSelection();
             locations.getSelectionModel().clearSelection();
             viewToDisplay("index");
-            AlertHelper.showInformationAlert("Delivery Point Created!");
+            DialogHelper.showInformationAlert("Delivery Point Created!");
         }
     }
 
     @FXML
     public void delete() {
-        if (AlertHelper.confirmAlert("Are you sure you want to delete the user?")) {
+        if (DialogHelper.confirmAlert("Are you sure you want to delete the user?")) {
             User selectedUser = users.getSelectionModel().getSelectedItem();
             if (UserService.deleteUser(selectedUser)) {
                 users.getItems().remove(selectedUser);
             } else {
-                AlertHelper.showErrorAlert("Could not be removed!");
+                DialogHelper.showErrorAlert("Could not be removed!");
             }
         }
     }
@@ -128,7 +128,7 @@ public class UserController {
             messages.add("Location must be selected!");
         }
         if (messages.size() > 0) {
-            AlertHelper.showErrorAlert(messages);
+            DialogHelper.showErrorAlert(messages);
             return false;
         }
         return true;

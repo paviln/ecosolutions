@@ -1,5 +1,6 @@
 package dk.ecosolutions.oms.persistence.database;
 
+import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
 
 import java.sql.*;
@@ -18,7 +19,7 @@ public class OrderDoa implements Dao<Order> {
             ResultSet rs = stmt.executeQuery("SELECT * FROM orders");
             List<Order> orders = new ArrayList<Order>();
             while (rs.next()) {
-                Order order = extractLocation(rs);
+                Order order = extractOrder(rs);
                 orders.add(order);
             }
             connection.close();
@@ -35,7 +36,7 @@ public class OrderDoa implements Dao<Order> {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (status, location_id, created_at, user_id, customer_id)  VALUES (?,?,?,?,?)");
             ps.setInt(1, order.getStatus());
             ps.setInt(2, order.getLocation().getId());
-            ps.setTimestamp(3,order.getCreated_at());
+            ps.setTimestamp(3, order.getCreated_at());
             ps.setInt(4, order.getUser_id());
             ps.setInt(5, order.getCustomer_id());
             ps.execute();
@@ -53,7 +54,7 @@ public class OrderDoa implements Dao<Order> {
             ps.setInt(2, order.getId());
             ps.execute();
             connection.close();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -68,13 +69,21 @@ public class OrderDoa implements Dao<Order> {
         } catch (Exception e) {
 
         }
-
     }
-    private Order extractLocation(ResultSet rs)  {
+
+    private Order extractOrder(ResultSet rs) {
         try {
             Order order = new Order();
             order.setId(rs.getInt("id"));
             order.setStatus(rs.getInt("status"));
+            ItemDao itemDao = new ItemDao();
+            List<Item> items = new ArrayList<>();
+            for (Item item : itemDao.all()) {
+                if (item.getOrder_id() == order.getId()) {
+                    items.add(item);
+                }
+            }
+            order.setItems(items);
             LocationDao locationDao = new LocationDao();
             order.setLocation(locationDao.get(rs.getInt("location_id")));
             order.setCreated_at(rs.getTimestamp("created_at"));

@@ -2,7 +2,7 @@ package dk.ecosolutions.oms.application.controllers;
 
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.service.OrderService;
-import dk.ecosolutions.oms.service.helpers.AlertHelper;
+import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -44,16 +44,17 @@ public class OrderController {
     public void save() {
         Order order = new Order();
         if (status.getText().isEmpty() || customerID.getText().isEmpty()) {
-            AlertHelper.showInformationAlert("One of the field is empty");
+            DialogHelper.showInformationAlert("One of the field is empty");
         } else {
             order.setStatus(Integer.parseInt(status.getText()));
             order.setLocation(WelcomeController.getAuthenticatedUser().getLocation());
             order.setCreated_at(new Timestamp(System.currentTimeMillis()));
-            /* NEW */order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
+            /* NEW */
+            order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
             order.setCustomer_id(Integer.parseInt(customerID.getText()));
             OrderService.addOrder(order);
             orderTable.getItems().add(order);
-            AlertHelper.showInformationAlert("Saved Successfully");
+            DialogHelper.showInformationAlert("Saved Successfully");
         }
         status.clear();
         customerID.clear();
@@ -64,7 +65,7 @@ public class OrderController {
         Order order = orderTable.getSelectionModel().getSelectedItem();
         if (order != null) {
 
-            if (AlertHelper.confirmAlert("Confirm if You want to delete")) {
+            if (DialogHelper.confirmAlert("Confirm if You want to delete")) {
                 OrderService.deleteOrder(order);
                 Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
                 orderTable.getItems().remove(selectedOrder);
@@ -87,7 +88,7 @@ public class OrderController {
         Order order = orderTable.getSelectionModel().getSelectedItem();
         if (order != null) {
             order.setStatus(Integer.parseInt(status.getText()));
-            AlertHelper.showInformationAlert("updated");
+            DialogHelper.showInformationAlert("updated");
             OrderService.updateOrder(order);
         }
     }

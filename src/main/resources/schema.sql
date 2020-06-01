@@ -64,14 +64,6 @@ CREATE TABLE orders
     customer_id int FOREIGN KEY REFERENCES customers(id)
 )
 
-CREATE TABLE comments
-(
-    type VARCHAR(255) NOT NULL,
-    value VARCHAR(255) NOT NULL,
-    created_at datetime  NOT NULL,
-    orders_id int FOREIGN KEY REFERENCES orders(id)
-)
-
 CREATE TABLE clothes
 (
     id int IDENTITY(1,1) PRIMARY KEY,
@@ -81,13 +73,8 @@ CREATE TABLE clothes
 CREATE TABLE items
 (
     id int IDENTITY(1,1) PRIMARY KEY,
-    clothes_id int FOREIGN KEY REFERENCES clothes(id)
-)
-
-CREATE TABLE orders_items
-(
-    orders_id int FOREIGN KEY REFERENCES orders(id),
-    items_id int FOREIGN KEY REFERENCES items(id)
+    order_id int FOREIGN KEY REFERENCES orders(id),
+    clothe_id int FOREIGN KEY REFERENCES clothes(id)
 )
 
 -- Insert information

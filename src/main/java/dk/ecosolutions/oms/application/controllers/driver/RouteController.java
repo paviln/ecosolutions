@@ -1,10 +1,12 @@
 package dk.ecosolutions.oms.application.controllers.driver;
 
+import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.domain.Route;
 import dk.ecosolutions.oms.service.LocationService;
 import dk.ecosolutions.oms.service.OrderService;
+import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,8 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-
-import java.util.List;
 
 /**
  * Handles the order transport steps, from start to delivery.
@@ -23,39 +23,51 @@ import java.util.List;
  */
 public class RouteController {
     @FXML
-    private TableView<Route> routes;
-
-    @FXML
     private BorderPane routesIndex, routesView, routesProcess;
     @FXML
-    private TableColumn<Route, String> locationColumn;
+    private TableView<Location> locations;
     @FXML
-    private TableColumn<Route, Integer> orderColumn;
+    private TableColumn<Location, String> nameColumn;
+    @FXML
+    private TableView<Order> orders;
+    @FXML
+    private TableColumn<Route, String> orderIdColumn;
+    @FXML
+    private TableView<Item> items;
+    @FXML
+    private TableColumn<Item, String> itemIdColumn;
+
     @FXML
     public void initialize() {
         // Define the table view cell type
-        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        orderColumn.setCellValueFactory(new PropertyValueFactory<>("orders"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        List<Location> locations = LocationService.allLocations();
-        if (locations != null) {
-            for (Location location : locations) {
-                List<Order> order = OrderService.allOrder(1, location);
-
-                if (order != null && order.size() > 0) {
-                    Route route = new Route();
-                    route.setLocation(location.getName());
-                    route.setOrders(order.size());
-                    routes.getItems().add(route);
-                }
-            }
-        }
+        locations.getItems().addAll(LocationService.allLocations());
     }
 
     @FXML
     public void start() {
-        Route route = routes.getSelectionModel().getSelectedItem();
+        Location location = locations.getSelectionModel().getSelectedItem();
+        orders.getItems().clear();
+        orders.getItems().addAll(OrderService.allOrder(1, location));
+        viewToDisplay("view");
+    }
 
+    @FXML
+    public void startOrder() {
+        Order order = orders.getSelectionModel().getSelectedItem();
+        items.getItems().clear();
+        for (Item item : order.getItems()) {
+            items.getItems().add(item);
+        }
+        viewToDisplay("process");
+    }
+
+    @FXML
+    public void scan() {
+        Order order = orders.getSelectionModel().getSelectedItem();
+        DialogHelper.inputDialog("Scan", "Insert item ID", "ID:");
     }
 
     @FXML
