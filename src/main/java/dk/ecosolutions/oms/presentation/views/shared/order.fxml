@@ -9,67 +9,85 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.OrderController">
-    <children>
-        <Label layoutX="20.0" layoutY="76.0" text="Status">
-            <font>
-                <Font name="System Bold" size="15.0" />
-            </font>
-        </Label>
-        <TextField fx:id="status" layoutX="113.0" layoutY="71.0" styleClass="AsstButtonField" />
-        <Label layoutX="20.0" layoutY="121.0" text="Customer ID">
-            <font>
-                <Font name="System Bold" size="15.0" />
-            </font>
-        </Label>
-        <TextField fx:id="customerID" layoutX="113.0" layoutY="116.0" styleClass="AsstButtonField" />
-        <TableView fx:id="orderTable" layoutY="192.0" onMousePressed="#show" prefHeight="152.0" prefWidth="600.0" style="-fx-border-color: #00bfff;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="192.0">
-            <columns>
-                <TableColumn fx:id="col_id" prefWidth="98.0" text="ID" />
-                <TableColumn fx:id="col_status" prefWidth="82.0" text="Status" />
-                <TableColumn fx:id="col_dateTime" prefWidth="193.0" text="Date and Time" />
-                <TableColumn fx:id="col_userID" prefWidth="102.0" text="UserID" />
-                <TableColumn fx:id="col_customerID" prefWidth="122.0" text="CustomerID" />
-            </columns>
-        </TableView>
-      <HBox layoutX="737.0" layoutY="152.0" prefHeight="33.0" prefWidth="249.0">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.OrderController">
+   <children>
+      <AnchorPane fx:id="orderIndex" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css">
          <children>
-              <Button mnemonicParsing="false" onAction="#save" text="Save ">
-                  <font>
-                      <Font name="System Bold" size="15.0" />
-                  </font>
-               <styleClass>
-                  <String fx:value="btn" />
-                  <String fx:value="btn-success" />
-               </styleClass>
-              </Button>
-              <Button mnemonicParsing="false" onAction="#update" text="Update ">
-                  <font>
-                      <Font name="System Bold" size="15.0" />
-                  </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-               <styleClass>
-                  <String fx:value="btn" />
-                  <String fx:value="btn-primary" />
-               </styleClass>
-              </Button>
-              <Button mnemonicParsing="false" onAction="#delete" text="Delete ">
-                  <font>
-                      <Font name="System Bold" size="15.0" />
-                  </font>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-               <styleClass>
-                  <String fx:value="btn" />
-                  <String fx:value="btn-danger" />
-               </styleClass>
-              </Button>
+            <Label layoutX="20.0" layoutY="76.0" text="Status">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="status" layoutX="113.0" layoutY="71.0" styleClass="AsstButtonField" />
+            <Label layoutX="20.0" layoutY="121.0" text="Customer ID">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="customerID" layoutX="113.0" layoutY="116.0" styleClass="AsstButtonField" />
+            <TableView fx:id="orderTable" layoutY="192.0" onMousePressed="#show" prefHeight="152.0" prefWidth="600.0" style="-fx-border-color: #00bfff;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="192.0">
+               <columns>
+                  <TableColumn fx:id="col_id" prefWidth="98.0" text="ID" />
+                  <TableColumn fx:id="col_status" prefWidth="82.0" text="Status" />
+                  <TableColumn fx:id="col_dateTime" prefWidth="193.0" text="Date and Time" />
+                  <TableColumn fx:id="col_userID" prefWidth="102.0" text="UserID" />
+                  <TableColumn fx:id="col_customerID" prefWidth="122.0" text="CustomerID" />
+               </columns>
+            </TableView>
+            <HBox layoutX="615.0" layoutY="147.0" prefHeight="33.0" prefWidth="371.0">
+               <children>
+                  <Button fx:id="create" mnemonicParsing="false" onAction="#changeDisplay" prefHeight="33.0" prefWidth="204.0" text="Add Order">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-success" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#save" text="Save ">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-success" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#update" text="Update ">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-primary" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#delete" text="Delete ">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-danger" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </HBox>
          </children>
-      </HBox>
-    </children>
-</AnchorPane>
+      </AnchorPane>
+      <AnchorPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0" visible="false" />
+   </children>
+</StackPane>

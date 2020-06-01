@@ -3,15 +3,21 @@ package dk.ecosolutions.oms.application.controllers;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.service.OrderService;
 import dk.ecosolutions.oms.service.helpers.DialogHelper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import java.sql.Timestamp;
 
 public class OrderController {
+    @FXML
+    private AnchorPane orderIndex, orderCreate;
+
     @FXML
     private TextField status;
 
@@ -90,6 +96,27 @@ public class OrderController {
             order.setStatus(Integer.parseInt(status.getText()));
             DialogHelper.showInformationAlert("updated");
             OrderService.updateOrder(order);
+        }
+    }
+
+
+    @FXML
+    public void changeDisplay(ActionEvent event) {
+        Button btn = (Button) event.getSource();
+        viewToDisplay(btn.getId());
+    }
+
+    private void viewToDisplay(String name) {
+        orderIndex.setVisible(false);
+        orderCreate.setVisible(false);
+
+        switch (name) {
+            case "index":
+                orderIndex.setVisible(true);
+                break;
+            case "create":
+                orderCreate.setVisible(true);
+                break;
         }
     }
 }
