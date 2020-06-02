@@ -24,9 +24,9 @@ public class RouteController {
     @FXML
     private BorderPane routesIndex, routesView, routesProcess;
     @FXML
-    private TableView<Location> locations;
+    private TableView<Location> pickup, delivery;
     @FXML
-    private TableColumn<Location, String> locationName;
+    private TableColumn<Location, String> pickupName, deliveryName;
     @FXML
     private TableView<Order> orders;
     @FXML
@@ -40,11 +40,16 @@ public class RouteController {
     @FXML
     private TableColumn<Item, String> itemQuantity;
 
-
+    /**
+     * Called after fxml is loaded
+     */
     @FXML
     public void initialize() {
-        // Locations table view
-        locationName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        // Pickup table view
+        pickupName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        // Delivery table view
+        deliveryName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         // Orders table view
         orderId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -54,20 +59,31 @@ public class RouteController {
         itemCloth.setCellValueFactory(new PropertyValueFactory<>("cloth"));
         itemQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-
-        locations.getItems().addAll(LocationService.allLocationsWithOrders(1));
+        pickup.getItems().addAll(LocationService.allLocationsWithOrders(1));
+        delivery.getItems().addAll(LocationService.allLocationsWithOrders(4));
     }
 
+    /**
+     * View selected location orders.
+     */
     @FXML
     public void startLocation() {
-        if (locations.getSelectionModel().getSelectedItem() != null) {
-            Location location = locations.getSelectionModel().getSelectedItem();
+        if (pickup.getSelectionModel().getSelectedItem() != null) {
+            Location location = pickup.getSelectionModel().getSelectedItem();
             orders.getItems().clear();
             orders.getItems().addAll(OrderService.allOrder(1, location));
+            viewToDisplay("view");
+        } else if (delivery.getSelectionModel().getSelectedItem() != null) {
+            Location location = delivery.getSelectionModel().getSelectedItem();
+            orders.getItems().clear();
+            orders.getItems().addAll(OrderService.allOrder(4, location));
             viewToDisplay("view");
         }
     }
 
+    /**
+     * View selected order items.
+     */
     @FXML
     public void startOrder() {
         if (orders.getSelectionModel().getSelectedItem() != null) {
@@ -78,42 +94,67 @@ public class RouteController {
         }
     }
 
+    /**
+     * Update status of selected order.
+     */
     @FXML
     public void scan() {
         if (items.getSelectionModel().getSelectedItem() != null) {
             Order order = orders.getSelectionModel().getSelectedItem();
             String value = DialogHelper.inputDialog("Scan", "Insert item ID", "ID:");
+
+            boolean isValid = false;
             if (value != null) {
                 for (Item item : order.getItems()) {
                     if (item.getId() == Integer.parseInt(value)) {
                         items.getItems().remove(item);
-                        DialogHelper.showInformationAlert("Item complete");
-                    } else {
-                        DialogHelper.showErrorAlert("Wrong item id");
+                        isValid = true;
+                        break;
                     }
                 }
-            }
-            if (items.getItems().size() == 0) {
-                order.setStatus(order.getStatus() + 1);
-                OrderService.updateOrder(order);
-                DialogHelper.showInformationAlert("Order complete");
-                if (orders.getItems().size() == 1) {
-                    locations.getItems().remove(locations.getSelectionModel().getSelectedItem());
-                    viewToDisplay("index");
+                if (isValid) {
+                    DialogHelper.showInformationAlert("Item complete!");
                 } else {
-                    orders.getItems().remove(order);
-                    viewToDisplay("view");
+                    DialogHelper.showErrorAlert("Wrong item id!");
+                }
+                if (items.getItems().size() < 1) {
+                    order.setStatus(order.getStatus() + 1);
+                    OrderService.updateOrder(order);
+                    DialogHelper.showInformationAlert("Order complete");
+                    if (orders.getItems().size() == 1) {
+                        if (pickup.getSelectionModel().getSelectedItem() != null) {
+                            pickup.getItems().remove(pickup.getSelectionModel().getSelectedItem());
+                            System.out.printf("p");
+                        } else if (delivery.getSelectionModel().getSelectedItem() != null) {
+                            delivery.getItems().remove(delivery.getSelectionModel().getSelectedItem());
+                            System.out.printf("d");
+                        }
+                        viewToDisplay("index");
+                    } else {
+                        orders.getItems().remove(order);
+                        viewToDisplay("view");
+                    }
                 }
             }
         }
     }
 
+    /**
+     * Get view to be changed to.
+     *
+     * @param event button click event.
+     */
     @FXML
     public void changeDisplay(ActionEvent event) {
         Button btn = (Button) event.getSource();
         viewToDisplay(btn.getId());
     }
 
+    /**
+     * Change displayed view to corresponding view.
+     *
+     * @param name view to be displayed.
+     */
     private void viewToDisplay(String name) {
         routesIndex.setVisible(false);
         routesView.setVisible(false);
