@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -9,26 +8,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.OrderController">
    <children>
-      <AnchorPane fx:id="orderIndex" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css">
+      <AnchorPane fx:id="orderIndex" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css" visible="false">
          <children>
-            <Label layoutX="20.0" layoutY="76.0" text="Status">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-            <TextField fx:id="status" layoutX="113.0" layoutY="71.0" styleClass="AsstButtonField" />
-            <Label layoutX="20.0" layoutY="121.0" text="Customer ID">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-            <TextField fx:id="customerID" layoutX="113.0" layoutY="116.0" styleClass="AsstButtonField" />
             <TableView fx:id="orderTable" layoutY="192.0" onMousePressed="#show" prefHeight="152.0" prefWidth="600.0" style="-fx-border-color: #00bfff;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="192.0">
                <columns>
                   <TableColumn fx:id="col_id" prefWidth="98.0" text="ID" />
@@ -38,66 +24,35 @@
                   <TableColumn fx:id="col_customerID" prefWidth="122.0" text="CustomerID" />
                </columns>
             </TableView>
-            <HBox layoutX="594.0" layoutY="147.0" prefHeight="33.0" prefWidth="392.0">
-               <children>
-                  <Button fx:id="create" mnemonicParsing="false" onAction="#changeDisplay" prefHeight="33.0" prefWidth="107.0" text="Add Order">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="btn" />
-                        <String fx:value="btn-success" />
-                     </styleClass>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#save" text="Save ">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="btn" />
-                        <String fx:value="btn-success" />
-                     </styleClass>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#update" prefHeight="33.0" prefWidth="85.0" text="Update ">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <styleClass>
-                        <String fx:value="btn" />
-                        <String fx:value="btn-primary" />
-                     </styleClass>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#delete" text="Delete ">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <styleClass>
-                        <String fx:value="btn" />
-                        <String fx:value="btn-danger" />
-                     </styleClass>
-                  </Button>
-               </children>
-            </HBox>
+            <Button fx:id="create" layoutX="879.0" layoutY="152.0" mnemonicParsing="false" onAction="#changeDisplay" prefHeight="33.0" prefWidth="107.0" text="Add Order">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-success" />
+               </styleClass>
+            </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <AnchorPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <ChoiceBox fx:id="clothes" layoutX="219.0" layoutY="116.0" prefWidth="150.0" />
-            <TextField fx:id="customerId" layoutX="219.0" layoutY="71.0" />
-            <Button fx:id="index" layoutX="773.0" layoutY="249.0" mnemonicParsing="false" onAction="#changeDisplay" text="Back" />
-            <Label layoutX="102.0" layoutY="76.0" text="Customer ID" />
-            <Label layoutX="102.0" layoutY="122.0" text="Clothes" />
-            <Label layoutX="102.0" layoutY="174.0" text="Quantity" />
-            <TextField fx:id="quantity" layoutX="211.0" layoutY="169.0" />
+            <ChoiceBox fx:id="clothes" layoutX="155.0" layoutY="94.0" prefWidth="150.0" />
+            <TextField fx:id="customerId" layoutX="155.0" layoutY="35.0" />
+            <Button fx:id="index" layoutX="900.0" layoutY="20.0" mnemonicParsing="false" onAction="#changeDisplay" text="Back" />
+            <Label layoutX="38.0" layoutY="40.0" text="Customer ID" />
+            <Label layoutX="38.0" layoutY="100.0" text="Clothes" />
+            <Label layoutX="38.0" layoutY="152.0" text="Quantity" />
+            <TextField fx:id="quantity" layoutX="147.0" layoutY="147.0" />
+            <Button fx:id="addItem" layoutX="795.0" layoutY="20.0" mnemonicParsing="false" onAction="#addClothes" text="Add Order" />
+            <TableView fx:id="items" layoutX="12.0" layoutY="217.0" prefHeight="200.0" prefWidth="975.0">
+              <columns>
+                <TableColumn prefWidth="206.0" text="Clothe" />
+                <TableColumn minWidth="0.0" prefWidth="199.0" text="Quantity" />
+              </columns>
+            </TableView>
+            <Button fx:id="addItem" layoutX="797.0" layoutY="178.0" mnemonicParsing="false" text="Add Item" />
+            <Button fx:id="deleteItem" layoutX="900.0" layoutY="178.0" mnemonicParsing="false" text="Delete Item" />
          </children></AnchorPane>
    </children>
 </StackPane>

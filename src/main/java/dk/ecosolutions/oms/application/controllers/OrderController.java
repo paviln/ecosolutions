@@ -1,8 +1,11 @@
 package dk.ecosolutions.oms.application.controllers;
 
+import dk.ecosolutions.oms.domain.Clothes;
 import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
+import dk.ecosolutions.oms.service.ItemService;
 import dk.ecosolutions.oms.service.OrderService;
+import dk.ecosolutions.oms.service.helpers.ClothesService;
 import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +32,7 @@ public class OrderController {
     @FXML
     private TableColumn<Order, Timestamp> col_dateTime;
     @FXML
-    private ChoiceBox<Item> clothes;
+    private ChoiceBox<Clothes> clothes;
 
     @FXML
     public void initialize() {
@@ -39,7 +42,7 @@ public class OrderController {
         col_userID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("user_id"));
         col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
         orderTable.getItems().addAll(OrderService.allOrder());
-        clothes.getItems().addAll();
+        clothes.getItems().addAll(ClothesService.allClothes());
     }
 
     @FXML
@@ -114,5 +117,8 @@ public class OrderController {
                 orderCreate.setVisible(true);
                 break;
         }
+    }
+
+    public void addClothes() {
     }
 }
