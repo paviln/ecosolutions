@@ -33,6 +33,7 @@ public class OrderItems {
             Item item = new Item();
             item.setId(rs.getInt("id"));
             item.setQuantity(rs.getInt("quantity"));
+            item.setOrder_id(rs.getInt("order_id"));
             item.setClothe_id(rs.getInt("clothe_id"));
             return item;
         } catch (Exception e) {

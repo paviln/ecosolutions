@@ -44,14 +44,14 @@
             <Label layoutX="38.0" layoutY="100.0" text="Clothes" />
             <Label layoutX="38.0" layoutY="152.0" text="Quantity" />
             <TextField fx:id="quantity" layoutX="147.0" layoutY="147.0" />
-            <Button fx:id="addItem" layoutX="795.0" layoutY="20.0" mnemonicParsing="false" onAction="#addClothes" text="Add Order" />
-            <TableView fx:id="items" layoutX="12.0" layoutY="217.0" prefHeight="200.0" prefWidth="975.0">
+            <Button fx:id="addItem" layoutX="795.0" layoutY="20.0" mnemonicParsing="false" text="Add Order" />
+            <TableView fx:id="itemsTable" layoutX="12.0" layoutY="217.0" prefHeight="200.0" prefWidth="975.0">
               <columns>
-                <TableColumn prefWidth="206.0" text="Clothe" />
-                <TableColumn minWidth="0.0" prefWidth="199.0" text="Quantity" />
+                <TableColumn fx:id="col_clothe" prefWidth="206.0" text="Clothe" />
+                <TableColumn fx:id="col_quantity" minWidth="0.0" prefWidth="199.0" text="Quantity" />
               </columns>
             </TableView>
-            <Button fx:id="addItem" layoutX="797.0" layoutY="178.0" mnemonicParsing="false" text="Add Item" />
+            <Button fx:id="addItem" layoutX="797.0" layoutY="178.0" mnemonicParsing="false" onAction="#addClothes" text="Add Item" />
             <Button fx:id="deleteItem" layoutX="900.0" layoutY="178.0" mnemonicParsing="false" text="Delete Item" />
          </children></AnchorPane>
    </children>

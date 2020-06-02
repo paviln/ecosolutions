@@ -3,6 +3,7 @@ package dk.ecosolutions.oms.domain;
 public class Item {
     private int id;
     private int quantity;
+    private int order_id;
     private int clothe_id;
 
     public Item() {
@@ -30,5 +31,11 @@ public class Item {
 
     public void setClothe_id(int clothes_id) {
         this.clothe_id = clothes_id;
+    }
+    public int getOrder_id(){
+        return order_id;
+    }
+    public void setOrder_id(int order_id){
+        this.order_id = order_id;
     }
 }

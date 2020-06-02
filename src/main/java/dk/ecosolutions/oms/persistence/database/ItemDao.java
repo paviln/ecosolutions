@@ -38,10 +38,13 @@ public class ItemDao implements Dao<Item> {
     public void save(Item item) {
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO items (id, order_id, clothe_id) VALUES (?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO items (id, quantity, order_id, clothe_id) VALUES (?, ?, ?, ?)");
             ps.setInt(1, item.getId());
-            ps.setInt(2, item.getClothe_id());
-
+            ps.setInt(2, item.getQuantity());
+            ps.setInt(3, item.getOrder_id());
+            ps.setInt(4, item.getClothe_id());
+            ps.execute();
+            connection.close();
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -33,6 +33,17 @@ public class OrderController {
     private TableColumn<Order, Timestamp> col_dateTime;
     @FXML
     private ChoiceBox<Clothes> clothes;
+    @FXML
+    private TableView<Item> itemsTable;
+    @FXML
+    private TableColumn<Item, String> col_clothe;
+    @FXML
+    private TableColumn<Item, Integer> col_quantity;
+    @FXML
+    private TextField customerId;
+    @FXML
+    private TextField quantity;
+
 
     @FXML
     public void initialize() {
@@ -43,11 +54,16 @@ public class OrderController {
         col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
         orderTable.getItems().addAll(OrderService.allOrder());
         clothes.getItems().addAll(ClothesService.allClothes());
+
+        col_clothe.setCellValueFactory(new PropertyValueFactory<Item, String>("clothe_id"));
+        col_quantity.setCellValueFactory(new PropertyValueFactory<Item, Integer>("Quantity"));
+        itemsTable.getItems().addAll(ItemService.allItem());
     }
 
     @FXML
     public void save() {
         Order order = new Order();
+        Item item = new Item();
         if (status.getText().isEmpty() || customerID.getText().isEmpty()) {
             DialogHelper.showInformationAlert("One of the field is empty");
         } else {
@@ -59,6 +75,9 @@ public class OrderController {
             order.setCustomer_id(Integer.parseInt(customerID.getText()));
             OrderService.addOrder(order);
             orderTable.getItems().add(order);
+            /* NEW FOR ITEM */
+            item.setQuantity(Integer.parseInt(quantity.getText()));
+
             DialogHelper.showInformationAlert("Saved Successfully");
         }
         status.clear();
