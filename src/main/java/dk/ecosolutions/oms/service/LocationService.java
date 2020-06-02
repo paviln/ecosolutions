@@ -6,6 +6,7 @@ import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.persistence.database.AddressDao;
 import dk.ecosolutions.oms.persistence.database.LocationDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocationService {
@@ -25,6 +26,17 @@ public class LocationService {
     public static List<Location> allLocations() {
         LocationDao locationDao = new LocationDao();
         return locationDao.all();
+    }
+
+    public static List<Location> allLocationsWithOrders(int status) {
+        List<Location> locations = new ArrayList<>();
+        LocationDao locationDao = new LocationDao();
+        for (Location location : locationDao.all()) {
+            if (OrderService.allOrder(status, location).size() > 0) {
+                locations.add(location);
+            }
+        }
+        return locations;
     }
 
     public static void updateLocation(Location location) {

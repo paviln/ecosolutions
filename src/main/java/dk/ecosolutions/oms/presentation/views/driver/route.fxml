@@ -19,7 +19,7 @@
                     <children>
                         <TableView fx:id="locations" prefHeight="400.0" prefWidth="960.0">
                             <columns>
-                                <TableColumn fx:id="nameColumn" prefWidth="195.0" text="Location" />
+                                <TableColumn fx:id="locationName" prefWidth="195.0" text="Location" />
                             </columns>
                         </TableView>
                     </children>
@@ -29,19 +29,19 @@
                 <HBox alignment="CENTER_RIGHT" prefHeight="15.0" prefWidth="580.0" BorderPane.alignment="CENTER">
                     <children>
                         <Label styleClass="title" text="Routes" />
-                  <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="505.0" HBox.hgrow="ALWAYS">
-                     <children>
-                              <Button mnemonicParsing="false" onAction="#start" text="Start">
-                                  <HBox.margin>
-                                      <Insets left="10.0" />
-                                  </HBox.margin>
-                           <styleClass>
-                              <String fx:value="btn" />
-                              <String fx:value="btn-primary" />
-                           </styleClass>
-                              </Button>
-                     </children>
-                  </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="505.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#startLocation" text="Start Location">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                    <styleClass>
+                                        <String fx:value="btn" />
+                                        <String fx:value="btn-success" />
+                                    </styleClass>
+                                </Button>
+                            </children>
+                        </HBox>
                     </children>
                     <BorderPane.margin>
                         <Insets bottom="10.0" top="10.0" />
@@ -49,99 +49,100 @@
                 </HBox>
             </top>
         </BorderPane>
-      <BorderPane fx:id="routesView" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
-         <top>
-            <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="980.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label styleClass="title" text="Orders" />
-                  <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="505.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#startOrder" text="Start Order">
-                           <styleClass>
-                              <String fx:value="btn" />
-                              <String fx:value="btn-success" />
-                           </styleClass>
-                        </Button>
-                        <Button fx:id="index" mnemonicParsing="false" onAction="#changeDisplay" text="Back">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                           <styleClass>
-                              <String fx:value="btn" />
-                              <String fx:value="btn-primary" />
-                           </styleClass>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </BorderPane.margin>
-            </HBox>
-         </top>
-         <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <TableView fx:id="orders" prefHeight="400.0" prefWidth="960.0">
-                     <columns>
-                        <TableColumn fx:id="orderIdColumn" prefWidth="195.0" text="Id" />
-                     </columns>
-                  </TableView>
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
-      <BorderPane fx:id="routesProcess" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
-         <top>
-            <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="980.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label styleClass="title" text="Items" />
-                  <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="505.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#scan" text="Scan">
-                           <styleClass>
-                              <String fx:value="btn" />
-                              <String fx:value="btn-success" />
-                           </styleClass>
-                        </Button>
-                        <Button fx:id="view" mnemonicParsing="false" onAction="#changeDisplay" text="Back">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                           <styleClass>
-                              <String fx:value="btn" />
-                              <String fx:value="btn-primary" />
-                           </styleClass>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </BorderPane.margin>
-            </HBox>
-         </top>
-         <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <TableView fx:id="items" prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn fx:id="itemIdColumn" editable="false" prefWidth="485.0" sortable="false" text="ID" />
-                      <TableColumn editable="false" prefWidth="493.0" sortable="false" text="Cloth" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
+        <BorderPane fx:id="routesView" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
+            <top>
+                <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="980.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label styleClass="title" text="Orders" />
+                        <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="505.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#startOrder" text="Start Order">
+                                    <styleClass>
+                                        <String fx:value="btn" />
+                                        <String fx:value="btn-success" />
+                                    </styleClass>
+                                </Button>
+                                <Button fx:id="index" mnemonicParsing="false" onAction="#changeDisplay" text="Back">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                    <styleClass>
+                                        <String fx:value="btn" />
+                                        <String fx:value="btn-primary" />
+                                    </styleClass>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </top>
+            <center>
+                <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <TableView fx:id="orders" prefHeight="400.0" prefWidth="960.0">
+                            <columns>
+                                <TableColumn fx:id="orderId" prefWidth="195.0" text="Id" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+        <BorderPane fx:id="routesProcess" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
+            <top>
+                <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="980.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label styleClass="title" text="Items" />
+                        <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="505.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#scan" text="Scan">
+                                    <styleClass>
+                                        <String fx:value="btn" />
+                                        <String fx:value="btn-success" />
+                                    </styleClass>
+                                </Button>
+                                <Button fx:id="view" mnemonicParsing="false" onAction="#changeDisplay" text="Back">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                    <styleClass>
+                                        <String fx:value="btn" />
+                                        <String fx:value="btn-primary" />
+                                    </styleClass>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </top>
+            <center>
+                <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <TableView fx:id="items" prefHeight="200.0" prefWidth="200.0">
+                            <columns>
+                                <TableColumn fx:id="itemId" editable="false" prefWidth="485.0" sortable="false" text="ID" />
+                                <TableColumn fx:id="itemCloth" editable="false" prefWidth="493.0" sortable="false" text="Cloth" />
+                        <TableColumn fx:id="itemQuantity" editable="false" prefWidth="493.0" sortable="false" text="Quantity" />
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
+                        </TableView>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
     </children>
 </StackPane>

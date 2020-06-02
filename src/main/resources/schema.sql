@@ -73,6 +73,7 @@ CREATE TABLE clothes
 CREATE TABLE items
 (
     id int IDENTITY(1,1) PRIMARY KEY,
+    quantity int NOT NULL,
     order_id int FOREIGN KEY REFERENCES orders(id),
     clothe_id int FOREIGN KEY REFERENCES clothes(id)
 )

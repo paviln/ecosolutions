@@ -3,7 +3,6 @@ package dk.ecosolutions.oms.application.controllers.driver;
 import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.domain.Order;
-import dk.ecosolutions.oms.domain.Route;
 import dk.ecosolutions.oms.service.LocationService;
 import dk.ecosolutions.oms.service.OrderService;
 import dk.ecosolutions.oms.service.helpers.DialogHelper;
@@ -27,47 +26,86 @@ public class RouteController {
     @FXML
     private TableView<Location> locations;
     @FXML
-    private TableColumn<Location, String> nameColumn;
+    private TableColumn<Location, String> locationName;
     @FXML
     private TableView<Order> orders;
     @FXML
-    private TableColumn<Route, String> orderIdColumn;
+    private TableColumn<Order, String> orderId;
     @FXML
     private TableView<Item> items;
     @FXML
-    private TableColumn<Item, String> itemIdColumn;
+    private TableColumn<Item, String> itemId;
+    @FXML
+    private TableColumn<Item, String> itemCloth;
+    @FXML
+    private TableColumn<Item, String> itemQuantity;
+
 
     @FXML
     public void initialize() {
-        // Define the table view cell type
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        orderIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        // Locations table view
+        locationName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        locations.getItems().addAll(LocationService.allLocations());
+        // Orders table view
+        orderId.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        // Items table view
+        itemId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        itemCloth.setCellValueFactory(new PropertyValueFactory<>("cloth"));
+        itemQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+
+        locations.getItems().addAll(LocationService.allLocationsWithOrders(1));
     }
 
     @FXML
-    public void start() {
-        Location location = locations.getSelectionModel().getSelectedItem();
-        orders.getItems().clear();
-        orders.getItems().addAll(OrderService.allOrder(1, location));
-        viewToDisplay("view");
+    public void startLocation() {
+        if (locations.getSelectionModel().getSelectedItem() != null) {
+            Location location = locations.getSelectionModel().getSelectedItem();
+            orders.getItems().clear();
+            orders.getItems().addAll(OrderService.allOrder(1, location));
+            viewToDisplay("view");
+        }
     }
 
     @FXML
     public void startOrder() {
-        Order order = orders.getSelectionModel().getSelectedItem();
-        items.getItems().clear();
-        for (Item item : order.getItems()) {
-            items.getItems().add(item);
+        if (orders.getSelectionModel().getSelectedItem() != null) {
+            Order order = orders.getSelectionModel().getSelectedItem();
+            items.getItems().clear();
+            items.getItems().addAll(order.getItems());
+            viewToDisplay("process");
         }
-        viewToDisplay("process");
     }
 
     @FXML
     public void scan() {
-        Order order = orders.getSelectionModel().getSelectedItem();
-        DialogHelper.inputDialog("Scan", "Insert item ID", "ID:");
+        if (items.getSelectionModel().getSelectedItem() != null) {
+            Order order = orders.getSelectionModel().getSelectedItem();
+            String value = DialogHelper.inputDialog("Scan", "Insert item ID", "ID:");
+            if (value != null) {
+                for (Item item : order.getItems()) {
+                    if (item.getId() == Integer.parseInt(value)) {
+                        items.getItems().remove(item);
+                        DialogHelper.showInformationAlert("Item complete");
+                    } else {
+                        DialogHelper.showErrorAlert("Wrong item id");
+                    }
+                }
+            }
+            if (items.getItems().size() == 0) {
+                order.setStatus(order.getStatus() + 1);
+                OrderService.updateOrder(order);
+                DialogHelper.showInformationAlert("Order complete");
+                if (orders.getItems().size() == 1) {
+                    locations.getItems().remove(locations.getSelectionModel().getSelectedItem());
+                    viewToDisplay("index");
+                } else {
+                    orders.getItems().remove(order);
+                    viewToDisplay("view");
+                }
+            }
+        }
     }
 
     @FXML

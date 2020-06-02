@@ -69,9 +69,6 @@ public class DialogHelper {
         dialog.setContentText(content);
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            return result.toString();
-        }
-        return null;
+        return result.orElse(null);
     }
 }

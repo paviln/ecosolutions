@@ -1,14 +1,16 @@
 package dk.ecosolutions.oms.persistence.database;
 
-import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDoa implements Dao<Order> {
-    public Order get(int id) throws SQLException {
+    public Order get(int id) {
         return null;
     }
 
@@ -24,7 +26,7 @@ public class OrderDoa implements Dao<Order> {
             }
             connection.close();
             return orders;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -41,8 +43,8 @@ public class OrderDoa implements Dao<Order> {
             ps.setInt(5, order.getCustomer_id());
             ps.execute();
             connection.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -55,7 +57,7 @@ public class OrderDoa implements Dao<Order> {
             ps.execute();
             connection.close();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -67,7 +69,7 @@ public class OrderDoa implements Dao<Order> {
             ps.execute();
             connection.close();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -76,14 +78,8 @@ public class OrderDoa implements Dao<Order> {
             Order order = new Order();
             order.setId(rs.getInt("id"));
             order.setStatus(rs.getInt("status"));
-            ItemDao itemDao = new ItemDao();
-            List<Item> items = new ArrayList<>();
-            for (Item item : itemDao.all()) {
-                if (item.getOrder_id() == order.getId()) {
-                    items.add(item);
-                }
-            }
-            order.setItems(items);
+            OrderItems orderItems = new OrderItems();
+            order.setItems(orderItems.all(order.getId()));
             LocationDao locationDao = new LocationDao();
             order.setLocation(locationDao.get(rs.getInt("location_id")));
             order.setCreated_at(rs.getTimestamp("created_at"));
@@ -91,7 +87,7 @@ public class OrderDoa implements Dao<Order> {
             order.setCustomer_id(rs.getInt("customer_id"));
             return order;
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return null;
     }

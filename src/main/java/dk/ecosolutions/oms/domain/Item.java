@@ -2,8 +2,8 @@ package dk.ecosolutions.oms.domain;
 
 public class Item {
     private int id;
-    private int order_id;
-    private int clothes_id;
+    private int quantity;
+    private int clothe_id;
 
     public Item() {
     }
@@ -16,19 +16,19 @@ public class Item {
         this.id = id;
     }
 
-    public int getOrder_id() {
-        return order_id;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public int getClothes_id() {
-        return clothes_id;
+    public int getClothe_id() {
+        return clothe_id;
     }
 
-    public void setClothes_id(int clothes_id) {
-        this.clothes_id = clothes_id;
+    public void setClothe_id(int clothes_id) {
+        this.clothe_id = clothes_id;
     }
 }

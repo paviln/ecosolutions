@@ -3,49 +3,29 @@ package dk.ecosolutions.oms.persistence.database;
 import dk.ecosolutions.oms.domain.Item;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDao implements Dao<Item> {
-    @Override
-    public Item get(int id) {
-        return null;
-    }
-
-    @Override
-    public List<Item> all() {
+public class OrderItems {
+    public List<Item> all(int orderId) {
         try {
-            Connection connection = Database.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM items");
+            Connection con = Database.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM items WHERE order_id = ?");
+            ps.setInt(1, orderId);
+            ResultSet rs = ps.executeQuery();
             List<Item> items = new ArrayList<>();
             while (rs.next()) {
                 Item item = extractItem(rs);
                 items.add(item);
             }
-            connection.close();
+            con.close();
             return items;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
-    }
-
-    @Override
-    public void save(Item item) {
-
-    }
-
-    @Override
-    public void update(Item item) {
-
-    }
-
-    @Override
-    public void delete(Item item) {
-
     }
 
     private Item extractItem(ResultSet rs) {
