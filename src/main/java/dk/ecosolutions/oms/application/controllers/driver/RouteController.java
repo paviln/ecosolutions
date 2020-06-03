@@ -59,8 +59,14 @@ public class RouteController {
         itemCloth.setCellValueFactory(new PropertyValueFactory<>("cloth"));
         itemQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
+        for (Location location : LocationService.allLocationsWithOrders(4)) {
+            location.setName("Depot");
+            pickup.getItems().add(location);
+        }
         pickup.getItems().addAll(LocationService.allLocationsWithOrders(1));
-        delivery.getItems().addAll(LocationService.allLocationsWithOrders(4));
+
+        delivery.getItems().addAll(LocationService.allLocationsWithOrders(2));
+        delivery.getItems().addAll(LocationService.allLocationsWithOrders(5));
     }
 
     /**
