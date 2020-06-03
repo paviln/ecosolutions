@@ -97,7 +97,7 @@ public class UserController {
 
     @FXML
     public void delete() {
-        if (DialogHelper.confirmAlert("Are you sure you want to delete the user?")) {
+        if (DialogHelper.confirmAlert("All user related orders will be deleted aswell!")) {
             User selectedUser = users.getSelectionModel().getSelectedItem();
             if (UserService.deleteUser(selectedUser)) {
                 users.getItems().remove(selectedUser);

@@ -47,6 +47,22 @@ public class OrderItems {
         return 0;
     }
 
+    public void removeOrderItems(User user) {
+        try {
+            Connection con = Database.getConnection();
+            PreparedStatement ps = con.prepareStatement("DELETE FROM items WHERE order_id = ?");
+            ps.setInt(1, user.getId());
+            ps.execute();
+            ps = con.prepareStatement("DELETE FROM orders WHERE user_id = ?");
+            ps.setInt(1, user.getId());
+            ps.execute();
+
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private Item extractItem(ResultSet rs) {
         try {
             Item item = new Item();

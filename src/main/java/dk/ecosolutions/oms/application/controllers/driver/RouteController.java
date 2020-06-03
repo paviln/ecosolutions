@@ -59,8 +59,6 @@ public class RouteController {
         itemCloth.setCellValueFactory(new PropertyValueFactory<>("cloth"));
         itemQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        pickup.getItems().addAll(LocationService.allLocationsWithOrders(1));
-
         if (LocationService.allLocationsWithOrders(4).size() > 0) {
             Location location = new Location();
             location.setId(0);
@@ -68,6 +66,7 @@ public class RouteController {
             location.setPriority(0);
             pickup.getItems().add(location);
         }
+        pickup.getItems().addAll(LocationService.allLocationsWithOrders(1));
 
         if (LocationService.allLocationsWithOrders(2).size() > 0) {
             Location location = new Location();
@@ -76,7 +75,6 @@ public class RouteController {
             location.setPriority(0);
             delivery.getItems().add(location);
         }
-
         delivery.getItems().addAll(LocationService.allLocationsWithOrders(5));
     }
 
@@ -131,10 +129,10 @@ public class RouteController {
     public void scan() {
         if (items.getSelectionModel().getSelectedItem() != null) {
             Order order = orders.getSelectionModel().getSelectedItem();
-            String value = DialogHelper.inputDialog("Scan", "Insert item ID", "ID:");
+            String value = DialogHelper.inputDialog("Scan", "Insert item ID", "ID:").trim();
 
             boolean isValid = false;
-            if (value != null) {
+            if (!value.equals("")) {
                 for (Item item : order.getItems()) {
                     if (item.getId() == Integer.parseInt(value)) {
                         items.getItems().remove(item);
@@ -159,9 +157,6 @@ public class RouteController {
 
                             pickup.getItems().remove(pickup.getSelectionModel().getSelectedItem());
                         } else if (delivery.getSelectionModel().getSelectedItem() != null) {
-                            pickup.getItems().clear();
-                            pickup.getItems().addAll(LocationService.allLocationsWithOrders(1));
-                            pickup.getItems().addAll(LocationService.allLocationsWithOrders(4));
                             delivery.getItems().remove(delivery.getSelectionModel().getSelectedItem());
                         }
                         viewToDisplay("index");
@@ -170,6 +165,8 @@ public class RouteController {
                         viewToDisplay("view");
                     }
                 }
+            } else {
+                DialogHelper.showErrorAlert("You most enter a id!");
             }
         }
     }
