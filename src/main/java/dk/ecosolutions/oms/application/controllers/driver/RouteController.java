@@ -59,13 +59,24 @@ public class RouteController {
         itemCloth.setCellValueFactory(new PropertyValueFactory<>("cloth"));
         itemQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        for (Location location : LocationService.allLocationsWithOrders(4)) {
-            location.setName("Depot");
-            pickup.getItems().add(location);
-        }
         pickup.getItems().addAll(LocationService.allLocationsWithOrders(1));
 
-        delivery.getItems().addAll(LocationService.allLocationsWithOrders(2));
+        if (LocationService.allLocationsWithOrders(4).size() > 0) {
+            Location location = new Location();
+            location.setId(0);
+            location.setName("Central");
+            location.setPriority(0);
+            pickup.getItems().add(location);
+        }
+
+        if (LocationService.allLocationsWithOrders(2).size() > 0) {
+            Location location = new Location();
+            location.setId(0);
+            location.setName("Central");
+            location.setPriority(0);
+            delivery.getItems().add(location);
+        }
+
         delivery.getItems().addAll(LocationService.allLocationsWithOrders(5));
     }
 
@@ -77,12 +88,25 @@ public class RouteController {
         if (pickup.getSelectionModel().getSelectedItem() != null) {
             Location location = pickup.getSelectionModel().getSelectedItem();
             orders.getItems().clear();
-            orders.getItems().addAll(OrderService.allOrder(1, location));
+            if (location.getId() == 0) {
+                orders.getItems().addAll(OrderService.allOrder(1));
+                orders.getItems().addAll(OrderService.allOrder(4));
+            } else {
+                orders.getItems().addAll(OrderService.allOrder(1, location));
+                orders.getItems().addAll(OrderService.allOrder(4, location));
+            }
             viewToDisplay("view");
+
         } else if (delivery.getSelectionModel().getSelectedItem() != null) {
             Location location = delivery.getSelectionModel().getSelectedItem();
             orders.getItems().clear();
-            orders.getItems().addAll(OrderService.allOrder(4, location));
+            if (location.getId() == 0) {
+                orders.getItems().addAll(OrderService.allOrder(2));
+                orders.getItems().addAll(OrderService.allOrder(5));
+            } else {
+                orders.getItems().addAll(OrderService.allOrder(2, location));
+                orders.getItems().addAll(OrderService.allOrder(5, location));
+            }
             viewToDisplay("view");
         }
     }
@@ -123,17 +147,22 @@ public class RouteController {
                 } else {
                     DialogHelper.showErrorAlert("Wrong item id!");
                 }
-                if (items.getItems().size() < 1) {
+                if (items.getItems().size() == 0) {
                     order.setStatus(order.getStatus() + 1);
                     OrderService.updateOrder(order);
                     DialogHelper.showInformationAlert("Order complete");
                     if (orders.getItems().size() == 1) {
                         if (pickup.getSelectionModel().getSelectedItem() != null) {
+                            delivery.getItems().clear();
+                            delivery.getItems().addAll(LocationService.allLocationsWithOrders(2));
+                            delivery.getItems().addAll(LocationService.allLocationsWithOrders(5));
+
                             pickup.getItems().remove(pickup.getSelectionModel().getSelectedItem());
-                            System.out.printf("p");
                         } else if (delivery.getSelectionModel().getSelectedItem() != null) {
+                            pickup.getItems().clear();
+                            pickup.getItems().addAll(LocationService.allLocationsWithOrders(1));
+                            pickup.getItems().addAll(LocationService.allLocationsWithOrders(4));
                             delivery.getItems().remove(delivery.getSelectionModel().getSelectedItem());
-                            System.out.printf("d");
                         }
                         viewToDisplay("index");
                     } else {
