@@ -57,6 +57,7 @@ public class CustomerController {
             customer.setPhone(phone.getText());
             DialogHelper.showInformationAlert("updated");
             CustomerService.updateCustomer(customer);
+            customerTable.refresh();
         }
         name.clear();
         phone.clear();

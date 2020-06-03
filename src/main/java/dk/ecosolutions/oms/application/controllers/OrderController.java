@@ -80,13 +80,16 @@ public class OrderController {
 
     @FXML
     public void delete() {
-        Order order = orderTable.getSelectionModel().getSelectedItem();
-        if (order != null) {
+        Item item = itemsTable.getSelectionModel().getSelectedItem();
+        if (item != null) {
 
             if (DialogHelper.confirmAlert("Confirm if You want to delete")) {
-                OrderService.deleteOrder(order);
-                Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
-                orderTable.getItems().remove(selectedOrder);
+               ItemService.addItem(item);
+               Item selectedItem = itemsTable.getSelectionModel().getSelectedItem();
+                itemsTable.getItems().remove(selectedItem);
+
+                clothes.getItems().clear();
+                quantity.clear();
             }
         }
     }
