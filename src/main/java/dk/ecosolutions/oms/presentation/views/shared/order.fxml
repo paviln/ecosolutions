@@ -13,9 +13,9 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.OrderController">
    <children>
-      <AnchorPane fx:id="orderIndex" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css" visible="false">
+      <AnchorPane fx:id="orderIndex" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css">
          <children>
-            <TableView fx:id="orderTable" layoutY="192.0" onMousePressed="#show" prefHeight="152.0" prefWidth="600.0" style="-fx-border-color: #00bfff;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="192.0">
+            <TableView fx:id="orderTable" layoutY="192.0" prefHeight="152.0" prefWidth="600.0" style="-fx-border-color: #00bfff;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="192.0">
                <columns>
                   <TableColumn fx:id="col_id" prefWidth="98.0" text="ID" />
                   <TableColumn fx:id="col_status" prefWidth="82.0" text="Status" />
@@ -35,7 +35,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <ChoiceBox fx:id="clothes" layoutX="155.0" layoutY="94.0" prefWidth="150.0" />
             <TextField fx:id="customerId" layoutX="155.0" layoutY="35.0" />
@@ -44,14 +44,14 @@
             <Label layoutX="38.0" layoutY="100.0" text="Clothes" />
             <Label layoutX="38.0" layoutY="152.0" text="Quantity" />
             <TextField fx:id="quantity" layoutX="147.0" layoutY="147.0" />
-            <Button fx:id="addItem" layoutX="795.0" layoutY="20.0" mnemonicParsing="false" text="Add Order" />
+            <Button layoutX="795.0" layoutY="20.0" mnemonicParsing="false" onAction="#save" text="Add Order" />
             <TableView fx:id="itemsTable" layoutX="12.0" layoutY="217.0" prefHeight="200.0" prefWidth="975.0">
               <columns>
                 <TableColumn fx:id="col_clothe" prefWidth="206.0" text="Clothe" />
                 <TableColumn fx:id="col_quantity" minWidth="0.0" prefWidth="199.0" text="Quantity" />
               </columns>
             </TableView>
-            <Button fx:id="addItem" layoutX="797.0" layoutY="178.0" mnemonicParsing="false" onAction="#addClothes" text="Add Item" />
+            <Button fx:id="addItem" layoutX="797.0" layoutY="178.0" mnemonicParsing="false" onAction="#addItem" text="Add Item" />
             <Button fx:id="deleteItem" layoutX="900.0" layoutY="178.0" mnemonicParsing="false" text="Delete Item" />
          </children></AnchorPane>
    </children>

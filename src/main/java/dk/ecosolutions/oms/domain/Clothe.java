@@ -1,14 +1,14 @@
 package dk.ecosolutions.oms.domain;
 
-public class Clothes {
+public class Clothe {
     private int id;
     private String name;
 
-    public Clothes(){
+    public Clothe(){
 
     }
 
-    public Clothes(int id, String name) {
+    public Clothe(int id, String name) {
         this.id = id;
         this.name = name;
     }

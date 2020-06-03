@@ -1,13 +1,14 @@
 package dk.ecosolutions.oms.application.controllers;
 
-import dk.ecosolutions.oms.domain.Clothes;
+import dk.ecosolutions.oms.domain.Clothe;
 import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
+import dk.ecosolutions.oms.persistence.database.OrderItems;
 import dk.ecosolutions.oms.service.ItemService;
 import dk.ecosolutions.oms.service.OrderService;
-import dk.ecosolutions.oms.service.helpers.ClothesService;
+import dk.ecosolutions.oms.service.ClothesService;
 import dk.ecosolutions.oms.service.helpers.DialogHelper;
-import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -20,10 +21,6 @@ public class OrderController {
     @FXML
     private AnchorPane orderIndex, orderCreate;
     @FXML
-    private TextField status;
-    @FXML
-    private TextField customerID;
-    @FXML
     private TableView<Order> orderTable;
     @FXML
     private TableColumn<Order, Integer> col_id, col_userID, col_customerID;
@@ -32,7 +29,7 @@ public class OrderController {
     @FXML
     private TableColumn<Order, Timestamp> col_dateTime;
     @FXML
-    private ChoiceBox<Clothes> clothes;
+    private ChoiceBox<Clothe> clothes;
     @FXML
     private TableView<Item> itemsTable;
     @FXML
@@ -55,33 +52,30 @@ public class OrderController {
         orderTable.getItems().addAll(OrderService.allOrder());
         clothes.getItems().addAll(ClothesService.allClothes());
 
-        col_clothe.setCellValueFactory(new PropertyValueFactory<Item, String>("clothe_id"));
+        col_clothe.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClothe().getName()));
         col_quantity.setCellValueFactory(new PropertyValueFactory<Item, Integer>("Quantity"));
-        itemsTable.getItems().addAll(ItemService.allItem());
     }
 
     @FXML
     public void save() {
         Order order = new Order();
-        Item item = new Item();
-        if (status.getText().isEmpty() || customerID.getText().isEmpty()) {
+        if (customerId.getText().trim().length() == 0) {
             DialogHelper.showInformationAlert("One of the field is empty");
         } else {
-            order.setStatus(Integer.parseInt(status.getText()));
+            order.setStatus(1);
             order.setLocation(WelcomeController.getAuthenticatedUser().getLocation());
             order.setCreated_at(new Timestamp(System.currentTimeMillis()));
-            /* NEW */
             order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
-            order.setCustomer_id(Integer.parseInt(customerID.getText()));
+            order.setCustomer_id(Integer.parseInt(customerId.getText()));
             OrderService.addOrder(order);
             orderTable.getItems().add(order);
-            /* NEW FOR ITEM */
-            item.setQuantity(Integer.parseInt(quantity.getText()));
+            for (Item item : itemsTable.getItems()) {
+                item.setOrder_id(OrderService.getLastOrderId());
+            }
+            ItemService.addAll(itemsTable.getItems());
 
             DialogHelper.showInformationAlert("Saved Successfully");
         }
-        status.clear();
-        customerID.clear();
     }
 
     @FXML
@@ -96,27 +90,6 @@ public class OrderController {
             }
         }
     }
-
-    /**
-     * This function shows order details in the respect field when a particular field is clicked
-     */
-    @FXML
-    public void show() {
-        Order order = orderTable.getSelectionModel().getSelectedItem();
-        status.setText(String.valueOf(order.getStatus()));
-        customerID.setText(String.valueOf(order.getCustomer_id()));
-    }
-
-    @FXML
-    public void update() {
-        Order order = orderTable.getSelectionModel().getSelectedItem();
-        if (order != null) {
-            order.setStatus(Integer.parseInt(status.getText()));
-            DialogHelper.showInformationAlert("updated");
-            OrderService.updateOrder(order);
-        }
-    }
-
 
     @FXML
     public void changeDisplay(ActionEvent event) {
@@ -138,6 +111,10 @@ public class OrderController {
         }
     }
 
-    public void addClothes() {
+    public void addItem() {
+        Item item = new Item();
+        item.setClothe(clothes.getSelectionModel().getSelectedItem());
+        item.setQuantity(Integer.parseInt(quantity.getText()));
+        itemsTable.getItems().add(item);
     }
 }

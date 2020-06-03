@@ -1,5 +1,6 @@
 package dk.ecosolutions.oms.persistence.database;
 
+import dk.ecosolutions.oms.domain.Clothe;
 import dk.ecosolutions.oms.domain.Item;
 
 import java.sql.Connection;
@@ -38,11 +39,10 @@ public class ItemDao implements Dao<Item> {
     public void save(Item item) {
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO items (id, quantity, order_id, clothe_id) VALUES (?, ?, ?, ?)");
-            ps.setInt(1, item.getId());
-            ps.setInt(2, item.getQuantity());
-            ps.setInt(3, item.getOrder_id());
-            ps.setInt(4, item.getClothe_id());
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO items (quantity, order_id, clothe_id) VALUES (?, ?, ?)");
+            ps.setInt(1, item.getQuantity());
+            ps.setInt(2, item.getOrder_id());
+            ps.setInt(3, item.getClothe().getId());
             ps.execute();
             connection.close();
         }catch (Exception e){
@@ -64,7 +64,8 @@ public class ItemDao implements Dao<Item> {
             Item item = new Item();
             item.setId(rs.getInt("id"));
             item.setQuantity(rs.getInt("quantity"));
-            item.setClothe_id(rs.getInt("clothe_id"));
+            ClothesDao clothesDao = new ClothesDao();
+            item.setClothe(clothesDao.get(rs.getInt("clothe_id")));
             return item;
         } catch (Exception e) {
             e.printStackTrace();

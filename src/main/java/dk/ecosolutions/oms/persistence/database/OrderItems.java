@@ -1,10 +1,12 @@
 package dk.ecosolutions.oms.persistence.database;
 
 import dk.ecosolutions.oms.domain.Item;
+import dk.ecosolutions.oms.domain.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,13 +30,31 @@ public class OrderItems {
         return null;
     }
 
+    public int getId() {
+        try {
+            Connection con = Database.getConnection();
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT TOP 1 * FROM orders ORDER BY ID DESC");
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                con.close();
+                return id;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     private Item extractItem(ResultSet rs) {
         try {
             Item item = new Item();
             item.setId(rs.getInt("id"));
             item.setQuantity(rs.getInt("quantity"));
             item.setOrder_id(rs.getInt("order_id"));
-            item.setClothe_id(rs.getInt("clothe_id"));
+            ClothesDao clothesDao = new ClothesDao();
+            item.setClothe(clothesDao.get(rs.getInt("clothe_id")));
             return item;
         } catch (Exception e) {
             e.printStackTrace();

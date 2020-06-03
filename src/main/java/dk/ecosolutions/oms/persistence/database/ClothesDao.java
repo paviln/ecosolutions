@@ -1,6 +1,6 @@
 package dk.ecosolutions.oms.persistence.database;
 
-import dk.ecosolutions.oms.domain.Clothes;
+import dk.ecosolutions.oms.domain.Clothe;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,50 +9,50 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClothesDao implements Dao<Clothes> {
-    public Clothes get(int id) throws SQLException{
+public class ClothesDao implements Dao<Clothe> {
+    public Clothe get(int id) throws SQLException{
         return null;
     }
 
 
-    public List<Clothes> all() {
+    public List<Clothe> all() {
         try{
             Connection connection = Database.getConnection();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM clothes");
-            List<Clothes> clothes = new ArrayList<Clothes>();
+            List<Clothe> clothes = new ArrayList<Clothe>();
             while (rs.next()){
-                Clothes clothes1 = extractClothes(rs);
-                clothes.add(clothes1);
+                Clothe clothe = extractClothes(rs);
+                clothes.add(clothe);
             }
             connection.close();
             return clothes;
-        }catch (SQLException e){
+        }catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
 
 
-    public void save(Clothes clothes)  {
+    public void save(Clothe clothe)  {
 
     }
 
 
-    public void update(Clothes clothes)  {
+    public void update(Clothe clothe)  {
 
     }
 
 
-    public void delete(Clothes clothes) {
+    public void delete(Clothe clothe) {
 
     }
-private Clothes extractClothes(ResultSet rs){
+private Clothe extractClothes(ResultSet rs){
     try{
-        Clothes clothes = new Clothes();
-        clothes.setId(rs.getInt("id"));
-        clothes.setName(rs.getString("name"));
-        return clothes;
+        Clothe clothe = new Clothe();
+        clothe.setId(rs.getInt("id"));
+        clothe.setName(rs.getString("name"));
+        return clothe;
     }catch (Exception e){
 
     }

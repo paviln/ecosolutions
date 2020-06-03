@@ -4,7 +4,7 @@ public class Item {
     private int id;
     private int quantity;
     private int order_id;
-    private int clothe_id;
+    private Clothe clothe;
 
     public Item() {
     }
@@ -25,12 +25,12 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public int getClothe_id() {
-        return clothe_id;
+    public Clothe getClothe() {
+        return clothe;
     }
 
-    public void setClothe_id(int clothes_id) {
-        this.clothe_id = clothes_id;
+    public void setClothe(Clothe clothes_id) {
+        this.clothe = clothes_id;
     }
     public int getOrder_id(){
         return order_id;

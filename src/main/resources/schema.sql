@@ -64,7 +64,7 @@ CREATE TABLE orders
     customer_id int FOREIGN KEY REFERENCES customers(id)
 )
 
-CREATE TABLE clothes
+CREATE TABLE clothe
 (
     id int IDENTITY(1,1) PRIMARY KEY,
     name VARCHAR(50) NOT NULL
@@ -75,7 +75,7 @@ CREATE TABLE items
     id int IDENTITY(1,1) PRIMARY KEY,
     quantity int NOT NULL,
     order_id int FOREIGN KEY REFERENCES orders(id),
-    clothe_id int FOREIGN KEY REFERENCES clothes(id)
+    clothe_id int FOREIGN KEY REFERENCES clothe(id)
 )
 
 -- Insert information
@@ -93,16 +93,16 @@ INSERT INTO locations (name, priority, type_id, address_id) VALUES ('EcoSolution
 INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Jesper', 'o@eco.dk', '123', '1', '1');
 INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Assis', 'a@eco.dk', '123', '2', '1');
 
-INSERT INTO clothes (name) VALUES ('Habit');
-INSERT INTO clothes (name) VALUES ('Coat');
-INSERT INTO clothes (name) VALUES ('Dress');
-INSERT INTO clothes (name) VALUES ('Suit');
-INSERT INTO clothes (name) VALUES ('Cooton coat');
-INSERT INTO clothes (name) VALUES ('Windbreaker');
-INSERT INTO clothes (name) VALUES ('Blouse');
-INSERT INTO clothes (name) VALUES ('Skirt');
-INSERT INTO clothes (name) VALUES ('Jacket');
-INSERT INTO clothes (name) VALUES ('Trousers');
-INSERT INTO clothes (name) VALUES ('Shirt');
-INSERT INTO clothes (name) VALUES ('Blankets');
-INSERT INTO clothes (name) VALUES ('Curtains');
+INSERT INTO clothe (name) VALUES ('Habit');
+INSERT INTO clothe (name) VALUES ('Coat');
+INSERT INTO clothe (name) VALUES ('Dress');
+INSERT INTO clothe (name) VALUES ('Suit');
+INSERT INTO clothe (name) VALUES ('Cooton coat');
+INSERT INTO clothe (name) VALUES ('Windbreaker');
+INSERT INTO clothe (name) VALUES ('Blouse');
+INSERT INTO clothe (name) VALUES ('Skirt');
+INSERT INTO clothe (name) VALUES ('Jacket');
+INSERT INTO clothe (name) VALUES ('Trousers');
+INSERT INTO clothe (name) VALUES ('Shirt');
+INSERT INTO clothe (name) VALUES ('Blankets');
+INSERT INTO clothe (name) VALUES ('Curtains');

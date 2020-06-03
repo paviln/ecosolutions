@@ -3,11 +3,16 @@ package dk.ecosolutions.oms.service;
 import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.persistence.database.OrderDoa;
+import dk.ecosolutions.oms.persistence.database.OrderItems;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService {
+    public static int getLastOrderId() {
+        OrderItems orderItems = new OrderItems();
+        return orderItems.getId();
+    }
     public static void addOrder(Order order) {
         OrderDoa orderDoa = new OrderDoa();
         orderDoa.save(order);
