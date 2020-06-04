@@ -20,4 +20,8 @@ public class ItemService {
         ItemDao itemDao = new ItemDao();
         return itemDao.all();
     }
+    public  static void deleteItems(Item item) {
+        ItemDao itemDao = new ItemDao();
+        itemDao.delete(item);
+    }
 }

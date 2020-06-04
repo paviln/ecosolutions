@@ -1,6 +1,7 @@
 package dk.ecosolutions.oms.application.controllers;
 
 import dk.ecosolutions.oms.domain.Clothe;
+import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.persistence.database.OrderItems;
@@ -50,7 +51,9 @@ public class OrderController {
         col_userID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("user_id"));
         col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
         orderTable.getItems().addAll(OrderService.allOrder());
+
         clothes.getItems().addAll(ClothesService.allClothes());
+        clothes.getSelectionModel().select(0);
 
         col_clothe.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClothe().getName()));
         col_quantity.setCellValueFactory(new PropertyValueFactory<Item, Integer>("Quantity"));
@@ -69,6 +72,7 @@ public class OrderController {
             order.setCustomer_id(Integer.parseInt(customerId.getText()));
             OrderService.addOrder(order);
             orderTable.getItems().add(order);
+
             for (Item item : itemsTable.getItems()) {
                 item.setOrder_id(OrderService.getLastOrderId());
             }
@@ -80,12 +84,13 @@ public class OrderController {
 
     @FXML
     public void delete() {
+
         Item item = itemsTable.getSelectionModel().getSelectedItem();
         if (item != null) {
 
             if (DialogHelper.confirmAlert("Confirm if You want to delete")) {
-               ItemService.addItem(item);
-               Item selectedItem = itemsTable.getSelectionModel().getSelectedItem();
+                ItemService.addItem(item);
+                Item selectedItem = itemsTable.getSelectionModel().getSelectedItem();
                 itemsTable.getItems().remove(selectedItem);
 
                 clothes.getItems().clear();
@@ -116,8 +121,12 @@ public class OrderController {
 
     public void addItem() {
         Item item = new Item();
-        item.setClothe(clothes.getSelectionModel().getSelectedItem());
-        item.setQuantity(Integer.parseInt(quantity.getText()));
-        itemsTable.getItems().add(item);
+        if (clothes.getItems().isEmpty() || quantity.getText().isEmpty()) {
+            DialogHelper.showErrorAlert("One of the field is empty");
+        } else {
+            item.setClothe(clothes.getSelectionModel().getSelectedItem());
+            item.setQuantity(Integer.parseInt(quantity.getText()));
+            itemsTable.getItems().add(item);
+        }
     }
 }

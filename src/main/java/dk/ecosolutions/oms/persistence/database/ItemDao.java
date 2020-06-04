@@ -56,7 +56,15 @@ public class ItemDao implements Dao<Item> {
 
 
     public void delete(Item item) {
-
+        try {
+            Connection connection = Database.getConnection();
+            PreparedStatement ps = connection.prepareStatement("DELETE * FROM items WHERE quantity = ?");
+            ps.setInt(1, item.getQuantity());
+            ps.execute();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private Item extractItem(ResultSet rs) {
