@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<BorderPane fx:id="base" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="dk.ecosolutions.oms.application.controllers.driver.DriverController">
+    <center>
+        <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                 prefHeight="575.0" prefWidth="1000.0" stylesheets="@../../css/styles.css"
+                 tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171"
+                 xmlns:fx="http://javafx.com/fxml/1">
+            <tabs>
+                <Tab text="Work">
+                    <content>
+                        <fx:include fx:id="work" source="work.fxml"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+    <top>
+        <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar prefHeight="25.0" prefWidth="918.0" HBox.hgrow="ALWAYS">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <MenuBar prefHeight="25.0" prefWidth="87.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Account">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children>
+        </HBox>
+    </top>
+</BorderPane>

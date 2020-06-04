@@ -50,6 +50,7 @@ public class UserController {
         role.getItems().add(Role.OWNER);
         role.getItems().add(Role.ASSISTENT);
         role.getItems().add(Role.DRIVER);
+        role.getItems().addAll(Role.WORKER);
 
         locations.setConverter(new StringConverter<Location>() {
             @Override

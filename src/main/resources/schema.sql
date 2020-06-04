@@ -81,7 +81,9 @@ CREATE TABLE items
 -- Insert information
 INSERT INTO roles (name) VALUES ('Owner');
 INSERT INTO roles (name) VALUES ('Assistant');
+INSERT INTO roles (name) VALUES ('Driver');
 INSERT INTO roles (name) VALUES ('Worker');
+
 
 INSERT INTO types (name) VALUES ('Cleaning Central');
 INSERT INTO types (name) VALUES ('Delivery Point');
