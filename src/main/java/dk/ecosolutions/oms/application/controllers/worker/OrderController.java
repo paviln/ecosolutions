@@ -4,6 +4,7 @@ import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.service.ItemService;
 import dk.ecosolutions.oms.service.OrderService;
+import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,8 +26,6 @@ public class OrderController {
     @FXML
     TableColumn<Order, Integer> rId, wId;
     @FXML
-    TableColumn<Order, Integer> rItems, wItems;
-    @FXML
     TableColumn<Order, Timestamp> rCreated, wCreated;
     @FXML
     TableColumn<Item, String> clothe;
@@ -41,16 +40,39 @@ public class OrderController {
         rOrders.getItems().addAll(OrderService.allOrder(3));
 
         wId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        wItems.setCellValueFactory(new PropertyValueFactory<>("created_at"));
+        wCreated.setCellValueFactory(new PropertyValueFactory<>("created_at"));
+        wOrders.getItems().addAll(OrderService.allOrder(4));
 
         clothe.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClothe().getName()));
         quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     }
 
     @FXML
+    public void start() {
+        int orderId;
+        try {
+            orderId = Integer.parseInt(DialogHelper.inputDialog("Scan Product", "Please enter order ID", "ID"));
+        } catch (NumberFormatException e) {
+            orderId = 0;
+        }
+        Order selectedOrder = rOrders.getSelectionModel().getSelectedItem();
+
+        if (selectedOrder != null && orderId == selectedOrder.getId()) {
+            selectedOrder.setStatus(selectedOrder.getStatus() + 1);
+            OrderService.updateOrder(selectedOrder);
+            rOrders.getItems().remove(selectedOrder);
+            System.out.println("Print labels");
+            wOrders.getItems().add(selectedOrder);
+        } else {
+            DialogHelper.showErrorAlert("Wrong order id!");
+        }
+    }
+
+    @FXML
     public void show() {
         Order order = rOrders.getSelectionModel().getSelectedItem();
         if (order != null) {
+            items.getItems().clear();
             items.getItems().addAll(ItemService.allItem(order));
         }
         viewToDisplay("show");

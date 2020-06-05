@@ -22,7 +22,7 @@
                               <Label prefHeight="27.0" prefWidth="167.0" styleClass="title" text="Ready orders" />
                         <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="813.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Start">
+                              <Button mnemonicParsing="false" onAction="#start" text="Start">
                                  <styleClass>
                                     <String fx:value="btn" />
                                     <String fx:value="btn-success" />
@@ -50,8 +50,7 @@
                         <TableView fx:id="rOrders" prefHeight="200.0" prefWidth="200.0">
                             <columns>
                                 <TableColumn fx:id="rId" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="rItems" prefWidth="125.0" text="Items" />
-                                <TableColumn fx:id="rCreated" prefWidth="125.0" text="Created" />
+                                <TableColumn fx:id="rCreated" prefWidth="150.0" text="Created" />
                             </columns>
                         </TableView>
                   <HBox prefHeight="0.0" prefWidth="980.0">
@@ -75,8 +74,7 @@
                   <TableView fx:id="wOrders" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="wId" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="wItems" prefWidth="125.0" text="Items" />
-                        <TableColumn fx:id="wCreated" prefWidth="125.0" text="Created" />
+                        <TableColumn fx:id="wCreated" prefWidth="150.0" text="Created" />
                     </columns>
                   </TableView>
                     </children>
