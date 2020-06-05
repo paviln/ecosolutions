@@ -22,7 +22,7 @@ import javafx.scene.layout.BorderPane;
  */
 public class RouteController {
     @FXML
-    private BorderPane routesIndex, routesView, routesProcess;
+    private BorderPane routesIndex, routesOrders;
     @FXML
     private TableView<Location> pickup, delivery;
     @FXML
@@ -31,14 +31,6 @@ public class RouteController {
     private TableView<Order> orders;
     @FXML
     private TableColumn<Order, String> orderId;
-    @FXML
-    private TableView<Item> items;
-    @FXML
-    private TableColumn<Item, String> itemId;
-    @FXML
-    private TableColumn<Item, String> itemCloth;
-    @FXML
-    private TableColumn<Item, String> itemQuantity;
 
     /**
      * Called after fxml is loaded
@@ -54,11 +46,12 @@ public class RouteController {
         // Orders table view
         orderId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        // Items table view
-        itemId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        itemCloth.setCellValueFactory(new PropertyValueFactory<>("cloth"));
-        itemQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        refreshLocations();
+    }
 
+    private void refreshLocations() {
+        pickup.getItems().clear();
+        delivery.getItems().clear();
         if (LocationService.allLocationsWithOrders(5).size() > 0) {
             Location location = new Location();
             location.setId(0);
@@ -93,7 +86,7 @@ public class RouteController {
                 orders.getItems().addAll(OrderService.allOrder(1, location));
                 orders.getItems().addAll(OrderService.allOrder(5, location));
             }
-            viewToDisplay("view");
+            viewToDisplay("orders");
 
         } else if (delivery.getSelectionModel().getSelectedItem() != null) {
             Location location = delivery.getSelectionModel().getSelectedItem();
@@ -105,7 +98,7 @@ public class RouteController {
                 orders.getItems().addAll(OrderService.allOrder(2, location));
                 orders.getItems().addAll(OrderService.allOrder(6, location));
             }
-            viewToDisplay("view");
+            viewToDisplay("orders");
         }
     }
 
@@ -114,61 +107,33 @@ public class RouteController {
      */
     @FXML
     public void startOrder() {
-        if (orders.getSelectionModel().getSelectedItem() != null) {
-            Order order = orders.getSelectionModel().getSelectedItem();
-            items.getItems().clear();
-            items.getItems().addAll(order.getItems());
-            viewToDisplay("process");
+        int orderId = DialogHelper.productDialog();
+        Order selectedOrder = orders.getSelectionModel().getSelectedItem();
+
+        if (selectedOrder != null && orderId == selectedOrder.getId()) {
+            selectedOrder.setStatus(selectedOrder.getStatus() + 1);
+            OrderService.updateOrder(selectedOrder);
+            orders.getItems().remove(selectedOrder);
+            DialogHelper.showInformationAlert("Order has been delivered!");
+        } else {
+            DialogHelper.showErrorAlert("Wrong order id!");
+        }
+        if (orders.getItems().size() == 0) {
+            DialogHelper.showInformationAlert("Location orders complete!");
+            refreshLocations();
+            viewToDisplay("index");
         }
     }
 
-    /**
-     * Update status of selected order.
-     */
     @FXML
-    public void scan() {
-        if (items.getSelectionModel().getSelectedItem() != null) {
-            Order order = orders.getSelectionModel().getSelectedItem();
-            String value = DialogHelper.inputDialog("Scan", "Insert item ID", "ID:").trim();
+    public void refresh() {
+        refreshLocations();
+    }
 
-            boolean isValid = false;
-            if (!value.equals("")) {
-                for (Item item : order.getItems()) {
-                    if (item.getId() == Integer.parseInt(value)) {
-                        items.getItems().remove(item);
-                        isValid = true;
-                        break;
-                    }
-                }
-                if (isValid) {
-                    DialogHelper.showInformationAlert("Item complete!");
-                } else {
-                    DialogHelper.showErrorAlert("Wrong item id!");
-                }
-                if (items.getItems().size() == 0) {
-                    order.setStatus(order.getStatus() + 1);
-                    OrderService.updateOrder(order);
-                    DialogHelper.showInformationAlert("Order complete");
-                    if (orders.getItems().size() == 1) {
-                        if (pickup.getSelectionModel().getSelectedItem() != null) {
-                            delivery.getItems().clear();
-                            delivery.getItems().addAll(LocationService.allLocationsWithOrders(2));
-                            delivery.getItems().addAll(LocationService.allLocationsWithOrders(5));
-
-                            pickup.getItems().remove(pickup.getSelectionModel().getSelectedItem());
-                        } else if (delivery.getSelectionModel().getSelectedItem() != null) {
-                            delivery.getItems().remove(delivery.getSelectionModel().getSelectedItem());
-                        }
-                        viewToDisplay("index");
-                    } else {
-                        orders.getItems().remove(order);
-                        viewToDisplay("view");
-                    }
-                }
-            } else {
-                DialogHelper.showErrorAlert("You most enter a id!");
-            }
-        }
+    @FXML
+    public void back() {
+        refreshLocations();
+        viewToDisplay("index");
     }
 
     /**
@@ -189,18 +154,15 @@ public class RouteController {
      */
     private void viewToDisplay(String name) {
         routesIndex.setVisible(false);
-        routesView.setVisible(false);
-        routesProcess.setVisible(false);
+        routesOrders.setVisible(false);
 
         switch (name) {
             case "index":
                 routesIndex.setVisible(true);
                 break;
-            case "view":
-                routesView.setVisible(true);
+            case "orders":
+                routesOrders.setVisible(true);
                 break;
-            case "process":
-                routesProcess.setVisible(true);
         }
     }
 }

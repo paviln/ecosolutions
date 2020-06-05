@@ -71,4 +71,15 @@ public class DialogHelper {
         Optional<String> result = dialog.showAndWait();
         return result.orElse(null);
     }
+
+    public static int productDialog() {
+        int orderId;
+        try {
+            orderId = Integer.parseInt(DialogHelper.inputDialog("Scan Product", "Please enter order ID", "ID"));
+        } catch (NumberFormatException e) {
+            orderId = 0;
+        }
+        return orderId;
+    }
+
 }

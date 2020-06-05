@@ -49,12 +49,7 @@ public class OrderController {
 
     @FXML
     public void start() {
-        int orderId;
-        try {
-            orderId = Integer.parseInt(DialogHelper.inputDialog("Scan Product", "Please enter order ID", "ID"));
-        } catch (NumberFormatException e) {
-            orderId = 0;
-        }
+        int orderId = DialogHelper.productDialog();
         Order selectedOrder = rOrders.getSelectionModel().getSelectedItem();
 
         if (selectedOrder != null && orderId == selectedOrder.getId()) {
