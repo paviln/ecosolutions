@@ -59,7 +59,7 @@ public class RouteController {
         itemCloth.setCellValueFactory(new PropertyValueFactory<>("cloth"));
         itemQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        if (LocationService.allLocationsWithOrders(4).size() > 0) {
+        if (LocationService.allLocationsWithOrders(5).size() > 0) {
             Location location = new Location();
             location.setId(0);
             location.setName("Central");
@@ -75,7 +75,7 @@ public class RouteController {
             location.setPriority(0);
             delivery.getItems().add(location);
         }
-        delivery.getItems().addAll(LocationService.allLocationsWithOrders(5));
+        delivery.getItems().addAll(LocationService.allLocationsWithOrders(6));
     }
 
     /**
@@ -88,10 +88,10 @@ public class RouteController {
             orders.getItems().clear();
             if (location.getId() == 0) {
                 orders.getItems().addAll(OrderService.allOrder(1));
-                orders.getItems().addAll(OrderService.allOrder(4));
+                orders.getItems().addAll(OrderService.allOrder(5));
             } else {
                 orders.getItems().addAll(OrderService.allOrder(1, location));
-                orders.getItems().addAll(OrderService.allOrder(4, location));
+                orders.getItems().addAll(OrderService.allOrder(5, location));
             }
             viewToDisplay("view");
 
@@ -100,10 +100,10 @@ public class RouteController {
             orders.getItems().clear();
             if (location.getId() == 0) {
                 orders.getItems().addAll(OrderService.allOrder(2));
-                orders.getItems().addAll(OrderService.allOrder(5));
+                orders.getItems().addAll(OrderService.allOrder(6));
             } else {
                 orders.getItems().addAll(OrderService.allOrder(2, location));
-                orders.getItems().addAll(OrderService.allOrder(5, location));
+                orders.getItems().addAll(OrderService.allOrder(6, location));
             }
             viewToDisplay("view");
         }
