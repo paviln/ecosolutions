@@ -72,6 +72,7 @@ public class ItemDao implements Dao<Item> {
             Item item = new Item();
             item.setId(rs.getInt("id"));
             item.setQuantity(rs.getInt("quantity"));
+            item.setOrder_id(rs.getInt("order_id"));
             ClothesDao clothesDao = new ClothesDao();
             item.setClothe(clothesDao.get(rs.getInt("clothe_id")));
             return item;

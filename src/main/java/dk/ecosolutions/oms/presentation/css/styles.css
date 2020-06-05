@@ -21,8 +21,9 @@
 
 .container {
     -fx-background-color: #fff;
-    -fx-max-width: 1000;
     -fx-padding: 0 10;
+    fx-min-width: 1000;
+    -fx-max-width: 1000;
 }
 
 /* Buttons */
@@ -52,7 +53,7 @@
     -fx-border-color: #28a745 ;
 }
 
-.btn-danger:hover {
+.btn-success:hover {
     -fx-text-fill: #fff;
     -fx-background-color: #218838;;
     -fx-border-color: #1e7e34;
