@@ -13,11 +13,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LocationController {
     @FXML
-    private TableView<Location> location;
+    private TableView<Location> locations;
     @FXML
     private TableColumn<Location, String> nameColumn;
     @FXML
@@ -46,13 +45,13 @@ public class LocationController {
         numberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getNumber()));
         cityColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getCity()));
         zipColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getZip()));
-        location.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        locations.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         // Add choice box options
         type.getItems().add(Type.CLEANING_CENTRAL);
         type.getItems().add(Type.DELIVERY_POINT);
 
-        location.getItems().setAll(LocationService.allLocations());
+        locations.getItems().setAll(LocationService.allLocations());
     }
 
     /**
@@ -67,14 +66,14 @@ public class LocationController {
         address.setZip(zip.getText());
         Location location = new Location();
         location.setName(name.getText());
-        location.setPriority(this.location.getItems().size() + 1);
-        System.out.println(this.location.getItems().size());
+        location.setPriority(locations.getItems().size() + 1);
+        System.out.println(locations.getItems().size());
         location.setType(type.getSelectionModel().getSelectedItem());
         location.setAddress(address);
 
         if (validation(location)) {
             LocationService.createLocation(location);
-            this.location.getItems().add(location);
+            this.locations.getItems().add(location);
             name.clear();
             type.getSelectionModel().clearSelection();
             street.clear();
@@ -89,9 +88,9 @@ public class LocationController {
     @FXML
     public void delete() {
         if (DialogHelper.confirmAlert("This will remove all users belonging to this location!")) {
-            Location selectedDeliveryPoint = location.getSelectionModel().getSelectedItem();
+            Location selectedDeliveryPoint = locations.getSelectionModel().getSelectedItem();
             if (LocationService.removeLocation(selectedDeliveryPoint)) {
-                location.getItems().remove(selectedDeliveryPoint);
+                locations.getItems().remove(selectedDeliveryPoint);
             } else {
                 DialogHelper.showErrorAlert("Could not be removed!");
             }
@@ -100,31 +99,31 @@ public class LocationController {
 
     @FXML
     public void up() {
-        Location selectedDeliveryPoint = location.getSelectionModel().getSelectedItem();
-        int index = location.getItems().indexOf(selectedDeliveryPoint) - 1;
+        Location selectedDeliveryPoint = locations.getSelectionModel().getSelectedItem();
+        int index = locations.getItems().indexOf(selectedDeliveryPoint) - 1;
         if (index >= 0) {
-            location.getItems().remove(selectedDeliveryPoint);
-            location.getItems().add(index, selectedDeliveryPoint);
+            locations.getItems().remove(selectedDeliveryPoint);
+            locations.getItems().add(index, selectedDeliveryPoint);
             selectedDeliveryPoint.setPriority(selectedDeliveryPoint.getPriority() - 1);
             LocationService.updateLocation(selectedDeliveryPoint);
-            location.getItems().get(index + 1).setPriority(location.getItems().get(index + 1).getPriority() + 1);
-            LocationService.updateLocation(location.getItems().get(index + 1));
-            location.getSelectionModel().select(selectedDeliveryPoint);
+            locations.getItems().get(index + 1).setPriority(locations.getItems().get(index + 1).getPriority() + 1);
+            LocationService.updateLocation(locations.getItems().get(index + 1));
+            locations.getSelectionModel().select(selectedDeliveryPoint);
         }
     }
 
     @FXML
     public void down() {
-        Location selectedDeliveryPoint = location.getSelectionModel().getSelectedItem();
-        int index = location.getItems().indexOf(selectedDeliveryPoint) + 1;
-        if (index < location.getItems().size()) {
-            location.getItems().remove(selectedDeliveryPoint);
-            location.getItems().add(index, selectedDeliveryPoint);
+        Location selectedDeliveryPoint = locations.getSelectionModel().getSelectedItem();
+        int index = locations.getItems().indexOf(selectedDeliveryPoint) + 1;
+        if (index < locations.getItems().size()) {
+            locations.getItems().remove(selectedDeliveryPoint);
+            locations.getItems().add(index, selectedDeliveryPoint);
             selectedDeliveryPoint.setPriority(selectedDeliveryPoint.getPriority() + 1);
             LocationService.updateLocation(selectedDeliveryPoint);
-            location.getItems().get(index - 1).setPriority(location.getItems().get(index - 1).getPriority() - 1);
-            LocationService.updateLocation(location.getItems().get(index - 1));
-            location.getSelectionModel().select(selectedDeliveryPoint);
+            locations.getItems().get(index - 1).setPriority(locations.getItems().get(index - 1).getPriority() - 1);
+            LocationService.updateLocation(locations.getItems().get(index - 1));
+            locations.getSelectionModel().select(selectedDeliveryPoint);
         }
     }
 

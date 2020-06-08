@@ -15,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UserController {
     @FXML
@@ -37,7 +36,7 @@ public class UserController {
     @FXML
     private ChoiceBox<Role> role;
     @FXML
-    private ChoiceBox<Location> location;
+    private ChoiceBox<Location> locations;
 
     @FXML
     public void initialize() {
@@ -53,7 +52,7 @@ public class UserController {
         role.getItems().add(Role.DRIVER);
         role.getItems().addAll(Role.WORKER);
 
-        location.setConverter(new StringConverter<Location>() {
+        locations.setConverter(new StringConverter<Location>() {
             @Override
             public String toString(Location object) {
                 return object.getName();
@@ -61,12 +60,12 @@ public class UserController {
 
             @Override
             public Location fromString(String string) {
-                return location.getItems().stream().filter(ap ->
+                return locations.getItems().stream().filter(ap ->
                         ap.getName().equals(string)).findFirst().orElse(null);
             }
         });
 
-        location.getItems().setAll(LocationService.allLocations());
+        locations.getItems().setAll(LocationService.allLocations());
 
         user.getItems().setAll(UserService.allUsers());
     }
@@ -82,14 +81,14 @@ public class UserController {
             user.setEmail(email.getText().trim());
             user.setPassword(password.getText().trim());
             user.setRole(role.getSelectionModel().getSelectedItem());
-            user.setLocation(location.getSelectionModel().getSelectedItem());
+            user.setLocation(locations.getSelectionModel().getSelectedItem());
             UserService.createUser(user);
             this.user.getItems().add(user);
             name.clear();
             email.clear();
             password.clear();
             role.getSelectionModel().clearSelection();
-            location.getSelectionModel().clearSelection();
+            locations.getSelectionModel().clearSelection();
             viewToDisplay("index");
             DialogHelper.showInformationAlert("Delivery Point Created!");
         }
@@ -124,7 +123,7 @@ public class UserController {
         if (role.getSelectionModel().getSelectedItem() == null) {
             messages.add("Role must be selected!");
         }
-        if (location.getSelectionModel().getSelectedItem() == null) {
+        if (locations.getSelectionModel().getSelectedItem() == null) {
             messages.add("Location must be selected!");
         }
         if (messages.size() > 0) {
