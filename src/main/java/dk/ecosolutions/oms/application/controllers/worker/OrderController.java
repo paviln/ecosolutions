@@ -32,7 +32,9 @@ public class OrderController {
     @FXML
     TableColumn<Item, Integer> quantity;
 
-
+    /**
+     * Initialized after fxml is loaded
+     */
     @FXML
     public void initialize() {
         rId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -47,6 +49,9 @@ public class OrderController {
         quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     }
 
+    /**
+     * Button action start processing selected order.
+     */
     @FXML
     public void start() {
         int orderId = DialogHelper.productDialog();
@@ -63,6 +68,9 @@ public class OrderController {
         }
     }
 
+    /**
+     * Button action show selected order.
+     */
     @FXML
     public void show() {
         Order order = rOrders.getSelectionModel().getSelectedItem();
@@ -73,12 +81,22 @@ public class OrderController {
         viewToDisplay("show");
     }
 
+    /**
+     * Button action get view to be changed.
+     *
+     * @param event button click event.
+     */
     @FXML
     public void changeDisplay(ActionEvent event) {
         Button btn = (Button) event.getSource();
         viewToDisplay(btn.getId());
     }
 
+    /**
+     * Change displayed view to corresponding view.
+     *
+     * @param name view to be displayed.
+     */
     private void viewToDisplay(String name) {
         orderIndex.setVisible(false);
         orderShow.setVisible(false);

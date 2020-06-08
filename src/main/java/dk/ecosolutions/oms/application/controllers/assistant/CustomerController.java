@@ -3,31 +3,23 @@ package dk.ecosolutions.oms.application.controllers.assistant;
 import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.service.CustomerService;
 import dk.ecosolutions.oms.service.helpers.DialogHelper;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
-import java.util.List;
-
 
 public class CustomerController {
     @FXML
     private TextField name, phone;
-
     @FXML
     private TableView<Customer> customerTable;
-
     @FXML
     private TableColumn<Customer, String> col_customerName;
-
     @FXML
     private TableColumn<Customer, String> col_customerPhone;
-
 
     @FXML
     public void initialize() {

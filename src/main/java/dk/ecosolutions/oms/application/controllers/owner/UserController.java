@@ -38,6 +38,9 @@ public class UserController {
     @FXML
     private ChoiceBox<Location> locations;
 
+    /**
+     * Initialized after fxml is loaded.
+     */
     @FXML
     public void initialize() {
         // Define the table view cell type
@@ -94,6 +97,9 @@ public class UserController {
         }
     }
 
+    /**
+     * Button action delete user and related orders.
+     */
     @FXML
     public void delete() {
         if (DialogHelper.confirmAlert("All user related orders will be deleted aswell!")) {
@@ -133,12 +139,20 @@ public class UserController {
         return true;
     }
 
+    /**
+     * Button action changes view as desired.
+     */
     @FXML
     public void changeDisplay(ActionEvent event) {
         Button btn = (Button) event.getSource();
         viewToDisplay(btn.getId());
     }
 
+    /**
+     * Change visibility of views.
+     *
+     * @param name to be displayed.
+     */
     private void viewToDisplay(String name) {
         userIndex.setVisible(false);
         userCreate.setVisible(false);

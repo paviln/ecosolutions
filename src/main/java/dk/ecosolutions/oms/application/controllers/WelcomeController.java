@@ -20,10 +20,12 @@ public class WelcomeController {
     private static User authenticatedUser;
     @FXML
     BorderPane welcome;
-
     @FXML
     TextField email, password;
 
+    /**
+     * Initialized after fxml is loaded
+     */
     @FXML
     public void initialize() {
         email.setOnMouseClicked(event -> {
@@ -48,6 +50,9 @@ public class WelcomeController {
         password.setTooltip(tooltipPassword);
     }
 
+    /**
+     * Button action authenticate user.
+     */
     @FXML
     public void login() {
 
@@ -104,6 +109,9 @@ public class WelcomeController {
         return isValid;
     }
 
+    /**
+     * Displays error message.
+     */
     private void errorMessage() {
         Label error = new Label("Wrong email or password!");
         error.setMaxWidth(Double.MAX_VALUE);
@@ -124,6 +132,11 @@ public class WelcomeController {
         });
     }
 
+    /**
+     * Get authenticated user.
+     *
+     * @return user
+     */
     public static User getAuthenticatedUser() {
         return authenticatedUser;
     }

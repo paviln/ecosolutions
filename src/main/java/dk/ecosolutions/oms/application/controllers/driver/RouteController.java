@@ -32,7 +32,7 @@ public class RouteController {
     private TableColumn<Order, String> orderId;
 
     /**
-     * Called after fxml is loaded
+     * Initialized after fxml is loaded
      */
     @FXML
     public void initialize() {
@@ -48,6 +48,9 @@ public class RouteController {
         reloadLocations();
     }
 
+    /**
+     * Get data from database.
+     */
     private void reloadLocations() {
         pickup.getItems().clear();
         delivery.getItems().clear();
@@ -124,11 +127,17 @@ public class RouteController {
         }
     }
 
+    /**
+     * Button action to load information from database.
+     */
     @FXML
     public void refresh() {
         reloadLocations();
     }
 
+    /**
+     * Button action to change view back.
+     */
     @FXML
     public void back() {
         reloadLocations();
@@ -136,7 +145,7 @@ public class RouteController {
     }
 
     /**
-     * Get view to be changed to.
+     * Button action get view to be changed.
      *
      * @param event button click event.
      */

@@ -15,6 +15,9 @@ public class DriverController {
     @FXML
     private BorderPane base;
 
+    /**
+     * Button action to show the login view.
+     */
     @FXML
     public void logout() {
         ViewHelper.changeView("welcome.fxml", base);

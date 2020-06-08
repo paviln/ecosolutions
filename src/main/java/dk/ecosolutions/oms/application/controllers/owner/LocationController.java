@@ -36,6 +36,9 @@ public class LocationController {
     @FXML
     private ChoiceBox<Type> type;
 
+    /**
+     * Initialized after fxml is loaded.
+     */
     @FXML
     public void initialize() {
         // Define the table view cell type
@@ -85,6 +88,9 @@ public class LocationController {
         }
     }
 
+    /**
+     * Handle user button click delete.
+     */
     @FXML
     public void delete() {
         if (DialogHelper.confirmAlert("This will remove all users belonging to this location!")) {
@@ -97,6 +103,9 @@ public class LocationController {
         }
     }
 
+    /**
+     * Button action move priority up.
+     */
     @FXML
     public void up() {
         Location selectedDeliveryPoint = locations.getSelectionModel().getSelectedItem();
@@ -112,6 +121,9 @@ public class LocationController {
         }
     }
 
+    /**
+     * Button action move priority down.
+     */
     @FXML
     public void down() {
         Location selectedDeliveryPoint = locations.getSelectionModel().getSelectedItem();
@@ -164,12 +176,20 @@ public class LocationController {
         return true;
     }
 
+    /**
+     * Button action changes view as desired.
+     */
     @FXML
     public void changeDisplay(ActionEvent event) {
         Button btn = (Button) event.getSource();
         viewToDisplay(btn.getId());
     }
 
+    /**
+     * Change visibility of views.
+     *
+     * @param name to be displayed.
+     */
     private void viewToDisplay(String name) {
         pointIndex.setVisible(false);
         pointCreate.setVisible(false);

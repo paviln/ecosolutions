@@ -1,14 +1,12 @@
 package dk.ecosolutions.oms.application.controllers;
 
 import dk.ecosolutions.oms.domain.Clothe;
-import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
-import dk.ecosolutions.oms.persistence.database.OrderItems;
+import dk.ecosolutions.oms.service.ClothesService;
 import dk.ecosolutions.oms.service.CustomerService;
 import dk.ecosolutions.oms.service.ItemService;
 import dk.ecosolutions.oms.service.OrderService;
-import dk.ecosolutions.oms.service.ClothesService;
 import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -43,7 +41,9 @@ public class OrderController {
     @FXML
     private TextField quantity;
 
-
+    /**
+     * Initialized after fxml is loaded
+     */
     @FXML
     public void initialize() {
         col_id.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
@@ -102,12 +102,22 @@ public class OrderController {
         }
     }
 
+    /**
+     * Button action get view to be changed.
+     *
+     * @param event button click event.
+     */
     @FXML
     public void changeDisplay(ActionEvent event) {
         Button btn = (Button) event.getSource();
         viewToDisplay(btn.getId());
     }
 
+    /**
+     * Change displayed view to corresponding view.
+     *
+     * @param name view to be displayed.
+     */
     private void viewToDisplay(String name) {
         orderIndex.setVisible(false);
         orderCreate.setVisible(false);
