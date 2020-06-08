@@ -89,11 +89,18 @@ INSERT INTO types (name) VALUES ('Cleaning Central');
 INSERT INTO types (name) VALUES ('Delivery Point');
 
 INSERT INTO addresses (street, number, city, zip) VALUES ('Rengøringsgade', '1', 'Sønderborg', '6400');
+INSERT INTO addresses (street, number, city, zip) VALUES ('Borgade', '23', 'Sønderborg', '6400');
+
 
 INSERT INTO locations (name, priority, type_id, address_id) VALUES ('EcoSolutions', '1', '1', '1');
+INSERT INTO locations (name, priority, type_id, address_id) VALUES ('Borgen', '2', '2', '2');
+
 
 INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Jesper', 'o@eco.dk', '123', '1', '1');
-INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Assis', 'a@eco.dk', '123', '2', '1');
+INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Assis', 'a@eco.dk', '123', '2', '2');
+INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Driver', 'd@eco.dk', '123', '3', '1');
+INSERT INTO users (name, email, password, role_id, location_id) VALUES ('Worker', 'w@eco.dk', '123', '4', '1');
+
 
 INSERT INTO clothes (name) VALUES ('Habit');
 INSERT INTO clothes (name) VALUES ('Coat');

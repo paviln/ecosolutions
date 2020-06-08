@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.OrderController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.OrderController">
    <children>
-      <AnchorPane fx:id="orderIndex" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css" visible="false">
+      <AnchorPane fx:id="orderIndex" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" styleClass="container" stylesheets="@../../css/styles.css" visible="false">
          <children>
             <TableView fx:id="orderTable" layoutY="192.0" prefHeight="152.0" prefWidth="600.0" style="-fx-border-color: #00bfff;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="192.0">
                <columns>
@@ -35,7 +35,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0" styleClass="container">
          <children>
             <ChoiceBox fx:id="clothes" layoutX="155.0" layoutY="94.0" prefWidth="150.0" />
             <TextField fx:id="customerId" layoutX="155.0" layoutY="35.0" />
