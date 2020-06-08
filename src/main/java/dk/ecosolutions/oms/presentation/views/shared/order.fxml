@@ -38,12 +38,12 @@
       <AnchorPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
          <children>
             <ChoiceBox fx:id="clothes" layoutX="155.0" layoutY="94.0" prefWidth="150.0" />
-            <TextField fx:id="customerId" layoutX="155.0" layoutY="35.0" />
+            <TextField fx:id="customerId" layoutX="155.0" layoutY="35.0" onKeyTyped="#numberValidation" />
             <Button fx:id="index" layoutX="900.0" layoutY="20.0" mnemonicParsing="false" onAction="#changeDisplay" text="Back" />
             <Label layoutX="38.0" layoutY="40.0" text="Customer ID" />
             <Label layoutX="38.0" layoutY="100.0" text="Clothes" />
             <Label layoutX="38.0" layoutY="152.0" text="Quantity" />
-            <TextField fx:id="quantity" layoutX="147.0" layoutY="147.0" />
+            <TextField fx:id="quantity" layoutX="147.0" layoutY="147.0" onKeyTyped="#numberValidation" />
             <Button layoutX="795.0" layoutY="20.0" mnemonicParsing="false" onAction="#save" text="Add Order" />
             <TableView fx:id="itemsTable" layoutX="12.0" layoutY="217.0" prefHeight="200.0" prefWidth="975.0">
               <columns>

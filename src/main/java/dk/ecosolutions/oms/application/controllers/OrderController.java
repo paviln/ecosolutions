@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.sql.Timestamp;
@@ -141,5 +142,24 @@ public class OrderController {
             item.setQuantity(Integer.parseInt(quantity.getText()));
             itemsTable.getItems().add(item);
         }
+    }
+
+    /**
+     * This function allows only numeric input in the customerID and quantity text field
+     * of Order
+     * @param keyEvent
+     */
+
+    public void numberValidation(KeyEvent keyEvent) {
+        quantity.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                quantity.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        customerId.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                customerId.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 }
