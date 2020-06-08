@@ -28,15 +28,16 @@ public class CustomerDao implements Dao<Customer> {
 
     public List<Customer> all() {
         try {
-            Connection connection = Database.getConnection();
-            Statement stmt = connection.createStatement();
+            Connection con = Database.getConnection();
+            Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM customers");
             List<Customer> customers = new ArrayList<Customer>();
             while (rs.next()) {
                 Customer customer = extractCustomer(rs);
                 customers.add(customer);
             }
-            connection.close();
+            con.close();
+
             return customers;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,8 +55,8 @@ public class CustomerDao implements Dao<Customer> {
             ps.setString(2, customer.getPhone());
             ps.execute();
             connection.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -68,9 +69,8 @@ public class CustomerDao implements Dao<Customer> {
             ps.setInt(3, customer.getId());
             ps.execute();
             connection.close();
-
-        } catch (Exception e) {
-
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -81,8 +81,8 @@ public class CustomerDao implements Dao<Customer> {
             ps.setString(1, customer.getName());
             ps.execute();
             connection.close();
-        } catch (Exception e) {
-
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -92,10 +92,13 @@ public class CustomerDao implements Dao<Customer> {
             customer.setId(rs.getInt("id"));
             customer.setName(rs.getString("name"));
             customer.setPhone(rs.getString("phone"));
-            return customer;
-        }catch (Exception e){
 
+            return customer;
+        } catch (SQLException
+                e) {
+            e.printStackTrace();
         }
+
         return null;
     }
 }

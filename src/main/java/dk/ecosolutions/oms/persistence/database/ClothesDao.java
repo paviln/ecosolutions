@@ -1,57 +1,57 @@
 package dk.ecosolutions.oms.persistence.database;
 
 import dk.ecosolutions.oms.domain.Clothe;
-import dk.ecosolutions.oms.domain.User;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClothesDao implements Dao<Clothe> {
     public Clothe get(int id) {
         try {
-            Connection connection = Database.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM clothes WHERE id=" + id);
+            Connection con = Database.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM clothes WHERE id=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Clothe clothe = extractClothes(rs);
-                connection.close();
+                con.close();
+
                 return clothe;
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
     public List<Clothe> all() {
-        try{
-            Connection connection = Database.getConnection();
-            Statement stmt = connection.createStatement();
+        try {
+            Connection con = Database.getConnection();
+            Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM clothes");
             List<Clothe> clothes = new ArrayList<Clothe>();
-            while (rs.next()){
+            while (rs.next()) {
                 Clothe clothe = extractClothes(rs);
                 clothes.add(clothe);
             }
-            connection.close();
+            con.close();
+
             return clothes;
-        }catch (Exception e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
-    public void save(Clothe clothe)  {
+    public void save(Clothe clothe) {
 
     }
 
-
-    public void update(Clothe clothe)  {
+    public void update(Clothe clothe) {
 
     }
 
@@ -59,15 +59,17 @@ public class ClothesDao implements Dao<Clothe> {
 
     }
 
-    private Clothe extractClothes(ResultSet rs){
-        try{
+    private Clothe extractClothes(ResultSet rs) {
+        try {
             Clothe clothe = new Clothe();
             clothe.setId(rs.getInt("id"));
             clothe.setName(rs.getString("name"));
+
             return clothe;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         return null;
     }
 }

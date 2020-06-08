@@ -10,18 +10,21 @@ public class AddressDao implements Dao<Address> {
     @Override
     public Address get(int id) {
         try {
-            Connection connection = Database.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM addresses WHERE id=" + id);
+            Connection con = Database.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM addresses WHERE id=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Address address = extractAddress(rs);
-                connection.close();
+                con.close();
+
                 return address;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -36,10 +39,12 @@ public class AddressDao implements Dao<Address> {
                 addresses.add(address);
             }
             connection.close();
+
             return addresses;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -68,14 +73,20 @@ public class AddressDao implements Dao<Address> {
 
     }
 
-    private Address extractAddress(ResultSet rs) throws SQLException {
-        Address address = new Address();
-        address.setId(rs.getInt("id"));
-        address.setStreet(rs.getString("street").trim());
-        address.setNumber(rs.getString("number").trim());
-        address.setCity(rs.getString("city").trim());
-        address.setZip(rs.getString("zip"));
-        return address;
-    }
+    private Address extractAddress(ResultSet rs) {
+        try {
+            Address address = new Address();
+            address.setId(rs.getInt("id"));
+            address.setStreet(rs.getString("street").trim());
+            address.setNumber(rs.getString("number").trim());
+            address.setCity(rs.getString("city").trim());
+            address.setZip(rs.getString("zip"));
 
+            return address;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

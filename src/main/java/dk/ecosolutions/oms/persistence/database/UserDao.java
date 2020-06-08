@@ -12,17 +12,20 @@ public class UserDao implements Dao<User> {
         try {
             Connection con = Database.getConnection();
             PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE id=?");
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             con.close();
 
             if (rs.next()) {
                 User user = extractUser(rs);
+
                 return user;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -37,10 +40,12 @@ public class UserDao implements Dao<User> {
                 users.add(user);
             }
             con.close();
+
             return users;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -90,8 +95,8 @@ public class UserDao implements Dao<User> {
     }
 
     private User extractUser(ResultSet rs) {
-        User user = new User();
         try {
+            User user = new User();
             user.setId(rs.getInt("id"));
             user.setName(rs.getString("name").trim());
             user.setEmail(rs.getString("email").trim());
@@ -112,9 +117,11 @@ public class UserDao implements Dao<User> {
             }
             LocationDao locationDao = new LocationDao();
             user.setLocation(locationDao.get(rs.getInt("location_id")));
+
+            return user;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user;
+        return null;
     }
 }
