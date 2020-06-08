@@ -8,8 +8,9 @@ import java.util.List;
 public class ClothesService {
     public static void addClothes(Clothe clothe) {
         ClothesDao clothesDao = new ClothesDao();
-       clothesDao.save(clothe);
+        clothesDao.save(clothe);
     }
+
     public static List<Clothe> allClothes(){
         ClothesDao clothesDao = new ClothesDao();
         return clothesDao.all();

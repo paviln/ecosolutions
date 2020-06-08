@@ -10,7 +10,7 @@
             <center>
                 <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TableView fx:id="users" prefHeight="400.0" prefWidth="580.0">
+                        <TableView fx:id="user" prefHeight="400.0" prefWidth="580.0">
                             <columns>
                                 <TableColumn fx:id="nameColumn" prefWidth="178.0" text="Name" />
                                 <TableColumn fx:id="emailColumn" prefWidth="191.0" text="Email" />
@@ -81,7 +81,7 @@
                                 <Label text="Role" GridPane.rowIndex="3" />
                                 <ChoiceBox fx:id="role" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <Label text="Location" GridPane.rowIndex="4" />
-                                <ChoiceBox fx:id="locations" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <ChoiceBox fx:id="location" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                             </children>
                         </GridPane>
                     </children>

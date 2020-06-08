@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
+import java.util.List;
+
 
 public class CustomerController {
     @FXML
@@ -42,7 +44,6 @@ public class CustomerController {
         } else {
             customer.setName(name.getText());
             customer.setPhone(phone.getText());
-
             CustomerService.addCustomer(customer);
             customerTable.getItems().add(customer);
             DialogHelper.showInformationAlert("Saved Successfully");
@@ -69,14 +70,11 @@ public class CustomerController {
      */
     @FXML
     public void show() {
-        try {
-            Customer customer = customerTable.getSelectionModel().getSelectedItem();
+        Customer customer = customerTable.getSelectionModel().getSelectedItem();
+        if (customer != null) {
             name.setText(customer.getName());
             phone.setText(customer.getPhone());
-        } catch (NullPointerException e) {
-
         }
-
     }
 
     @FXML
@@ -116,5 +114,4 @@ public class CustomerController {
             }
         });
     }
-
 }

@@ -19,8 +19,13 @@ public class OrderService {
     }
 
     public static List<Order> allOrder() {
+        List<Order> orders = new ArrayList<>();
         OrderDoa orderDoa = new OrderDoa();
-        return orderDoa.all();
+        List<Order> ordersDao = orderDoa.all();
+        if (ordersDao != null) {
+            orders.addAll(ordersDao);
+        }
+        return orders;
     }
 
     public static List<Order> allOrder(int status) {

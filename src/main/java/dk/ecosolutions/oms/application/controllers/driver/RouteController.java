@@ -1,6 +1,5 @@
 package dk.ecosolutions.oms.application.controllers.driver;
 
-import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.service.LocationService;
@@ -46,10 +45,10 @@ public class RouteController {
         // Orders table view
         orderId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        refreshLocations();
+        reloadLocations();
     }
 
-    private void refreshLocations() {
+    private void reloadLocations() {
         pickup.getItems().clear();
         delivery.getItems().clear();
         if (LocationService.allLocationsWithOrders(5).size() > 0) {
@@ -120,19 +119,19 @@ public class RouteController {
         }
         if (orders.getItems().size() == 0) {
             DialogHelper.showInformationAlert("Location orders complete!");
-            refreshLocations();
+            reloadLocations();
             viewToDisplay("index");
         }
     }
 
     @FXML
     public void refresh() {
-        refreshLocations();
+        reloadLocations();
     }
 
     @FXML
     public void back() {
-        refreshLocations();
+        reloadLocations();
         viewToDisplay("index");
     }
 

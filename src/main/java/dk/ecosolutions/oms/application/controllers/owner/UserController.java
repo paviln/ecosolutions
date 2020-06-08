@@ -15,12 +15,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserController {
     @FXML
     private BorderPane userIndex, userCreate;
     @FXML
-    private TableView<User> users;
+    private TableView<User> user;
     @FXML
     private TableColumn<User, String> nameColumn;
     @FXML
@@ -36,7 +37,7 @@ public class UserController {
     @FXML
     private ChoiceBox<Role> role;
     @FXML
-    private ChoiceBox<Location> locations;
+    private ChoiceBox<Location> location;
 
     @FXML
     public void initialize() {
@@ -52,7 +53,7 @@ public class UserController {
         role.getItems().add(Role.DRIVER);
         role.getItems().addAll(Role.WORKER);
 
-        locations.setConverter(new StringConverter<Location>() {
+        location.setConverter(new StringConverter<Location>() {
             @Override
             public String toString(Location object) {
                 return object.getName();
@@ -60,16 +61,14 @@ public class UserController {
 
             @Override
             public Location fromString(String string) {
-                return locations.getItems().stream().filter(ap ->
+                return location.getItems().stream().filter(ap ->
                         ap.getName().equals(string)).findFirst().orElse(null);
             }
         });
 
-        for (Location loc : LocationService.allLocations()) {
-            locations.getItems().add(loc);
-        }
+        location.getItems().setAll(LocationService.allLocations());
 
-        users.getItems().setAll(UserService.allUsers());
+        user.getItems().setAll(UserService.allUsers());
     }
 
     /**
@@ -83,14 +82,14 @@ public class UserController {
             user.setEmail(email.getText().trim());
             user.setPassword(password.getText().trim());
             user.setRole(role.getSelectionModel().getSelectedItem());
-            user.setLocation(locations.getSelectionModel().getSelectedItem());
+            user.setLocation(location.getSelectionModel().getSelectedItem());
             UserService.createUser(user);
-            users.getItems().add(user);
+            this.user.getItems().add(user);
             name.clear();
             email.clear();
             password.clear();
             role.getSelectionModel().clearSelection();
-            locations.getSelectionModel().clearSelection();
+            location.getSelectionModel().clearSelection();
             viewToDisplay("index");
             DialogHelper.showInformationAlert("Delivery Point Created!");
         }
@@ -99,9 +98,9 @@ public class UserController {
     @FXML
     public void delete() {
         if (DialogHelper.confirmAlert("All user related orders will be deleted aswell!")) {
-            User selectedUser = users.getSelectionModel().getSelectedItem();
+            User selectedUser = user.getSelectionModel().getSelectedItem();
             if (UserService.deleteUser(selectedUser)) {
-                users.getItems().remove(selectedUser);
+                user.getItems().remove(selectedUser);
             } else {
                 DialogHelper.showErrorAlert("Could not be removed!");
             }
@@ -125,7 +124,7 @@ public class UserController {
         if (role.getSelectionModel().getSelectedItem() == null) {
             messages.add("Role must be selected!");
         }
-        if (locations.getSelectionModel().getSelectedItem() == null) {
+        if (location.getSelectionModel().getSelectedItem() == null) {
             messages.add("Location must be selected!");
         }
         if (messages.size() > 0) {
