@@ -2,13 +2,27 @@ package dk.ecosolutions.oms.persistence.database;
 
 import dk.ecosolutions.oms.domain.Customer;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDao implements Dao<Customer> {
-    public Customer get(int id) throws SQLException {
+    public Customer get(int id) {
+        try {
+            Connection con = Database.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM customers WHERE id = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Customer customer = extractCustomer(rs);
+                con.close();
+                return customer;
+            }
+            con.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -19,7 +33,7 @@ public class CustomerDao implements Dao<Customer> {
             ResultSet rs = stmt.executeQuery("SELECT * FROM customers");
             List<Customer> customers = new ArrayList<Customer>();
             while (rs.next()) {
-                Customer customer = extractLocation(rs);
+                Customer customer = extractCustomer(rs);
                 customers.add(customer);
             }
             connection.close();
@@ -72,7 +86,7 @@ public class CustomerDao implements Dao<Customer> {
         }
     }
 
-    private Customer extractLocation(ResultSet rs)  {
+    private Customer extractCustomer(ResultSet rs)  {
         try {
             Customer customer = new Customer();
             customer.setId(rs.getInt("id"));

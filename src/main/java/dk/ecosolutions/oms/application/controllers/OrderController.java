@@ -5,6 +5,7 @@ import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.persistence.database.OrderItems;
+import dk.ecosolutions.oms.service.CustomerService;
 import dk.ecosolutions.oms.service.ItemService;
 import dk.ecosolutions.oms.service.OrderService;
 import dk.ecosolutions.oms.service.ClothesService;
@@ -53,7 +54,6 @@ public class OrderController {
         orderTable.getItems().addAll(OrderService.allOrder());
 
         clothes.getItems().addAll(ClothesService.allClothes());
-        clothes.getSelectionModel().select(0);
 
         col_clothe.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClothe().getName()));
         col_quantity.setCellValueFactory(new PropertyValueFactory<Item, Integer>("Quantity"));
@@ -62,23 +62,27 @@ public class OrderController {
     @FXML
     public void save() {
         Order order = new Order();
-        if (customerId.getText().trim().length() == 0) {
-            DialogHelper.showInformationAlert("One of the field is empty");
-        } else {
-            order.setStatus(1);
-            order.setLocation(WelcomeController.getAuthenticatedUser().getLocation());
-            order.setCreated_at(new Timestamp(System.currentTimeMillis()));
-            order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
-            order.setCustomer_id(Integer.parseInt(customerId.getText()));
-            OrderService.addOrder(order);
-            orderTable.getItems().add(order);
+        if (customerId.getText().trim().length() != 0 && itemsTable.getItems().size() > 0) {
+            if (CustomerService.validCustomer(Integer.parseInt(customerId.getText()))) {
+                order.setStatus(1);
+                order.setLocation(WelcomeController.getAuthenticatedUser().getLocation());
+                order.setCreated_at(new Timestamp(System.currentTimeMillis()));
+                order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
+                order.setCustomer_id(Integer.parseInt(customerId.getText()));
+                OrderService.addOrder(order);
+                orderTable.getItems().add(order);
 
-            for (Item item : itemsTable.getItems()) {
-                item.setOrder_id(OrderService.getLastOrderId());
+                for (Item item : itemsTable.getItems()) {
+                    item.setOrder_id(OrderService.getLastOrderId());
+                }
+                ItemService.addAll(itemsTable.getItems());
+
+                DialogHelper.showInformationAlert("Saved Successfully");
+                viewToDisplay("index");
             }
-            ItemService.addAll(itemsTable.getItems());
 
-            DialogHelper.showInformationAlert("Saved Successfully");
+        } else {
+            DialogHelper.showInformationAlert("One of the field is empty");
         }
     }
 
@@ -89,11 +93,10 @@ public class OrderController {
         if (item != null) {
 
             if (DialogHelper.confirmAlert("Confirm if You want to delete")) {
-                ItemService.addItem(item);
+                ItemService.deleteItems(item);
                 Item selectedItem = itemsTable.getSelectionModel().getSelectedItem();
                 itemsTable.getItems().remove(selectedItem);
 
-                clothes.getItems().clear();
                 quantity.clear();
             }
         }
