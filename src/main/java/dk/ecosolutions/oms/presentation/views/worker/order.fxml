@@ -58,7 +58,7 @@
                         <Label prefHeight="27.0" prefWidth="143.0" styleClass="title" text="Working orders" />
                         <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="858.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Finish">
+                              <Button mnemonicParsing="false" onAction="#finish" text="Finish">
                                  <styleClass>
                                     <String fx:value="btn" />
                                     <String fx:value="btn-success" />
@@ -73,7 +73,7 @@
                   </HBox>
                   <TableView fx:id="wOrders" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn fx:id="wId" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="wOrderId" prefWidth="75.0" text="ID" />
                         <TableColumn fx:id="wCreated" prefWidth="150.0" text="Created" />
                     </columns>
                   </TableView>
@@ -83,10 +83,10 @@
         </BorderPane>
       <BorderPane fx:id="orderShow" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
          <center>
-            <TableView fx:id="items" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="rItems" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="clothe" prefWidth="150.0" text="Clothe" />
-                <TableColumn fx:id="quantity" prefWidth="100.0" text="Quantity" />
+                <TableColumn fx:id="rClothe" prefWidth="150.0" text="Clothe" />
+                <TableColumn fx:id="rQuantity" prefWidth="100.0" text="Quantity" />
               </columns>
             </TableView>
          </center>
@@ -101,6 +101,46 @@
                               <String fx:value="btn" />
                               <String fx:value="btn-primary" />
                            </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </BorderPane.margin>
+            </HBox>
+         </top>
+      </BorderPane>
+      <BorderPane fx:id="orderItems" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
+         <center>
+            <TableView fx:id="wItems" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                  <TableColumn fx:id="wItemId" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="wClothe" prefWidth="150.0" text="Clothe" />
+                <TableColumn fx:id="wQuantity" minWidth="0.0" prefWidth="150.0" text="Quantity" />
+              </columns>
+            </TableView>
+         </center>
+         <top>
+            <HBox prefHeight="6.0" prefWidth="980.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="title" text="Items" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="935.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#scan" text="Scan">
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-success" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="index" mnemonicParsing="false" onAction="#changeDisplay" text="Back">
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-primary" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
                         </Button>
                      </children>
                   </HBox>

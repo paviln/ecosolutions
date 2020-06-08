@@ -73,13 +73,22 @@ public class DialogHelper {
     }
 
     public static int productDialog() {
-        int orderId;
+        int id;
         try {
-            orderId = Integer.parseInt(DialogHelper.inputDialog("Scan Product", "Please enter order ID", "ID"));
+            id = Integer.parseInt(DialogHelper.inputDialog("Scan Product", "Please enter order ID", "ID"));
         } catch (NumberFormatException e) {
-            orderId = 0;
+            id = 0;
         }
-        return orderId;
+        return id;
     }
 
+    public static int itemDialog() {
+        int id;
+        try {
+            id = Integer.parseInt(DialogHelper.inputDialog("Scan Item", "Please enter item ID", "ID"));
+        } catch (NumberFormatException e) {
+            id = 0;
+        }
+        return id;
+    }
 }

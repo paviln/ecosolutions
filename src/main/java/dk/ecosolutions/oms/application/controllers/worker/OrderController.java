@@ -2,6 +2,7 @@ package dk.ecosolutions.oms.application.controllers.worker;
 
 import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
+import dk.ecosolutions.oms.persistence.database.OrderDoa;
 import dk.ecosolutions.oms.service.ItemService;
 import dk.ecosolutions.oms.service.OrderService;
 import dk.ecosolutions.oms.service.helpers.DialogHelper;
@@ -18,19 +19,19 @@ import java.sql.Timestamp;
 
 public class OrderController {
     @FXML
-    BorderPane orderIndex, orderShow;
+    BorderPane orderIndex, orderShow, orderItems;
     @FXML
     TableView<Order> rOrders, wOrders;
     @FXML
-    TableView<Item> items;
+    TableView<Item> rItems, wItems;
     @FXML
-    TableColumn<Order, Integer> rId, wId;
+    TableColumn<Order, Integer> rId, wOrderId, wItemId;
     @FXML
     TableColumn<Order, Timestamp> rCreated, wCreated;
     @FXML
-    TableColumn<Item, String> clothe;
+    TableColumn<Item, String> rClothe, wClothe;
     @FXML
-    TableColumn<Item, Integer> quantity;
+    TableColumn<Item, Integer> rQuantity, wQuantity;
 
     /**
      * Initialized after fxml is loaded
@@ -40,13 +41,16 @@ public class OrderController {
         rId.setCellValueFactory(new PropertyValueFactory<>("id"));
         rCreated.setCellValueFactory(new PropertyValueFactory<>("created_at"));
         rOrders.getItems().addAll(OrderService.allOrder(3));
-
-        wId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        wOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
         wCreated.setCellValueFactory(new PropertyValueFactory<>("created_at"));
         wOrders.getItems().addAll(OrderService.allOrder(4));
 
-        clothe.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClothe().getName()));
-        quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        rClothe.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClothe().getName()));
+        rQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+        wItemId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        wClothe.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClothe().getName()));
+        wQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     }
 
     /**
@@ -54,17 +58,18 @@ public class OrderController {
      */
     @FXML
     public void start() {
-        int orderId = DialogHelper.productDialog();
         Order selectedOrder = rOrders.getSelectionModel().getSelectedItem();
 
-        if (selectedOrder != null && orderId == selectedOrder.getId()) {
-            selectedOrder.setStatus(selectedOrder.getStatus() + 1);
-            OrderService.updateOrder(selectedOrder);
-            rOrders.getItems().remove(selectedOrder);
-            System.out.println("Print labels");
-            wOrders.getItems().add(selectedOrder);
-        } else {
-            DialogHelper.showErrorAlert("Wrong order id!");
+        if (selectedOrder != null) {
+            if (DialogHelper.productDialog() == selectedOrder.getId()) {
+                selectedOrder.setStatus(selectedOrder.getStatus() + 1);
+                OrderService.updateOrder(selectedOrder);
+                rOrders.getItems().remove(selectedOrder);
+                System.out.println("Print labels");
+                wOrders.getItems().add(selectedOrder);
+            } else {
+                DialogHelper.showErrorAlert("Wrong order id!");
+            }
         }
     }
 
@@ -75,10 +80,38 @@ public class OrderController {
     public void show() {
         Order order = rOrders.getSelectionModel().getSelectedItem();
         if (order != null) {
-            items.getItems().clear();
-            items.getItems().addAll(ItemService.allItem(order));
+            rItems.getItems().clear();
+            rItems.getItems().addAll(ItemService.allItem(order));
+            viewToDisplay("show");
         }
-        viewToDisplay("show");
+    }
+
+    @FXML
+    public void finish() {
+        Order order = wOrders.getSelectionModel().getSelectedItem();
+        if (order != null) {
+            wItems.getItems().clear();
+            wItems.getItems().addAll(ItemService.allItem(order));
+            viewToDisplay("items");
+        }
+    }
+
+    @FXML
+    public void scan() {
+        Item item = wItems.getSelectionModel().getSelectedItem();
+        if (item != null) {
+            if (DialogHelper.itemDialog() == item.getId()) {
+                wItems.getItems().remove(item);
+                if (wItems.getItems().size() == 0) {
+                    Order order = wOrders.getSelectionModel().getSelectedItem();
+                    order.setStatus(order.getStatus() + 1);
+                    OrderDoa orderDoa = new OrderDoa();
+                    orderDoa.update(order);
+                    wOrders.getItems().remove(order);
+                    viewToDisplay("index");
+                }
+            }
+        }
     }
 
     /**
@@ -100,6 +133,7 @@ public class OrderController {
     private void viewToDisplay(String name) {
         orderIndex.setVisible(false);
         orderShow.setVisible(false);
+        orderItems.setVisible(false);
 
         switch (name) {
             case "index":
@@ -107,6 +141,9 @@ public class OrderController {
                 break;
             case "show":
                 orderShow.setVisible(true);
+                break;
+            case "items":
+                orderItems.setVisible(true);
                 break;
         }
     }
