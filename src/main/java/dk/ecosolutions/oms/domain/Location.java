@@ -19,14 +19,6 @@ public class Location implements Comparable {
         this.type = type;
     }
 
-    public boolean validation() {
-        if (name.isEmpty()) {
-            return false;
-        }
-
-        return address.validation();
-    }
-
     public int getId() {
         return id;
     }

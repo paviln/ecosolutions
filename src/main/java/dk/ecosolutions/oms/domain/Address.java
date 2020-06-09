@@ -10,13 +10,6 @@ public class Address {
     public Address() {
     }
 
-    public boolean validation() {
-        if (street.isEmpty() || number.isEmpty() || city.isEmpty() || zip.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
     public int getId() {
         return id;
     }
