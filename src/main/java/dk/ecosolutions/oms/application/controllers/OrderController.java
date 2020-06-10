@@ -66,22 +66,16 @@ public class OrderController {
         if (customerId.getText().trim().length() != 0 && itemsTable.getItems().size() > 0) {
             if (CustomerService.validCustomer(Integer.parseInt(customerId.getText()))) {
                 order.setStatus(1);
+                order.setItems(itemsTable.getItems());
                 order.setLocation(WelcomeController.getAuthenticatedUser().getLocation());
                 order.setCreated_at(new Timestamp(System.currentTimeMillis()));
                 order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
                 order.setCustomer_id(Integer.parseInt(customerId.getText()));
                 OrderService.addOrder(order);
                 orderTable.getItems().add(order);
-
-                for (Item item : itemsTable.getItems()) {
-                    item.setOrder_id(OrderService.getLastOrderId());
-                }
-                ItemService.addAll(itemsTable.getItems());
-
                 DialogHelper.showInformationAlert("Saved Successfully");
                 viewToDisplay("index");
             }
-
         } else {
             DialogHelper.showInformationAlert("One of the field is empty");
         }
@@ -147,6 +141,7 @@ public class OrderController {
     /**
      * This function allows only numeric input in the customerID and quantity text field
      * of Order
+     *
      * @param keyEvent
      */
 
