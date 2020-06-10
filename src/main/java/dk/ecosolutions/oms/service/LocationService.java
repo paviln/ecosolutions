@@ -3,8 +3,10 @@ package dk.ecosolutions.oms.service;
 import dk.ecosolutions.oms.application.controllers.WelcomeController;
 import dk.ecosolutions.oms.domain.Address;
 import dk.ecosolutions.oms.domain.Location;
+import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.persistence.database.AddressDao;
 import dk.ecosolutions.oms.persistence.database.LocationDao;
+import dk.ecosolutions.oms.persistence.database.OrderDoa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +33,14 @@ public class LocationService {
     public static List<Location> allLocationsWithOrders(int status) {
         List<Location> locations = new ArrayList<>();
         LocationDao locationDao = new LocationDao();
+        OrderDoa orderDoa = new OrderDoa();
+        List<Order> orders = orderDoa.all();
         for (Location location : locationDao.all()) {
-            if (OrderService.allOrder(status, location).size() > 0) {
-                locations.add(location);
+            for (Order order : orders) {
+                if (location.getId() == order.getLocation().getId() && order.getStatus() == status) {
+                    locations.add(location);
+                    break;
+                }
             }
         }
         return locations;

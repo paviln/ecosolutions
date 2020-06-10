@@ -54,7 +54,7 @@ public class RouteController {
     private void reloadLocations() {
         pickup.getItems().clear();
         delivery.getItems().clear();
-        if (LocationService.allLocationsWithOrders(5).size() > 0) {
+        if (OrderService.allOrder(5).size() > 0) {
             Location location = new Location();
             location.setId(0);
             location.setName("Central");
@@ -63,7 +63,7 @@ public class RouteController {
         }
         pickup.getItems().addAll(LocationService.allLocationsWithOrders(1));
 
-        if (LocationService.allLocationsWithOrders(2).size() > 0) {
+        if (OrderService.allOrder(2).size() > 0) {
             Location location = new Location();
             location.setId(0);
             location.setName("Central");
