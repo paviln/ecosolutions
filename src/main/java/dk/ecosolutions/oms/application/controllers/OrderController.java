@@ -157,4 +157,13 @@ public class OrderController {
             }
         });
     }
+
+    public void handOut() {
+        Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
+        if (selectedOrder != null && selectedOrder.getStatus() == 7) {
+            selectedOrder.setStatus(selectedOrder.getStatus() + 1);
+            OrderService.updateOrder(selectedOrder);
+        }
+
+    }
 }

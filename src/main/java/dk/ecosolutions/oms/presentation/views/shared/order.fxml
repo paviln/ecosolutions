@@ -33,6 +33,15 @@
                   <String fx:value="btn-success" />
                </styleClass>
             </Button>
+            <Button layoutX="758.0" layoutY="152.0" mnemonicParsing="false" onAction="#handOut" prefHeight="33.0" prefWidth="107.0" text="Hand Out">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-success" />
+               </styleClass>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
