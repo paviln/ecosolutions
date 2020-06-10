@@ -1,11 +1,14 @@
 package dk.ecosolutions.oms.domain;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.sql.Timestamp;
 import java.util.List;
 
 public class Order {
     private int id;
-    private int status;
+    private IntegerProperty status = new SimpleIntegerProperty();
     private List<Item> items;
     private Location location;
     private Timestamp created_at;
@@ -19,16 +22,20 @@ public class Order {
         return id;
     }
 
+    public IntegerProperty statusProperty() {
+        return status;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
     public int getStatus() {
-        return status;
+        return status.get();
     }
 
     public void setStatus(int status) {
-        this.status = status;
+        this.status.set(status);
     }
 
     public List<Item> getItems() {
