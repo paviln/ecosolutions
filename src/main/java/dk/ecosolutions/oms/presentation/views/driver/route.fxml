@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.driver.RouteController">
+<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1000.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.driver.RouteController">
     <children>
         <BorderPane fx:id="routesIndex" prefHeight="400.0" prefWidth="600.0" styleClass="container">
             <top>
@@ -29,15 +29,15 @@
                                         <String fx:value="btn-success" />
                                     </styleClass>
                                 </Button>
-                        <Button mnemonicParsing="false" onAction="#refresh" text="Refresh">
-                           <styleClass>
-                              <String fx:value="btn" />
-                              <String fx:value="btn-success" />
-                           </styleClass>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Button>
+                                <Button mnemonicParsing="false" onAction="#refresh" text="Refresh">
+                                    <styleClass>
+                                        <String fx:value="btn" />
+                                        <String fx:value="btn-success" />
+                                    </styleClass>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Button>
                             </children>
                         </HBox>
                     </children>
@@ -46,32 +46,44 @@
                     </BorderPane.margin>
                 </HBox>
             </top>
-         <center>
-            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox prefHeight="551.0" prefWidth="492.0">
-                     <children>
-                        <Label text="Pickup" />
-                              <TableView fx:id="pickup" prefHeight="597.0" prefWidth="492.0">
-                                  <columns>
-                                      <TableColumn fx:id="pickupName" prefWidth="491.0" text="Location" />
-                                  </columns>
-                              </TableView>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="551.0" prefWidth="489.0">
-                     <children>
-                        <Label text="Delivery" />
-                        <TableView fx:id="delivery" prefHeight="534.0" prefWidth="495.0">
-                          <columns>
-                            <TableColumn fx:id="deliveryName" prefWidth="488.0" text="Location" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </center>
+            <center>
+                <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <VBox prefHeight="551.0" prefWidth="489.0">
+                            <children>
+                                <Label text="Pickup" />
+                                <TableView fx:id="pickup" prefHeight="597.0" prefWidth="492.0">
+                                    <columns>
+                                        <TableColumn fx:id="pickupName" prefWidth="482.0" text="Location" />
+                                    </columns>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                                </TableView>
+                            </children>
+                            <padding>
+                                <Insets right="5.0" />
+                            </padding>
+                        </VBox>
+                        <VBox prefHeight="551.0" prefWidth="489.0">
+                            <children>
+                                <Label text="Delivery" />
+                                <TableView fx:id="delivery" prefHeight="534.0" prefWidth="495.0">
+                                    <columns>
+                                        <TableColumn fx:id="deliveryName" prefWidth="482.0" text="Location" />
+                                    </columns>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                                </TableView>
+                            </children>
+                            <padding>
+                                <Insets left="5.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </HBox>
+            </center>
         </BorderPane>
         <BorderPane fx:id="routesOrders" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
             <top>

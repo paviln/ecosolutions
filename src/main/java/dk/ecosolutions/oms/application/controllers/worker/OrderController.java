@@ -4,7 +4,6 @@ import dk.ecosolutions.oms.application.helpers.DialogHelper;
 import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.persistence.database.OrderDoa;
-import dk.ecosolutions.oms.service.ItemService;
 import dk.ecosolutions.oms.service.OrderService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -18,7 +17,7 @@ import javafx.scene.layout.BorderPane;
 import java.sql.Timestamp;
 
 /**
- * Handles transport of orders.
+ * Handles cleaning process of orders.
  *
  * @author Jens Christensen
  * @version 1.0.0
@@ -88,7 +87,7 @@ public class OrderController {
         Order order = rOrders.getSelectionModel().getSelectedItem();
         if (order != null) {
             rItems.getItems().clear();
-            rItems.getItems().addAll(ItemService.allItem(order));
+            rItems.getItems().addAll(order.getItems());
             viewToDisplay("show");
         }
     }
@@ -98,7 +97,7 @@ public class OrderController {
         Order order = wOrders.getSelectionModel().getSelectedItem();
         if (order != null) {
             wItems.getItems().clear();
-            wItems.getItems().addAll(ItemService.allItem(order));
+            wItems.getItems().addAll(order.getItems());
             viewToDisplay("items");
         }
     }

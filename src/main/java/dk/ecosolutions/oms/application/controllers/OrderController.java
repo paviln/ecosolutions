@@ -6,7 +6,6 @@ import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.service.ClothesService;
 import dk.ecosolutions.oms.service.CustomerService;
-import dk.ecosolutions.oms.service.ItemService;
 import dk.ecosolutions.oms.service.OrderService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -14,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 import java.sql.Timestamp;
 
@@ -29,7 +28,7 @@ import java.sql.Timestamp;
 
 public class OrderController {
     @FXML
-    private AnchorPane orderIndex, orderCreate;
+    private BorderPane orderIndex, orderCreate;
     @FXML
     private TableView<Order> orderTable;
     @FXML
@@ -69,6 +68,29 @@ public class OrderController {
         col_quantity.setCellValueFactory(new PropertyValueFactory<Item, Integer>("Quantity"));
     }
 
+    public void addItem() {
+        Item item = new Item();
+        if (clothes.getItems().isEmpty() || quantity.getText().isEmpty()) {
+            DialogHelper.showErrorAlert("One of the field is empty");
+        } else {
+            item.setClothe(clothes.getSelectionModel().getSelectedItem());
+            item.setQuantity(Integer.parseInt(quantity.getText()));
+            itemsTable.getItems().add(item);
+        }
+    }
+
+    @FXML
+    public void deleteItem() {
+        Item item = itemsTable.getSelectionModel().getSelectedItem();
+        if (item != null) {
+            if (DialogHelper.confirmAlert("Confirm if You want to delete")) {
+                Item selectedItem = itemsTable.getSelectionModel().getSelectedItem();
+                itemsTable.getItems().remove(selectedItem);
+                quantity.clear();
+            }
+        }
+    }
+
     @FXML
     public void save() {
         Order order = new Order();
@@ -87,22 +109,6 @@ public class OrderController {
             }
         } else {
             DialogHelper.showInformationAlert("One of the field is empty");
-        }
-    }
-
-    @FXML
-    public void delete() {
-
-        Item item = itemsTable.getSelectionModel().getSelectedItem();
-        if (item != null) {
-
-            if (DialogHelper.confirmAlert("Confirm if You want to delete")) {
-                ItemService.deleteItems(item);
-                Item selectedItem = itemsTable.getSelectionModel().getSelectedItem();
-                itemsTable.getItems().remove(selectedItem);
-
-                quantity.clear();
-            }
         }
     }
 
@@ -136,17 +142,6 @@ public class OrderController {
         }
     }
 
-    public void addItem() {
-        Item item = new Item();
-        if (clothes.getItems().isEmpty() || quantity.getText().isEmpty()) {
-            DialogHelper.showErrorAlert("One of the field is empty");
-        } else {
-            item.setClothe(clothes.getSelectionModel().getSelectedItem());
-            item.setQuantity(Integer.parseInt(quantity.getText()));
-            itemsTable.getItems().add(item);
-        }
-    }
-
     /**
      * This function allows only numeric input in the customerID and quantity text field
      * of Order
@@ -173,6 +168,5 @@ public class OrderController {
             selectedOrder.setStatus(selectedOrder.getStatus() + 1);
             OrderService.updateOrder(selectedOrder);
         }
-
     }
 }

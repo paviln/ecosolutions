@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.OrderController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="1000.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.ecosolutions.oms.application.controllers.OrderController">
    <children>
-      <AnchorPane fx:id="orderIndex" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1000.0" styleClass="container">
-         <children>
-            <TableView fx:id="orderTable" layoutY="192.0" prefHeight="152.0" prefWidth="600.0" style="-fx-border-color: #00bfff;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="192.0">
+      <BorderPane fx:id="orderIndex" prefHeight="200.0" prefWidth="200.0" styleClass="container">
+         <center>
+            <TableView fx:id="orderTable" prefHeight="152.0" prefWidth="600.0" style="-fx-border-color: #00bfff;" BorderPane.alignment="CENTER">
                <columns>
                   <TableColumn fx:id="col_id" prefWidth="98.0" text="ID" />
                   <TableColumn fx:id="col_status" prefWidth="82.0" text="Status" />
@@ -23,45 +24,135 @@
                   <TableColumn fx:id="col_userID" prefWidth="102.0" text="UserID" />
                   <TableColumn fx:id="col_customerID" prefWidth="122.0" text="CustomerID" />
                </columns>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" />
+               </BorderPane.margin>
             </TableView>
-            <Button fx:id="create" layoutX="879.0" layoutY="152.0" mnemonicParsing="false" onAction="#changeDisplay" prefHeight="33.0" prefWidth="107.0" text="Add Order">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="btn" />
-                  <String fx:value="btn-success" />
-               </styleClass>
-            </Button>
-            <Button layoutX="758.0" layoutY="152.0" mnemonicParsing="false" onAction="#handOut" prefHeight="33.0" prefWidth="107.0" text="Hand Out">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="btn" />
-                  <String fx:value="btn-success" />
-               </styleClass>
-            </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
-         <children>
-            <ChoiceBox fx:id="clothes" layoutX="155.0" layoutY="94.0" prefWidth="150.0" />
-            <TextField fx:id="customerId" layoutX="155.0" layoutY="35.0" onKeyTyped="#numberValidation" />
-            <Button fx:id="index" layoutX="900.0" layoutY="20.0" mnemonicParsing="false" onAction="#changeDisplay" text="Back" />
-            <Label layoutX="38.0" layoutY="40.0" text="Customer ID" />
-            <Label layoutX="38.0" layoutY="100.0" text="Clothes" />
-            <Label layoutX="38.0" layoutY="152.0" text="Quantity" />
-            <TextField fx:id="quantity" layoutX="147.0" layoutY="147.0" onKeyTyped="#numberValidation" />
-            <Button layoutX="795.0" layoutY="20.0" mnemonicParsing="false" onAction="#save" text="Add Order" />
-            <TableView fx:id="itemsTable" layoutX="12.0" layoutY="217.0" prefHeight="200.0" prefWidth="975.0">
+         </center>
+         <top>
+            <HBox alignment="CENTER_RIGHT" prefHeight="3.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="create" mnemonicParsing="false" onAction="#changeDisplay" text="Add Order">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-success" />
+                     </styleClass>
+                  </Button>
+                  <Label prefHeight="30.0" prefWidth="12.0" text="or">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#handOut" text="Hand Out">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-success" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </BorderPane.margin>
+            </HBox>
+         </top>
+      </BorderPane>
+      <BorderPane fx:id="orderCreate" prefHeight="200.0" prefWidth="200.0" styleClass="container" visible="false">
+         <top>
+            <HBox prefHeight="0.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="519.0">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="40.0" text="Clothes" />
+                        <ChoiceBox fx:id="clothes" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </ChoiceBox>
+                        <Label prefHeight="25.0" prefWidth="46.0" text="Quantity">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="quantity" onKeyTyped="#numberValidation" prefHeight="25.0" prefWidth="75.0">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#addItem" text="Add Item">
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-success" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#deleteItem" text="Delete Item">
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-danger" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="247.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label prefHeight="25.0" prefWidth="67.0" text="Customer ID">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="customerId" onKeyTyped="#numberValidation">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#save" text="Save">
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-success" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="index" mnemonicParsing="false" onAction="#changeDisplay" text="Back">
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-primary" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </BorderPane.margin>
+            </HBox>
+         </top>
+         <center>
+            <TableView fx:id="itemsTable" prefHeight="445.0" prefWidth="980.0" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="col_clothe" prefWidth="206.0" text="Clothe" />
                 <TableColumn fx:id="col_quantity" minWidth="0.0" prefWidth="199.0" text="Quantity" />
               </columns>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" />
+               </BorderPane.margin>
             </TableView>
-            <Button fx:id="addItem" layoutX="797.0" layoutY="178.0" mnemonicParsing="false" onAction="#addItem" text="Add Item" />
-            <Button fx:id="deleteItem" layoutX="900.0" layoutY="178.0" mnemonicParsing="false" onAction="#delete" text="Delete Item" />
-         </children></AnchorPane>
+         </center>
+      </BorderPane>
    </children>
 </StackPane>
