@@ -1,10 +1,10 @@
 package dk.ecosolutions.oms.application.controllers.driver;
 
+import dk.ecosolutions.oms.application.helpers.DialogHelper;
 import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.domain.Order;
 import dk.ecosolutions.oms.service.LocationService;
 import dk.ecosolutions.oms.service.OrderService;
-import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -1,5 +1,6 @@
 package dk.ecosolutions.oms.application.controllers;
 
+import dk.ecosolutions.oms.application.helpers.DialogHelper;
 import dk.ecosolutions.oms.domain.Clothe;
 import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
@@ -7,7 +8,6 @@ import dk.ecosolutions.oms.service.ClothesService;
 import dk.ecosolutions.oms.service.CustomerService;
 import dk.ecosolutions.oms.service.ItemService;
 import dk.ecosolutions.oms.service.OrderService;
-import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

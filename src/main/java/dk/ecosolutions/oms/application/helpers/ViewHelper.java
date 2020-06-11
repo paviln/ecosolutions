@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.service.helpers;
+package dk.ecosolutions.oms.application.helpers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

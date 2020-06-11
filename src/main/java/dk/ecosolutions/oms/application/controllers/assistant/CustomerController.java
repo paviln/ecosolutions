@@ -1,8 +1,8 @@
 package dk.ecosolutions.oms.application.controllers.assistant;
 
+import dk.ecosolutions.oms.application.helpers.DialogHelper;
 import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.service.CustomerService;
-import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

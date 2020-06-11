@@ -1,6 +1,6 @@
 package dk.ecosolutions.oms.application.controllers.worker;
 
-import dk.ecosolutions.oms.service.helpers.ViewHelper;
+import dk.ecosolutions.oms.application.helpers.ViewHelper;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 

@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.service.helpers;
+package dk.ecosolutions.oms.application.helpers;
 
 import org.apache.commons.validator.routines.EmailValidator;
 

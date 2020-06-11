@@ -1,9 +1,9 @@
 package dk.ecosolutions.oms.application.controllers;
 
+import dk.ecosolutions.oms.application.helpers.ValidationHelper;
+import dk.ecosolutions.oms.application.helpers.ViewHelper;
 import dk.ecosolutions.oms.domain.User;
 import dk.ecosolutions.oms.service.AuthService;
-import dk.ecosolutions.oms.service.helpers.ValidationHelper;
-import dk.ecosolutions.oms.service.helpers.ViewHelper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;

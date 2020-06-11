@@ -1,4 +1,4 @@
-package dk.ecosolutions.oms.service.helpers;
+package dk.ecosolutions.oms.application.helpers;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

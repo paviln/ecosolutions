@@ -1,10 +1,10 @@
 package dk.ecosolutions.oms.application.controllers.owner;
 
+import dk.ecosolutions.oms.application.helpers.DialogHelper;
 import dk.ecosolutions.oms.domain.Address;
 import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.domain.Type;
 import dk.ecosolutions.oms.service.LocationService;
-import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
