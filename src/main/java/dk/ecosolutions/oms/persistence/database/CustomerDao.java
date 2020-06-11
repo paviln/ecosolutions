@@ -6,6 +6,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Customer model implementation of DAO interface.
+ *
+ * @author Chamling Ram Rai
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class CustomerDao implements Dao<Customer> {
     public Customer get(int id) {
         try {
@@ -20,7 +28,7 @@ public class CustomerDao implements Dao<Customer> {
                 return customer;
             }
             con.close();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -86,7 +94,7 @@ public class CustomerDao implements Dao<Customer> {
         }
     }
 
-    private Customer extractCustomer(ResultSet rs)  {
+    private Customer extractCustomer(ResultSet rs) {
         try {
             Customer customer = new Customer();
             customer.setId(rs.getInt("id"));

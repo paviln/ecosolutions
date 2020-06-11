@@ -1,9 +1,7 @@
 package dk.ecosolutions.oms.domain;
 
-import dk.ecosolutions.oms.application.enums.Role;
-
 /**
- * User Model.
+ * Represents an Item.
  *
  * @author Jens Christensen
  * @version 1.0

@@ -6,6 +6,14 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Represents an Order.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Order {
     private int id;
     private IntegerProperty status = new SimpleIntegerProperty();

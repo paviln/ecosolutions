@@ -1,10 +1,18 @@
 package dk.ecosolutions.oms.domain;
 
+/**
+ * Represents an Clothe.
+ *
+ * @author Chamling Ram Rai
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Clothe {
     private int id;
     private String name;
 
-    public Clothe(){
+    public Clothe() {
 
     }
 

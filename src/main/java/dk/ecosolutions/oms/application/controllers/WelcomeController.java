@@ -16,6 +16,14 @@ import javafx.scene.layout.BorderPane;
 
 import java.util.Collections;
 
+/**
+ * Handles authentication of users.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class WelcomeController {
     private static User authenticatedUser;
     @FXML
@@ -64,7 +72,7 @@ public class WelcomeController {
                     case OWNER:
                         ViewHelper.changeView("owner/base.fxml", welcome);
                         break;
-                    case ASSISTENT:
+                    case ASSISTANT:
                         ViewHelper.changeView("assistant/base.fxml", welcome);
                         break;
                     case DRIVER:

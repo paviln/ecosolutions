@@ -1,12 +1,20 @@
 package dk.ecosolutions.oms.persistence.database;
 
-import dk.ecosolutions.oms.application.enums.Type;
 import dk.ecosolutions.oms.domain.Location;
+import dk.ecosolutions.oms.domain.Type;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+/**
+ * Location model implementation of DAO interface.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class LocationDao implements Dao<Location> {
     @Override

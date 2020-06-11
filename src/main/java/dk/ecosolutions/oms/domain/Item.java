@@ -1,5 +1,13 @@
 package dk.ecosolutions.oms.domain;
 
+/**
+ * Represents an Item.
+ *
+ * @author Chamling Ram Rai
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Item {
     private int id;
     private int quantity;

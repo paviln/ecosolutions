@@ -7,6 +7,14 @@ import javafx.scene.control.TextInputDialog;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * Sample dialog alerts helper class.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class DialogHelper {
     /**
      * Display error alert box.

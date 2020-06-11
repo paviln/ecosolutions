@@ -1,5 +1,13 @@
 package dk.ecosolutions.oms.domain;
 
+/**
+ * Represents an Customer.
+ *
+ * @author Chamling Ram Rai
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Customer {
     private int id;
     private String name;

@@ -1,5 +1,5 @@
-db.port=1433
 db.databasename=sample
+db.url=localhost:1433
 db.username=sa
 db.password=123456
 

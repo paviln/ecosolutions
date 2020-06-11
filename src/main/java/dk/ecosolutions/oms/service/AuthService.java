@@ -5,6 +5,14 @@ import dk.ecosolutions.oms.persistence.database.UserDao;
 
 import java.util.List;
 
+/**
+ * Validation of user login credentials.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class AuthService {
     public static User userLogin(String email, String password) {
         UserDao userDao = new UserDao();

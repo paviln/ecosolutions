@@ -6,6 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Helper class for changing between views.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class ViewHelper {
     public static void changeView(String name, Node context) {
         try {

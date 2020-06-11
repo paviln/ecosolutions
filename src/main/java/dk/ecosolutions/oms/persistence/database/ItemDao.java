@@ -6,6 +6,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Item model implementation of DAO interface.
+ *
+ * @author Chamling Ram Rai
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class ItemDao implements Dao<Item> {
     @Override
     public Item get(int id) {

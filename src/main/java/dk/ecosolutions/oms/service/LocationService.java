@@ -11,6 +11,14 @@ import dk.ecosolutions.oms.persistence.database.OrderDoa;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Location service.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class LocationService {
     public static void createLocation(Location location) {
         AddressDao addressDao = new AddressDao();

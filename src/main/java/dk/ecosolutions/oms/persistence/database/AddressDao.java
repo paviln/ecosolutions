@@ -6,6 +6,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Address model implementation of DAO interface.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class AddressDao implements Dao<Address> {
     @Override
     public Address get(int id) {

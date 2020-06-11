@@ -1,6 +1,12 @@
 package dk.ecosolutions.oms.domain;
 
-import dk.ecosolutions.oms.application.enums.Type;
+/**
+ * Represents an Location.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class Location implements Comparable {
     private int id;

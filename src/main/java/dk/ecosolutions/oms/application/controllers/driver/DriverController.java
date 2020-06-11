@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Is used to handle driver base view.
+ * Handles logout of user.
  *
  * @author Jens Christensen
  * @version 1.0.0

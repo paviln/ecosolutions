@@ -9,6 +9,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Custom order items relation database operations.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class OrderItems {
     public List<Item> all(int orderId) {
         try {
@@ -40,7 +48,7 @@ public class OrderItems {
             if (rs.next()) {
                 int id = rs.getInt("id");
                 con.close();
-                
+
                 return id;
             }
         } catch (Exception e) {

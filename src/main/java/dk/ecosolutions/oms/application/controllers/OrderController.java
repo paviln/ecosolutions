@@ -18,6 +18,15 @@ import javafx.scene.layout.AnchorPane;
 
 import java.sql.Timestamp;
 
+/**
+ * Handles the management of orders.
+ *
+ * @author Chamling Ram Rai
+ * @version 1.0
+ * @since 1.0
+ */
+
+
 public class OrderController {
     @FXML
     private AnchorPane orderIndex, orderCreate;

@@ -1,11 +1,19 @@
 package dk.ecosolutions.oms.persistence.database;
 
-import dk.ecosolutions.oms.application.enums.Role;
+import dk.ecosolutions.oms.domain.Role;
 import dk.ecosolutions.oms.domain.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * User model implementation of DAO interface.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class UserDao implements Dao<User> {
     public User get(int id) {
@@ -60,7 +68,7 @@ public class UserDao implements Dao<User> {
                 case OWNER:
                     ps.setInt(4, 1);
                     break;
-                case ASSISTENT:
+                case ASSISTANT:
                     ps.setInt(4, 2);
                     break;
                 case DRIVER:
@@ -106,7 +114,7 @@ public class UserDao implements Dao<User> {
                     user.setRole(Role.OWNER);
                     break;
                 case 2:
-                    user.setRole(Role.ASSISTENT);
+                    user.setRole(Role.ASSISTANT);
                     break;
                 case 3:
                     user.setRole(Role.DRIVER);

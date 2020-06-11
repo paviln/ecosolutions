@@ -4,6 +4,13 @@ import dk.ecosolutions.oms.service.helpers.ViewHelper;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Handles logout of user.
+ *
+ * @author Jens Christensen
+ * @version 1.0.0
+ */
+
 public class OwnerController {
     @FXML
     private BorderPane base;

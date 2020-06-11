@@ -6,6 +6,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Order model implementation of DAO interface.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class OrderDoa implements Dao<Order> {
     public Order get(int id) {
         return null;
@@ -85,7 +93,7 @@ public class OrderDoa implements Dao<Order> {
             order.setUser_id(rs.getInt("user_id"));
             order.setCustomer_id(rs.getInt("customer_id"));
             return order;
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

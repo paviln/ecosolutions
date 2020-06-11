@@ -1,8 +1,8 @@
 package dk.ecosolutions.oms.application.controllers.owner;
 
-import dk.ecosolutions.oms.application.enums.Type;
 import dk.ecosolutions.oms.domain.Address;
 import dk.ecosolutions.oms.domain.Location;
+import dk.ecosolutions.oms.domain.Type;
 import dk.ecosolutions.oms.service.LocationService;
 import dk.ecosolutions.oms.service.helpers.DialogHelper;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,6 +13,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
 import java.util.ArrayList;
+
+/**
+ * Handles management of locations.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
 
 public class LocationController {
     @FXML

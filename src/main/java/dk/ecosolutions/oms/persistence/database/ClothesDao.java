@@ -6,6 +6,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clothe model implementation of DAO interface.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class ClothesDao implements Dao<Clothe> {
     public Clothe get(int id) {
         try {

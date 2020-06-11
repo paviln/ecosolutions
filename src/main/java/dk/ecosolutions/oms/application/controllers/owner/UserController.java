@@ -1,7 +1,7 @@
 package dk.ecosolutions.oms.application.controllers.owner;
 
-import dk.ecosolutions.oms.application.enums.Role;
 import dk.ecosolutions.oms.domain.Location;
+import dk.ecosolutions.oms.domain.Role;
 import dk.ecosolutions.oms.domain.User;
 import dk.ecosolutions.oms.service.LocationService;
 import dk.ecosolutions.oms.service.UserService;
@@ -15,6 +15,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
+
+/**
+ * Handles management of users.
+ *
+ * @author Jens Christensen
+ * @version 1.0.0
+ */
 
 public class UserController {
     @FXML
@@ -51,7 +58,7 @@ public class UserController {
         locationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLocation().getName()));
         // Add choice box options
         role.getItems().add(Role.OWNER);
-        role.getItems().add(Role.ASSISTENT);
+        role.getItems().add(Role.ASSISTANT);
         role.getItems().add(Role.DRIVER);
         role.getItems().addAll(Role.WORKER);
 

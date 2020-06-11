@@ -17,6 +17,13 @@ import javafx.scene.layout.BorderPane;
 
 import java.sql.Timestamp;
 
+/**
+ * Handles transport of orders.
+ *
+ * @author Jens Christensen
+ * @version 1.0.0
+ */
+
 public class OrderController {
     @FXML
     BorderPane orderIndex, orderShow, orderItems;

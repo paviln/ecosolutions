@@ -1,5 +1,13 @@
 package dk.ecosolutions.oms.domain;
 
+/**
+ * Represents an Address.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
 public class Address {
     private int id;
     private String street;

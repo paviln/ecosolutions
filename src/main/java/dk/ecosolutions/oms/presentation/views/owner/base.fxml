@@ -18,11 +18,6 @@
                         <fx:include fx:id="dashboard" source="dashboard.fxml"/>
                     </content>
                 </Tab>
-                <Tab text="Route">
-                    <content>
-                        <fx:include fx:id="route" source="route.fxml"/>
-                    </content>
-                </Tab>
                 <Tab text="Orders">
                     <content>
                         <fx:include fx:id="order" source="../shared/order.fxml"/>

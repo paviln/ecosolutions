@@ -6,6 +6,15 @@ import dk.ecosolutions.oms.persistence.database.UserDao;
 
 import java.util.List;
 
+/**
+ * User service.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
+
 public class UserService {
     public static void createUser(User user) {
         UserDao userDao = new UserDao();

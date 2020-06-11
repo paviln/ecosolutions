@@ -10,6 +10,15 @@ import dk.ecosolutions.oms.persistence.database.OrderItems;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Order service.
+ *
+ * @author Jens Christensen
+ * @version 1.0
+ * @since 1.0
+ */
+
+
 public class OrderService {
     public static void addOrder(Order order) {
         OrderDoa orderDoa = new OrderDoa();
