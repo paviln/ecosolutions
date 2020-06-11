@@ -1,5 +1,6 @@
 package dk.ecosolutions.oms.application.controllers.assistant;
 
+import dk.ecosolutions.oms.application.controllers.WelcomeController;
 import dk.ecosolutions.oms.application.helpers.DialogHelper;
 import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.service.CustomerService;
@@ -20,11 +21,14 @@ public class CustomerController {
     private TableColumn<Customer, String> col_customerName;
     @FXML
     private TableColumn<Customer, String> col_customerPhone;
+    @FXML
+    private TableColumn<Customer, Integer> col_customerID;
 
     @FXML
     public void initialize() {
         col_customerName.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
         col_customerPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("phone"));
+        col_customerID.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("id"));
         customerTable.getItems().addAll(CustomerService.allCustomer());
     }
 
@@ -36,6 +40,7 @@ public class CustomerController {
         } else {
             customer.setName(name.getText());
             customer.setPhone(phone.getText());
+            customer.setId(WelcomeController.getAuthenticatedUser().getId());
             CustomerService.addCustomer(customer);
             customerTable.getItems().add(customer);
             DialogHelper.showInformationAlert("Saved Successfully");

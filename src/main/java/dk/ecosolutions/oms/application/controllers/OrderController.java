@@ -79,6 +79,9 @@ public class OrderController {
         }
     }
 
+    /**
+     * This function delete selected item from the item table
+     */
     @FXML
     public void deleteItem() {
         Item item = itemsTable.getSelectionModel().getSelectedItem();
@@ -91,6 +94,10 @@ public class OrderController {
         }
     }
 
+    /**
+     * This function saves item ordered placed by the customers
+     * into the database and also show in the order table
+     */
     @FXML
     public void save() {
         Order order = new Order();
@@ -162,6 +169,11 @@ public class OrderController {
         });
     }
 
+    /**
+     * This function is for delivering of order after washing
+     * The status will update to 8 at this stage which means delivered
+     * back to the customer
+     */
     public void handOut() {
         Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
         if (selectedOrder != null && selectedOrder.getStatus() == 7) {

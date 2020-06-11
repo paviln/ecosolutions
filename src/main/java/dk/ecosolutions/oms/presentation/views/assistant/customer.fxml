@@ -51,6 +51,7 @@
     <center>
         <TableView fx:id="customerTable" onMouseClicked="#show" prefHeight="360.0" prefWidth="980.0" style="-fx-border-color: #00bfff;" BorderPane.alignment="CENTER">
             <columns>
+            <TableColumn fx:id="col_customerID" prefWidth="188.0" text="ID" />
                 <TableColumn fx:id="col_customerName" prefWidth="327.0" text="Name" />
                 <TableColumn fx:id="col_customerPhone" prefWidth="188.0" text="Phone" />
             </columns>
