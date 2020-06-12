@@ -1,5 +1,7 @@
 /* Resets */
 .root {
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-font-size: 12;
     -fx-focus-color: #C4C4C4;
     -fx-faint-focus-color: transparent;
     -fx-background-insets: 0, 1;
