@@ -68,6 +68,10 @@ public class OrderController {
         col_quantity.setCellValueFactory(new PropertyValueFactory<Item, Integer>("Quantity"));
     }
 
+    /**
+     * The function add data in the item table before saving into the
+     * order database
+     */
     public void addItem() {
         Item item = new Item();
         if (clothes.getItems().isEmpty() || quantity.getText().isEmpty()) {

@@ -23,7 +23,9 @@ public class CustomerController {
     private TableColumn<Customer, String> col_customerPhone;
     @FXML
     private TableColumn<Customer, Integer> col_customerID;
-
+    /**
+     * Initialized after fxml is loaded
+     */
     @FXML
     public void initialize() {
         col_customerName.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
@@ -32,6 +34,10 @@ public class CustomerController {
         customerTable.getItems().addAll(CustomerService.allCustomer());
     }
 
+    /**
+     * The function saves customer input data into the customer
+     * database table
+     */
     @FXML
     public void save() {
         Customer customer = new Customer();
@@ -47,6 +53,9 @@ public class CustomerController {
         }
     }
 
+    /**
+     * The function updates changes in customer name and phone
+     */
     @FXML
     public void update() {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
@@ -74,6 +83,9 @@ public class CustomerController {
         }
     }
 
+    /**
+     * The function deletes the selected customer from the database
+     */
     @FXML
     public void delete() {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
