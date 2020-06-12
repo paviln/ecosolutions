@@ -38,7 +38,7 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-                <MenuBar prefHeight="25.0" prefWidth="87.0">
+                <MenuBar prefHeight="32.0" prefWidth="106.0">
                     <menus>
                         <Menu mnemonicParsing="false" text="Account">
                             <items>
