@@ -2,10 +2,7 @@ package dk.ecosolutions.oms.persistence.database;
 
 import dk.ecosolutions.oms.domain.Item;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +48,27 @@ public class OrderItems {
 
                 return id;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public int orderCount(Timestamp from, Timestamp to) {
+        try {
+            Connection con = Database.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM orders WHERE created_at BETWEEN ? AND ?");
+            ps.setTimestamp(1, from);
+            ps.setTimestamp(2, to);
+            ResultSet rs = ps.executeQuery();
+            int count = 0;
+            while (rs.next()) {
+                count++;
+            }
+            con.close();
+
+            return count;
         } catch (Exception e) {
             e.printStackTrace();
         }

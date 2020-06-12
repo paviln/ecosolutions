@@ -7,7 +7,10 @@ import dk.ecosolutions.oms.persistence.database.ItemDao;
 import dk.ecosolutions.oms.persistence.database.OrderDoa;
 import dk.ecosolutions.oms.persistence.database.OrderItems;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -76,5 +79,45 @@ public class OrderService {
     public static void updateOrder(Order order) {
         OrderDoa orderDoa = new OrderDoa();
         orderDoa.update(order);
+    }
+
+    public static HashMap<String, Integer> getWeekOrders(int week) {
+        Timestamp start;
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        c.set(Calendar.WEEK_OF_YEAR, week);
+        c.set(Calendar.HOUR, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+
+        OrderItems orderItems = new OrderItems();
+        HashMap<String, Integer> orders = new HashMap<>();
+
+        start = new Timestamp(c.getTime().getTime());
+        c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+        orders.put("MONDAY", orderItems.orderCount(start, new Timestamp(c.getTime().getTime())));
+        start = new Timestamp(c.getTime().getTime());
+        c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+        orders.put("TUESDAY", orderItems.orderCount(start, new Timestamp(c.getTime().getTime())));
+        start = new Timestamp(c.getTime().getTime());
+        c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+        orders.put("WEDNESDAY", orderItems.orderCount(start, new Timestamp(c.getTime().getTime())));
+        start = new Timestamp(c.getTime().getTime());
+        c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+        orders.put("THURSDAY", orderItems.orderCount(start, new Timestamp(c.getTime().getTime())));
+        start = new Timestamp(c.getTime().getTime());
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        orders.put("FRIDAY", orderItems.orderCount(start, new Timestamp(c.getTime().getTime())));
+        start = new Timestamp(c.getTime().getTime());
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        orders.put("SATURDAY", orderItems.orderCount(start, new Timestamp(c.getTime().getTime())));
+        start = new Timestamp(c.getTime().getTime());
+        c.set(Calendar.WEEK_OF_YEAR, week + 1);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        orders.put("SATURDAY", orderItems.orderCount(start, new Timestamp(c.getTime().getTime())));
+
+        return orders;
     }
 }
