@@ -74,7 +74,7 @@ public class OrderController {
     public void addItem() {
         Item item = new Item();
         if (clothes.getItems().isEmpty() || quantity.getText().isEmpty()) {
-            DialogHelper.showErrorAlert("One of the field is empty");
+            DialogHelper.showErrorAlert("One of the field is empty.");
         } else {
             item.setClothe(clothes.getSelectionModel().getSelectedItem());
             item.setQuantity(Integer.parseInt(quantity.getText()));
@@ -89,7 +89,7 @@ public class OrderController {
     public void deleteItem() {
         Item item = itemsTable.getSelectionModel().getSelectedItem();
         if (item != null) {
-            if (DialogHelper.confirmAlert("Confirm if You want to delete")) {
+            if (DialogHelper.confirmAlert("Confirm if You want to delete.")) {
                 Item selectedItem = itemsTable.getSelectionModel().getSelectedItem();
                 itemsTable.getItems().remove(selectedItem);
                 quantity.clear();
@@ -114,11 +114,31 @@ public class OrderController {
                 order.setCustomer_id(Integer.parseInt(customerId.getText()));
                 OrderService.addOrder(order);
                 orderTable.getItems().add(order);
-                DialogHelper.showInformationAlert("Saved Successfully");
+                DialogHelper.showInformationAlert("Saved Successfully.");
                 viewToDisplay("index");
             }
         } else {
-            DialogHelper.showInformationAlert("One of the field is empty");
+            DialogHelper.showInformationAlert("One of the field is empty.");
+        }
+    }
+
+    /**
+     * This function is for delivering of order after washing
+     * The status will update to 8 at this stage which means delivered
+     * back to the customer
+     */
+    public void handOut() {
+        Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
+        if (selectedOrder != null) {
+            if (selectedOrder.getStatus() == 7) {
+                selectedOrder.setStatus(selectedOrder.getStatus() + 1);
+                OrderService.updateOrder(selectedOrder);
+                DialogHelper.showInformationAlert("The order is completed.");
+            } else if (selectedOrder.getStatus() < 7) {
+                DialogHelper.showErrorAlert("The order is not ready to be handed out.");
+            } else {
+                DialogHelper.showErrorAlert("The order is already handed out.");
+            }
         }
     }
 
@@ -170,18 +190,5 @@ public class OrderController {
                 customerId.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-    }
-
-    /**
-     * This function is for delivering of order after washing
-     * The status will update to 8 at this stage which means delivered
-     * back to the customer
-     */
-    public void handOut() {
-        Order selectedOrder = orderTable.getSelectionModel().getSelectedItem();
-        if (selectedOrder != null && selectedOrder.getStatus() == 7) {
-            selectedOrder.setStatus(selectedOrder.getStatus() + 1);
-            OrderService.updateOrder(selectedOrder);
-        }
     }
 }
