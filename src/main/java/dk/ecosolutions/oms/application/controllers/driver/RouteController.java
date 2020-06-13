@@ -82,11 +82,9 @@ public class RouteController {
             Location location = pickup.getSelectionModel().getSelectedItem();
             orders.getItems().clear();
             if (location.getId() == 0) {
-                orders.getItems().addAll(OrderService.allOrder(1));
                 orders.getItems().addAll(OrderService.allOrder(5));
             } else {
                 orders.getItems().addAll(OrderService.allOrder(1, location));
-                orders.getItems().addAll(OrderService.allOrder(5, location));
             }
             viewToDisplay("orders");
 
@@ -95,9 +93,7 @@ public class RouteController {
             orders.getItems().clear();
             if (location.getId() == 0) {
                 orders.getItems().addAll(OrderService.allOrder(2));
-                orders.getItems().addAll(OrderService.allOrder(6));
             } else {
-                orders.getItems().addAll(OrderService.allOrder(2, location));
                 orders.getItems().addAll(OrderService.allOrder(6, location));
             }
             viewToDisplay("orders");

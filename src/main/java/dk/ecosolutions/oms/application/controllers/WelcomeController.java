@@ -63,7 +63,6 @@ public class WelcomeController {
      */
     @FXML
     public void login() {
-
         if (inputValidation(email, password)) {
             authenticatedUser = AuthService.userLogin(email.getText().trim(), password.getText().trim());
 
