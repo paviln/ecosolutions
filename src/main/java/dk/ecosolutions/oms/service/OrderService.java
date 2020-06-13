@@ -116,7 +116,7 @@ public class OrderService {
         start = new Timestamp(c.getTime().getTime());
         c.set(Calendar.WEEK_OF_YEAR, week + 1);
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        orders.put("SATURDAY", orderItems.orderCount(start, new Timestamp(c.getTime().getTime())));
+        orders.put("SUNDAY", orderItems.orderCount(start, new Timestamp(c.getTime().getTime())));
 
         return orders;
     }

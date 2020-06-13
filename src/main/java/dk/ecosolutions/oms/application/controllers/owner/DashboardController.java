@@ -88,7 +88,7 @@ public class DashboardController {
         saturday.getData().add(new XYChart.Data<String, Number>("Saturday", orders.get("SATURDAY")));
         XYChart.Series sunday = new XYChart.Series();
         sunday.setName("Sunday");
-        sunday.getData().add(new XYChart.Data<String, Number>("Sunday", orders.get("SATURDAY")));
+        sunday.getData().add(new XYChart.Data<String, Number>("Sunday", orders.get("SUNDAY")));
 
         statistics.getData().addAll(monday, tuesday, wednesday, thursday, friday, saturday, sunday);
     }
