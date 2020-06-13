@@ -61,7 +61,7 @@ CREATE TABLE orders
     location_id int NOT NULL,
     created_at datetime  NOT NULL,
     user_id int FOREIGN KEY REFERENCES users(id) ON DELETE CASCADE,
-    customer_id int FOREIGN KEY REFERENCES customers(id)
+    customer_id int FOREIGN KEY REFERENCES customers(id) ON DELETE CASCADE
 )
 
 CREATE TABLE clothes

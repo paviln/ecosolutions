@@ -14,4 +14,8 @@ public class ValidationHelper {
     public static boolean isValidEmailAddress(String email) {
         return EmailValidator.getInstance().isValid(email);
     }
+
+    public static boolean isValidPhoneNumber(String phone) {
+        return phone.length() > 7;
+    }
 }

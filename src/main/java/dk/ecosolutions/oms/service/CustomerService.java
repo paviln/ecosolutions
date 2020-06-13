@@ -47,4 +47,16 @@ public class CustomerService {
         CustomerDao customerDao = new CustomerDao();
         customerDao.delete(customer);
     }
+
+
+    public static Boolean customerExists(String phone) {
+        CustomerDao customerDao = new CustomerDao();
+
+        for (Customer customer : customerDao.all()) {
+            if (customer.getPhone().equals(phone)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

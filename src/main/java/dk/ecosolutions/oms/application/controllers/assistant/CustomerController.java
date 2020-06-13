@@ -2,6 +2,7 @@ package dk.ecosolutions.oms.application.controllers.assistant;
 
 import dk.ecosolutions.oms.application.controllers.WelcomeController;
 import dk.ecosolutions.oms.application.helpers.DialogHelper;
+import dk.ecosolutions.oms.application.helpers.ValidationHelper;
 import dk.ecosolutions.oms.domain.Customer;
 import dk.ecosolutions.oms.service.CustomerService;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ public class CustomerController {
     private TableColumn<Customer, String> col_customerPhone;
     @FXML
     private TableColumn<Customer, Integer> col_customerID;
+
     /**
      * Initialized after fxml is loaded
      */
@@ -42,14 +44,18 @@ public class CustomerController {
     public void save() {
         Customer customer = new Customer();
         if (name.getText().isEmpty() || phone.getText().isEmpty()) {
-            DialogHelper.showErrorAlert("One of the field is empty");
+            DialogHelper.showErrorAlert("One of the field is empty.");
+        } else if (CustomerService.customerExists(phone.getText().trim())) {
+            DialogHelper.showErrorAlert("A customer already exists with phone number.");
+        } else if (!ValidationHelper.isValidPhoneNumber(phone.getText().trim())) {
+            DialogHelper.showErrorAlert("Phone number most be at least 8 digits.");
         } else {
             customer.setName(name.getText());
             customer.setPhone(phone.getText());
             customer.setId(WelcomeController.getAuthenticatedUser().getId());
             CustomerService.addCustomer(customer);
             customerTable.getItems().add(customer);
-            DialogHelper.showInformationAlert("Saved Successfully");
+            DialogHelper.showInformationAlert("Customer saved Successfully.");
         }
     }
 
@@ -59,10 +65,16 @@ public class CustomerController {
     @FXML
     public void update() {
         Customer customer = customerTable.getSelectionModel().getSelectedItem();
-        if (customer != null) {
+        if (customer == null) {
+            DialogHelper.showInformationAlert("Please select a customer to be updated.");
+        } else if (CustomerService.customerExists(phone.getText().trim())) {
+            DialogHelper.showInformationAlert("A customer already exists with that phone number.");
+        } else if (name.getText().trim().length() < 1 || !ValidationHelper.isValidPhoneNumber(phone.getText().trim())) {
+            DialogHelper.showInformationAlert("The user information is not valid.");
+        } else {
             customer.setName(name.getText());
             customer.setPhone(phone.getText());
-            DialogHelper.showInformationAlert("updated");
+            DialogHelper.showInformationAlert("The user information has been updated.");
             CustomerService.updateCustomer(customer);
             customerTable.refresh();
         }
@@ -92,8 +104,7 @@ public class CustomerController {
         if (customer != null) {
             if (DialogHelper.confirmAlert("Sure you want to delete the customer?")) {
                 CustomerService.deleteCustomer(customer);
-                Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
-                customerTable.getItems().remove(selectedCustomer);
+                customerTable.getItems().remove(customer);
             }
         }
     }

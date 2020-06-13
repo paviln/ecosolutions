@@ -85,8 +85,8 @@ public class CustomerDao implements Dao<Customer> {
     public void delete(Customer customer) {
         try {
             Connection connection = Database.getConnection();
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM customers WHERE name =?");
-            ps.setString(1, customer.getName());
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM customers WHERE id = ?");
+            ps.setInt(1, customer.getId());
             ps.execute();
             connection.close();
         } catch (SQLException e) {

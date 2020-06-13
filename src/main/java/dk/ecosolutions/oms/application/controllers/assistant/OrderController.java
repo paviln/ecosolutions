@@ -1,5 +1,6 @@
-package dk.ecosolutions.oms.application.controllers;
+package dk.ecosolutions.oms.application.controllers.assistant;
 
+import dk.ecosolutions.oms.application.controllers.WelcomeController;
 import dk.ecosolutions.oms.application.helpers.DialogHelper;
 import dk.ecosolutions.oms.domain.Clothe;
 import dk.ecosolutions.oms.domain.Item;
@@ -61,9 +62,7 @@ public class OrderController {
         col_userID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("user_id"));
         col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
         orderTable.getItems().addAll(OrderService.allOrder());
-
         clothes.getItems().addAll(ClothesService.allClothes());
-
         col_clothe.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClothe().getName()));
         col_quantity.setCellValueFactory(new PropertyValueFactory<Item, Integer>("Quantity"));
     }
