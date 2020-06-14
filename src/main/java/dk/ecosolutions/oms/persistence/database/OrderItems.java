@@ -36,6 +36,11 @@ public class OrderItems {
         return null;
     }
 
+    /**
+     * Get the id of the last order record.
+     *
+     * @return id
+     */
     public int getId() {
         try {
             Connection con = Database.getConnection();

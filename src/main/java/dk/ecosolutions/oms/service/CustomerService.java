@@ -19,6 +19,16 @@ public class CustomerService {
         customerDao.get(id);
     }
 
+    public static Customer getCustomerByPhone(String phone) {
+        CustomerDao customerDao = new CustomerDao();
+        for (Customer customer : customerDao.all()) {
+            if (customer.getPhone().equals(phone)) {
+                return customer;
+            }
+        }
+        return new Customer();
+    }
+
     public static boolean validCustomer(int id) {
         CustomerDao customerDao = new CustomerDao();
         Customer customer = customerDao.get(id);

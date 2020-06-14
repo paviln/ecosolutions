@@ -1,6 +1,5 @@
 package dk.ecosolutions.oms.application.controllers.assistant;
 
-import dk.ecosolutions.oms.application.controllers.WelcomeController;
 import dk.ecosolutions.oms.application.helpers.DialogHelper;
 import dk.ecosolutions.oms.application.helpers.ValidationHelper;
 import dk.ecosolutions.oms.domain.Customer;
@@ -52,9 +51,8 @@ public class CustomerController {
         } else {
             customer.setName(name.getText());
             customer.setPhone(phone.getText());
-            customer.setId(WelcomeController.getAuthenticatedUser().getId());
             CustomerService.addCustomer(customer);
-            customerTable.getItems().add(customer);
+            customerTable.getItems().add(CustomerService.getCustomerByPhone(customer.getPhone()));
             DialogHelper.showInformationAlert("Customer saved Successfully.");
         }
     }
