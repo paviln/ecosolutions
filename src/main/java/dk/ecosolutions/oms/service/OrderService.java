@@ -23,6 +23,11 @@ import java.util.List;
 
 
 public class OrderService {
+    public static Order getOrder(int id) {
+        OrderDoa orderDoa = new OrderDoa();
+        return orderDoa.get(id);
+    }
+
     public static void addOrder(Order order) {
         OrderDoa orderDoa = new OrderDoa();
         orderDoa.save(order);

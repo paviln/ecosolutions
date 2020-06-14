@@ -113,7 +113,7 @@ public class OrderController {
                 order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
                 order.setCustomer_id(CustomerService.getCustomerByPhone(phoneNumber.getText()).getId());
                 OrderService.addOrder(order);
-                orderTable.getItems().add(order);
+                orderTable.getItems().add(OrderService.getOrder(order.getId()));
                 DialogHelper.showInformationAlert("Saved Successfully.");
                 viewToDisplay("index");
             } else {
