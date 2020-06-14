@@ -57,6 +57,20 @@ public class OrderService {
         return orders;
     }
 
+    public static List<Order> allOrder(Location location) {
+        List<Order> orders = new ArrayList<>();
+        OrderDoa orderDoa = new OrderDoa();
+        List<Order> ordersDao = orderDoa.all();
+        if (ordersDao != null) {
+            for (Order order : ordersDao) {
+                if (order != null && order.getLocation().getId() == location.getId()) {
+                    orders.add(order);
+                }
+            }
+        }
+        return orders;
+    }
+
     public static List<Order> allOrder(int status, Location location) {
         List<Order> orders = new ArrayList<>();
         OrderDoa orderDoa = new OrderDoa();

@@ -47,7 +47,7 @@ public class OrderController {
     @FXML
     private TableColumn<Item, Integer> col_quantity;
     @FXML
-    private TextField customerId;
+    private TextField phoneNumber;
     @FXML
     private TextField quantity;
 
@@ -61,7 +61,7 @@ public class OrderController {
         col_dateTime.setCellValueFactory(new PropertyValueFactory<Order, Timestamp>("created_at"));
         col_userID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("user_id"));
         col_customerID.setCellValueFactory(new PropertyValueFactory<Order, Integer>("customer_id"));
-        orderTable.getItems().addAll(OrderService.allOrder());
+        orderTable.getItems().addAll(OrderService.allOrder(WelcomeController.getAuthenticatedUser().getLocation()));
         clothes.getItems().addAll(ClothesService.allClothes());
         col_clothe.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClothe().getName()));
         col_quantity.setCellValueFactory(new PropertyValueFactory<Item, Integer>("Quantity"));
@@ -104,18 +104,20 @@ public class OrderController {
     @FXML
     public void save() {
         Order order = new Order();
-        if (customerId.getText().trim().length() != 0 && itemsTable.getItems().size() > 0) {
-            if (CustomerService.validCustomer(Integer.parseInt(customerId.getText()))) {
+        if (phoneNumber.getText().trim().length() != 0 && itemsTable.getItems().size() > 0) {
+            if (CustomerService.customerExists(phoneNumber.getText())) {
                 order.setStatus(1);
                 order.setItems(itemsTable.getItems());
                 order.setLocation(WelcomeController.getAuthenticatedUser().getLocation());
                 order.setCreated_at(new Timestamp(System.currentTimeMillis()));
                 order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
-                order.setCustomer_id(Integer.parseInt(customerId.getText()));
+                order.setCustomer_id(CustomerService.getCustomerByPhone(phoneNumber.getText()).getId());
                 OrderService.addOrder(order);
                 orderTable.getItems().add(order);
                 DialogHelper.showInformationAlert("Saved Successfully.");
                 viewToDisplay("index");
+            } else {
+                DialogHelper.showErrorAlert("No customer registered with phone number.");
             }
         } else {
             DialogHelper.showInformationAlert("One of the field is empty.");
@@ -185,9 +187,9 @@ public class OrderController {
                 quantity.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        customerId.textProperty().addListener((observable, oldValue, newValue) -> {
+        phoneNumber.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                customerId.setText(newValue.replaceAll("[^\\d]", ""));
+                phoneNumber.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
     }
