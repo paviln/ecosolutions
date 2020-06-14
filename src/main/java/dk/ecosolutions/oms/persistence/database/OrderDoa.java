@@ -1,5 +1,6 @@
 package dk.ecosolutions.oms.persistence.database;
 
+import dk.ecosolutions.oms.application.helpers.DbHelper;
 import dk.ecosolutions.oms.domain.Order;
 
 import java.sql.*;
@@ -15,25 +16,53 @@ import java.util.List;
  */
 
 public class OrderDoa implements Dao<Order> {
+    private Connection con;
+    private Statement stmt;
+    private PreparedStatement ps;
+    private ResultSet rs;
+
     public Order get(int id) {
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement("SELECT * FROM orders WHERE id=?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Order order = extractOrder(rs);
+
+                return order;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(ps);
+            DbHelper.close(con);
+        }
+
         return null;
     }
 
     public List<Order> all() {
         try {
-            Connection con = Database.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM orders");
+            con = Database.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM orders");
             List<Order> orders = new ArrayList<Order>();
             while (rs.next()) {
                 Order order = extractOrder(rs);
                 orders.add(order);
             }
-            con.close();
 
             return orders;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(stmt);
+            DbHelper.close(con);
         }
 
         return null;
@@ -41,42 +70,50 @@ public class OrderDoa implements Dao<Order> {
 
     public void save(Order order) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO orders (status, location_id, created_at, user_id, customer_id)  VALUES (?,?,?,?,?)");
+            con = Database.getConnection();
+            ps = con.prepareStatement("INSERT INTO orders (status, location_id, created_at, user_id, customer_id)  VALUES (?,?,?,?,?)");
             ps.setInt(1, order.getStatus());
             ps.setInt(2, order.getLocation().getId());
             ps.setTimestamp(3, order.getCreated_at());
             ps.setInt(4, order.getUser_id());
             ps.setInt(5, order.getCustomer_id());
             ps.execute();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
     }
 
     public void update(Order order) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("UPDATE orders set status = ? where id = ?");
+            con = Database.getConnection();
+            ps = con.prepareStatement("UPDATE orders set status = ? where id = ?");
             ps.setInt(1, order.getStatus());
             ps.setInt(2, order.getId());
             ps.execute();
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
     }
 
     public void delete(Order order) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM orders WHERE status = ?");
+            con = Database.getConnection();
+            ps = con.prepareStatement("DELETE FROM orders WHERE status = ?");
             ps.setInt(1, order.getStatus());
             ps.execute();
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
     }
 

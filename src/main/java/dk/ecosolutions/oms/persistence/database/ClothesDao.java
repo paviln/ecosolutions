@@ -1,5 +1,6 @@
 package dk.ecosolutions.oms.persistence.database;
 
+import dk.ecosolutions.oms.application.helpers.DbHelper;
 import dk.ecosolutions.oms.domain.Clothe;
 
 import java.sql.*;
@@ -15,21 +16,29 @@ import java.util.List;
  */
 
 public class ClothesDao implements Dao<Clothe> {
+    private Connection con;
+    private Statement stmt;
+    private PreparedStatement ps;
+    private ResultSet rs;
+
     public Clothe get(int id) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM clothes WHERE id=?");
+            con = Database.getConnection();
+            ps = con.prepareStatement("SELECT * FROM clothes WHERE id=?");
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
                 Clothe clothe = extractClothes(rs);
-                con.close();
 
                 return clothe;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
 
         return null;
@@ -37,19 +46,22 @@ public class ClothesDao implements Dao<Clothe> {
 
     public List<Clothe> all() {
         try {
-            Connection con = Database.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM clothes");
+            con = Database.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM clothes");
             List<Clothe> clothes = new ArrayList<Clothe>();
             while (rs.next()) {
                 Clothe clothe = extractClothes(rs);
                 clothes.add(clothe);
             }
-            con.close();
 
             return clothes;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(stmt);
+            DbHelper.close(con);
         }
 
         return null;

@@ -1,5 +1,6 @@
 package dk.ecosolutions.oms.persistence.database;
 
+import dk.ecosolutions.oms.application.helpers.DbHelper;
 import dk.ecosolutions.oms.domain.Address;
 
 import java.sql.*;
@@ -15,22 +16,30 @@ import java.util.List;
  */
 
 public class AddressDao implements Dao<Address> {
+    private Connection con;
+    private Statement stmt;
+    private PreparedStatement ps;
+    private ResultSet rs;
+
     @Override
     public Address get(int id) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM addresses WHERE id=?");
+            con = Database.getConnection();
+            ps = con.prepareStatement("SELECT * FROM addresses WHERE id=?");
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
                 Address address = extractAddress(rs);
-                con.close();
 
                 return address;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
 
         return null;
@@ -38,19 +47,22 @@ public class AddressDao implements Dao<Address> {
 
     public List<Address> all() {
         try {
-            Connection connection = Database.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM addresses");
+            con = Database.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM addresses");
             List<Address> addresses = new ArrayList<Address>();
             while (rs.next()) {
                 Address address = extractAddress(rs);
                 addresses.add(address);
             }
-            connection.close();
 
             return addresses;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(stmt);
+            DbHelper.close(con);
         }
 
         return null;
@@ -59,15 +71,18 @@ public class AddressDao implements Dao<Address> {
     @Override
     public void save(Address address) {
         try {
-            Connection connection = Database.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO addresses (street, number, city, zip) VALUES (?,?,?,?)");
-            preparedStatement.setString(1, address.getStreet());
-            preparedStatement.setString(2, address.getNumber());
-            preparedStatement.setString(3, address.getCity());
-            preparedStatement.setString(4, address.getZip());
-            preparedStatement.execute();
+            con = Database.getConnection();
+            ps = con.prepareStatement("INSERT INTO addresses (street, number, city, zip) VALUES (?,?,?,?)");
+            ps.setString(1, address.getStreet());
+            ps.setString(2, address.getNumber());
+            ps.setString(3, address.getCity());
+            ps.setString(4, address.getZip());
+            ps.execute();
         } catch (SQLException exception) {
             exception.printStackTrace();
+        } finally {
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
     }
 

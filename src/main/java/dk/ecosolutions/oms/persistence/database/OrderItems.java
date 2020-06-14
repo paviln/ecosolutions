@@ -1,5 +1,6 @@
 package dk.ecosolutions.oms.persistence.database;
 
+import dk.ecosolutions.oms.application.helpers.DbHelper;
 import dk.ecosolutions.oms.domain.Item;
 
 import java.sql.*;
@@ -15,22 +16,30 @@ import java.util.List;
  */
 
 public class OrderItems {
+    private Connection con;
+    private Statement stmt;
+    private PreparedStatement ps;
+    private ResultSet rs;
+
     public List<Item> all(int orderId) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM items WHERE order_id = ?");
+            con = Database.getConnection();
+            ps = con.prepareStatement("SELECT * FROM items WHERE order_id = ?");
             ps.setInt(1, orderId);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             List<Item> items = new ArrayList<>();
             while (rs.next()) {
                 Item item = extractItem(rs);
                 items.add(item);
             }
-            con.close();
 
             return items;
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
 
         return null;
@@ -43,18 +52,19 @@ public class OrderItems {
      */
     public int getId() {
         try {
-            Connection con = Database.getConnection();
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT TOP 1 * FROM orders ORDER BY ID DESC");
+            con = Database.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT TOP 1 * FROM orders ORDER BY ID DESC");
 
             if (rs.next()) {
-                int id = rs.getInt("id");
-                con.close();
-
-                return id;
+                return rs.getInt("id");
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(stmt);
+            DbHelper.close(con);
         }
 
         return 0;
@@ -62,20 +72,23 @@ public class OrderItems {
 
     public int orderCount(Timestamp from, Timestamp to) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM orders WHERE created_at BETWEEN ? AND ?");
+            con = Database.getConnection();
+            ps = con.prepareStatement("SELECT * FROM orders WHERE created_at BETWEEN ? AND ?");
             ps.setTimestamp(1, from);
             ps.setTimestamp(2, to);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int count = 0;
             while (rs.next()) {
                 count++;
             }
-            con.close();
 
             return count;
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
 
         return 0;

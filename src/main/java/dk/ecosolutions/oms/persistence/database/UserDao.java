@@ -1,5 +1,6 @@
 package dk.ecosolutions.oms.persistence.database;
 
+import dk.ecosolutions.oms.application.helpers.DbHelper;
 import dk.ecosolutions.oms.domain.Role;
 import dk.ecosolutions.oms.domain.User;
 
@@ -16,22 +17,28 @@ import java.util.List;
  */
 
 public class UserDao implements Dao<User> {
+    private Connection con;
+    private Statement stmt;
+    private PreparedStatement ps;
+    private ResultSet rs;
+
     public User get(int id) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE id=?");
+            con = Database.getConnection();
+            ps = con.prepareStatement("SELECT * FROM users WHERE id=?");
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            con.close();
+            rs = ps.executeQuery();
 
             if (rs.next()) {
                 User user = extractUser(rs);
-
                 return user;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
 
         return null;
@@ -39,19 +46,22 @@ public class UserDao implements Dao<User> {
 
     public List<User> all() {
         try {
-            Connection con = Database.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+            con = Database.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM users");
             List<User> users = new ArrayList<User>();
             while (rs.next()) {
                 User user = extractUser(rs);
                 users.add(user);
             }
-            con.close();
 
             return users;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(stmt);
+            DbHelper.close(con);
         }
 
         return null;
@@ -59,8 +69,8 @@ public class UserDao implements Dao<User> {
 
     public void save(User user) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO users (name, phone, email, password, role_id, location_id) VALUES (?, ?, ?, ?, ?, ?)");
+            con = Database.getConnection();
+            ps = con.prepareStatement("INSERT INTO users (name, phone, email, password, role_id, location_id) VALUES (?, ?, ?, ?, ?, ?)");
             ps.setString(1, user.getName());
             ps.setString(2, user.getPhone());
             ps.setString(3, user.getEmail());
@@ -84,6 +94,9 @@ public class UserDao implements Dao<User> {
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
     }
 
@@ -93,13 +106,16 @@ public class UserDao implements Dao<User> {
 
     public void delete(User user) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement("DELETE FROM users WHERE id=?");
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.execute();
+            con = Database.getConnection();
+            ps = con.prepareStatement("DELETE FROM users WHERE id=?");
+            ps.setInt(1, user.getId());
+            ps.execute();
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
     }
 

@@ -1,5 +1,6 @@
 package dk.ecosolutions.oms.persistence.database;
 
+import dk.ecosolutions.oms.application.helpers.DbHelper;
 import dk.ecosolutions.oms.domain.Item;
 
 import java.sql.*;
@@ -15,6 +16,11 @@ import java.util.List;
  */
 
 public class ItemDao implements Dao<Item> {
+    private Connection con;
+    private Statement stmt;
+    private PreparedStatement ps;
+    private ResultSet rs;
+
     @Override
     public Item get(int id) {
         return null;
@@ -23,19 +29,22 @@ public class ItemDao implements Dao<Item> {
     @Override
     public List<Item> all() {
         try {
-            Connection con = Database.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM items");
+            con = Database.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM items");
             List<Item> items = new ArrayList<>();
             while (rs.next()) {
                 Item item = extractItem(rs);
                 items.add(item);
             }
-            con.close();
 
             return items;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(rs);
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
 
         return null;
@@ -43,15 +52,17 @@ public class ItemDao implements Dao<Item> {
 
     public void save(Item item) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO items (quantity, order_id, clothe_id) VALUES (?, ?, ?)");
+            con = Database.getConnection();
+            ps = con.prepareStatement("INSERT INTO items (quantity, order_id, clothe_id) VALUES (?, ?, ?)");
             ps.setInt(1, item.getQuantity());
             ps.setInt(2, item.getOrder_id());
             ps.setInt(3, item.getClothe().getId());
             ps.execute();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
     }
 
@@ -61,13 +72,15 @@ public class ItemDao implements Dao<Item> {
 
     public void delete(Item item) {
         try {
-            Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM items WHERE quantity = ?");
+            con = Database.getConnection();
+            ps = con.prepareStatement("DELETE FROM items WHERE quantity = ?");
             ps.setInt(1, item.getQuantity());
             ps.execute();
-            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbHelper.close(ps);
+            DbHelper.close(con);
         }
     }
 
