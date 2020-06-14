@@ -1,6 +1,7 @@
 package dk.ecosolutions.oms.application.controllers.owner;
 
 import dk.ecosolutions.oms.application.helpers.DialogHelper;
+import dk.ecosolutions.oms.application.helpers.ValidationHelper;
 import dk.ecosolutions.oms.domain.Location;
 import dk.ecosolutions.oms.domain.Role;
 import dk.ecosolutions.oms.domain.User;
@@ -31,6 +32,8 @@ public class UserController {
     @FXML
     private TableColumn<User, String> nameColumn;
     @FXML
+    private TableColumn<User, String> phoneColumn;
+    @FXML
     private TableColumn<User, String> emailColumn;
     @FXML
     private TableColumn<User, String> passwordColumn;
@@ -39,7 +42,7 @@ public class UserController {
     @FXML
     private TableColumn<User, String> locationColumn;
     @FXML
-    private TextField name, email, password;
+    private TextField name, phone, email, password;
     @FXML
     private ChoiceBox<Role> role;
     @FXML
@@ -52,6 +55,7 @@ public class UserController {
     public void initialize() {
         // Define the table view cell type
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
@@ -70,6 +74,7 @@ public class UserController {
 
             @Override
             public Location fromString(String string) {
+
                 return locations.getItems().stream().filter(ap ->
                         ap.getName().equals(string)).findFirst().orElse(null);
             }
@@ -88,6 +93,7 @@ public class UserController {
         if (validation()) {
             User user = new User();
             user.setName(name.getText().trim());
+            user.setPhone(phone.getText().trim());
             user.setEmail(email.getText().trim());
             user.setPassword(password.getText().trim());
             user.setRole(role.getSelectionModel().getSelectedItem());
@@ -130,8 +136,11 @@ public class UserController {
         if (name.getText().trim().length() == 0) {
             messages.add("Name can not be empty!");
         }
-        if (email.getText().trim().length() == 0) {
-            messages.add("Email can not be empty!");
+        if (phone.getText().trim().length() < 8) {
+            messages.add("Phone must be at least 8 digts!");
+        }
+        if (!ValidationHelper.isValidEmailAddress(email.getText().trim())) {
+            messages.add("Email not valid!");
         }
         if (role.getSelectionModel().getSelectedItem() == null) {
             messages.add("Role must be selected!");
@@ -143,6 +152,7 @@ public class UserController {
             DialogHelper.showErrorAlert(messages);
             return false;
         }
+
         return true;
     }
 

@@ -26,11 +26,12 @@
                     <children>
                         <TableView fx:id="user" prefHeight="400.0" prefWidth="580.0" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="nameColumn" prefWidth="178.0" text="Name" />
-                                <TableColumn fx:id="emailColumn" prefWidth="191.0" text="Email" />
-                                <TableColumn fx:id="passwordColumn" prefWidth="187.0" text="Password" />
-                                <TableColumn fx:id="roleColumn" prefWidth="205.0" text="Role" />
-                                <TableColumn fx:id="locationColumn" prefWidth="217.0" text="Location" />
+                                <TableColumn fx:id="nameColumn" prefWidth="163.0" text="Name" />
+                        <TableColumn fx:id="phoneColumn" prefWidth="163.0" text="Phone" />
+                                <TableColumn fx:id="emailColumn" prefWidth="163.0" text="Email" />
+                                <TableColumn fx:id="passwordColumn" prefWidth="163.0" text="Password" />
+                                <TableColumn fx:id="roleColumn" prefWidth="163.0" text="Role" />
+                                <TableColumn fx:id="locationColumn" prefWidth="163.0" text="Location" />
                             </columns>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -83,22 +84,25 @@
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label text="Name" />
                                 <TextField fx:id="name" GridPane.columnIndex="1" />
-                                <Label text="Email" GridPane.rowIndex="1" />
-                                <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label text="Password" GridPane.rowIndex="2" />
-                                <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <Label text="Role" GridPane.rowIndex="3" />
-                                <ChoiceBox fx:id="role" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                <Label text="Location" GridPane.rowIndex="4" />
-                                <ChoiceBox fx:id="locations" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Phone" GridPane.rowIndex="1" />
+                        <TextField fx:id="phone" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Email" GridPane.rowIndex="2" />
+                                <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label text="Password" GridPane.rowIndex="3" />
+                                <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label text="Role" GridPane.rowIndex="4" />
+                                <ChoiceBox fx:id="role" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <Label text="Location" GridPane.rowIndex="5" />
+                                <ChoiceBox fx:id="locations" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                             </children>
                         </GridPane>
                     </children>

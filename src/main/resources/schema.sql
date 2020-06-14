@@ -42,6 +42,7 @@ CREATE TABLE users
     id int IDENTITY(1,1) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
     password VARCHAR(20) NOT NULL,
     role_id int FOREIGN KEY REFERENCES roles(id),
     location_id int FOREIGN KEY REFERENCES locations(id)
@@ -58,10 +59,10 @@ CREATE TABLE orders
 (
     id int IDENTITY(1,1) PRIMARY KEY,
     status int NOT NULL,
-    location_id int NOT NULL,
     created_at datetime  NOT NULL,
     user_id int FOREIGN KEY REFERENCES users(id) ON DELETE CASCADE,
-    customer_id int FOREIGN KEY REFERENCES customers(id) ON DELETE CASCADE
+    customer_id int FOREIGN KEY REFERENCES customers(id) ON DELETE CASCADE,
+    location_id int FOREIGN KEY REFERENCES locations(id)
 )
 
 CREATE TABLE clothes

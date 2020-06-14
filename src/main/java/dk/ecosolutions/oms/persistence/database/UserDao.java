@@ -60,25 +60,26 @@ public class UserDao implements Dao<User> {
     public void save(User user) {
         try {
             Connection con = Database.getConnection();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO users (name, email, password, role_id, location_id) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO users (name, phone, email, password, role_id, location_id) VALUES (?, ?, ?, ?, ?, ?)");
             ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
+            ps.setString(2, user.getPhone());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getPassword());
             switch (user.getRole()) {
                 case OWNER:
-                    ps.setInt(4, 1);
+                    ps.setInt(5, 1);
                     break;
                 case ASSISTANT:
-                    ps.setInt(4, 2);
+                    ps.setInt(5, 2);
                     break;
                 case DRIVER:
-                    ps.setInt(4, 3);
+                    ps.setInt(5, 3);
                     break;
                 case WORKER:
-                    ps.setInt(4, 4);
+                    ps.setInt(5, 4);
                     break;
             }
-            ps.setInt(5, user.getLocation().getId());
+            ps.setInt(6, user.getLocation().getId());
             ps.execute();
             con.close();
         } catch (SQLException e) {
@@ -107,6 +108,7 @@ public class UserDao implements Dao<User> {
             User user = new User();
             user.setId(rs.getInt("id"));
             user.setName(rs.getString("name").trim());
+            user.setPhone(rs.getString("phone").trim());
             user.setEmail(rs.getString("email").trim());
             user.setPassword(rs.getString("password").trim());
             switch (rs.getInt("role_id")) {
