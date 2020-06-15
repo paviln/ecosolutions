@@ -138,6 +138,7 @@ public class OrderController {
                 selectedOrder.setStatus(selectedOrder.getStatus() + 1);
                 OrderService.updateOrder(selectedOrder);
                 DialogHelper.showInformationAlert("The order is completed.");
+                orderTable.refresh();
             } else if (selectedOrder.getStatus() < 7) {
                 DialogHelper.showErrorAlert("The order is not ready to be handed out.");
             } else {
