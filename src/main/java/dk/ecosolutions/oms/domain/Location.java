@@ -18,13 +18,6 @@ public class Location implements Comparable {
     public Location() {
     }
 
-    public Location(int id, String name, Address address, Type type) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.type = type;
-    }
-
     public int getId() {
         return id;
     }
