@@ -5,6 +5,7 @@ import dk.ecosolutions.oms.application.helpers.DialogHelper;
 import dk.ecosolutions.oms.domain.Clothe;
 import dk.ecosolutions.oms.domain.Item;
 import dk.ecosolutions.oms.domain.Order;
+import dk.ecosolutions.oms.persistence.database.OrderItems;
 import dk.ecosolutions.oms.service.ClothesService;
 import dk.ecosolutions.oms.service.CustomerService;
 import dk.ecosolutions.oms.service.OrderService;
@@ -113,7 +114,8 @@ public class OrderController {
                 order.setUser_id(WelcomeController.getAuthenticatedUser().getId());
                 order.setCustomer_id(CustomerService.getCustomerByPhone(phoneNumber.getText()).getId());
                 OrderService.addOrder(order);
-                orderTable.getItems().add(OrderService.getOrder(order.getId()));
+                OrderItems orderItems = new OrderItems();
+                orderTable.getItems().add(OrderService.getOrder(orderItems.getId()));
                 DialogHelper.showInformationAlert("Saved Successfully.");
                 viewToDisplay("index");
             } else {
